@@ -7,7 +7,15 @@ public class Day4_Ex4 {
     }
 
     // ===== 你的代码写在这里（定义三个重载的 area 方法：正方形/长方形/圆）=====
-
+public static  int area(int a){
+    return a*a;
+}
+public static  int area(int a,int b){
+    return a*b;
+}
+public static  double area(double r){
+    return 3.14*r*r;
+}   
 
     // ===========================================
 }

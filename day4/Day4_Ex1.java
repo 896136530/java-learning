@@ -6,6 +6,9 @@ public class Day4_Ex1 {
     }
 
     // ===== 你的代码写在这里（定义 add 方法，返回 a + b）=====
-    试试
-
+    
+public static int add(int a,int b){
+    return a+b;
+}
+}
     // ===========================================
