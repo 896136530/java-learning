@@ -13,8 +13,9 @@
 | Day 1 | 变量与数据类型 | ✅ |
 | Day 2 | 运算符与流程控制 | ✅ |
 | Day 3 | 数组与 Scanner | ✅ |
-| Day 4 | 方法（Method） | 🔄 进行中 |
-| Day 5 | 类与对象（计划） | ⏳ |
+| Day 4 | 方法（Method） | ✅ |
+| Day 5 | 类与对象 | ✅ |
+| Day 6 | 封装（private + getter/setter） | 🔄 进行中 |
 
 ## 目录结构
 
