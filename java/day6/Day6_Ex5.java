@@ -11,6 +11,33 @@ public class Day6_Ex5 {
 }
 
 // ===== 你的代码写在这里（Employee 类：private id/name/salary + 构造方法 + getter + setSalary 校验 + raise）=====
-
-
+class Employee{
+    private int   id;
+    private String name;
+    private double salary;
+    Employee(int id, String name, double salary){
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+    public int getId(){
+        return id;
+    }
+    public String getName(){
+        return name;
+    }
+    public double getSalary(){
+        return salary;
+    }
+public void raise(double amount){
+    salary=salary+amount;
+}
+    public void setSalary(double salary){
+if(salary<0){
+    System.out.println("薪资不合法：" + salary);
+    return ;
+}
+this.salary = salary;
+}   
+}
 // ===========================================

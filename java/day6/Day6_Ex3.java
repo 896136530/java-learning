@@ -11,6 +11,32 @@ public class Day6_Ex3 {
 }
 
 // ===== 你的代码写在这里（BankAccount 类：private balance + 构造方法 + deposit/withdraw 校验 + getBalance）=====
-
+class BankAccount{
+    private double balance;
+    public BankAccount(double balance){
+        this.balance=balance;
+    }
+    public double getBalance(){
+        return balance;
+    }
+    public void deposit(double money){
+        if(money<0){
+            System.out.println("存款金额不能为负");
+            return;
+        }
+        balance=balance+money;
+    }
+    public void withdraw(double money){ 
+        if(money<0){
+            System.out.println("取款金额不能为负");
+            return;
+        }
+        if(money>balance){
+            System.out.println("余额不足");
+            return;
+        }
+        balance=balance-money;
+    }
+}
 
 // ===========================================
