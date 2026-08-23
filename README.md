@@ -34,7 +34,7 @@ java-learning/
 | Day 3 | 数组与 Scanner | ✅ |
 | Day 4 | 方法（Method） | ✅ |
 | Day 5 | 类与对象 | ✅ |
-| Day 6 | 封装（private + getter/setter） | 🔄 进行中 |
+| Day 6 | 封装（private + getter/setter） | ✅ |
 
 ## 目标
 
