@@ -10,6 +10,18 @@ public class Day6_Ex2 {
 }
 
 // ===== 你的代码写在这里（Person 类：private 属性 + 带校验的 setAge + getAge）=====
-
+class Person{
+    private int age;
+    public int getAge(){
+return age;
+    }
+    public void   setAge(int age){
+if(age<0||age>120){
+    System.out.println("年龄不合法："+age);
+    return;
+}
+this.age=age;
+    }
+}
 
 // ===========================================

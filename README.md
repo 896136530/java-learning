@@ -37,7 +37,7 @@ java-learning/
 | Day 4 | 方法（Method） | ✅ |
 | Day 5 | 类与对象 | ✅ |
 | Day 6 | 封装（private + getter/setter） | ✅ |
-| Day 7 | 继承（extends / super / 重写） | 🔄 进行中 |
+| Day 7 | 继承（extends / super / 重写） | ✅ |
 
 ## 目标
 

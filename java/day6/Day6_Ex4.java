@@ -10,6 +10,19 @@ public class Day6_Ex4 {
 }
 
 // ===== 你的代码写在这里（Book 类：private 属性 + 构造方法 + 只有 getter 没有 setter）=====
-
+class Book{
+    private String Title;
+    private String Author;
+    public String getAuthor(){
+        return Author;
+    }
+    public String getTitle(){
+        return Title;
+    }     
+    Book(String Title,String Author){
+        this.Title=Title;
+        this.Author=Author;
+    }
+}
 
 // ===========================================
