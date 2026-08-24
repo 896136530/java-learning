@@ -7,8 +7,10 @@
 
 ```
 java-learning/
-├── java/        ← Java 就业主线（day1~day6 + 学习路线 + PPT）
-└── lanqiao/     ← 蓝桥杯 Python 竞赛线（备考路线）
+├── README.md       ← 双分区导航（进度表 + 说明）
+├── 任务生成规范.md   ← 🔑 换新对话必读：任务格式/批改规范/当前进度
+├── java/           ← 🟦 Java 就业主线（day1~day7 + 学习路线 + PPT）
+└── lanqiao/        ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1）
 ```
 
 ## 📌 Java 线（`java/`）
@@ -35,6 +37,7 @@ java-learning/
 | Day 4 | 方法（Method） | ✅ |
 | Day 5 | 类与对象 | ✅ |
 | Day 6 | 封装（private + getter/setter） | ✅ |
+| Day 7 | 继承（extends / super / 重写） | 🔄 进行中 |
 
 ## 目标
 
