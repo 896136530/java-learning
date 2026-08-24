@@ -26,7 +26,7 @@ class Student extends Person {
     }
 
     public void showAll() {
-        System.out.println("姓名：" + name + ",年龄：" + age + ",学号：" + id);
+        System.out.println("姓名：" + name + "，年龄：" + age + "，学号：" + id);
     }
 }
 // ===========================================

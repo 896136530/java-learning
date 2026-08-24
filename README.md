@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day6/` | 每天：知识点 → 练习题 → 标准答案 |
+| `day1~day7/` | 每天：知识点 → 练习题 → 标准答案 |
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
 
 ## 📌 蓝桥杯线（`lanqiao/`）

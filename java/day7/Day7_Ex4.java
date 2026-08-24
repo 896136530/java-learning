@@ -24,7 +24,7 @@ class Student extends Person{
     @Override
     void introduce(){
         super.introduce();
-        System.out.println("我是学生，我叫"+name);
+        System.out.println("我还是学生");
     }
 }
 // ===========================================
