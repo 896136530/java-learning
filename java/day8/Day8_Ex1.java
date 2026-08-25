@@ -7,5 +7,22 @@ public class Day8_Ex1 {
 }
 
 // ===== 你的代码写在这里（Animal 父类 + Dog 子类，Dog 重写 sound）=====
-
+class Animal{
+    String name;
+    Animal(String name){
+        this.name=name;
+    }
+    void sound(){
+        System.out.println(name+"叫");
+    }
+}
+class Dog extends Animal{
+    Dog(String name){
+        super(name);
+    }
+    @Override
+    void sound(){
+        System.out.println(name+"汪汪叫");
+    }
+}
 // ===========================================

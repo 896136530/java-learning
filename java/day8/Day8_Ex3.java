@@ -9,5 +9,32 @@ public class Day8_Ex3 {
 }
 
 // ===== 你的代码写在这里（Shape 父类 + Circle、Rect 两个子类，后两个重写 area）=====
-
+class Shape{
+    
+    double area(){
+        return 0;
+    }
+}
+class Circle extends Shape{
+    double radius;
+    Circle(double radius){
+        this.radius=radius;
+    }
+    @Override
+    double area(){
+        return 3.14*radius*radius;
+    }
+}
+class Rect extends Shape{
+    double width;
+    double height;
+    Rect(double width,double height){
+        this.width=width;
+        this.height=height;
+    }
+    @Override
+    double area(){
+        return width*height;
+    }
+}
 // ===========================================

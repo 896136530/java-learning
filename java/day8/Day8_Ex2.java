@@ -12,5 +12,31 @@ public class Day8_Ex2 {
 }
 
 // ===== 你的代码写在这里（Fruit 父类 + Apple、Orange 两个子类，后两个重写 info）=====
-
+class Fruit{
+    String name;
+    Fruit(String name){
+        this.name=name;
+    }
+    void info(){
+        System.out.println("我是水果："+name);
+    }
+}
+class Apple extends Fruit{
+    Apple(String name){
+        super(name);
+    }
+    @Override
+    void info(){
+        System.out.println("我是苹果："+name);
+    }
+}
+class Orange extends Fruit{
+    Orange(String name){
+        super(name);
+    }
+    @Override
+    void info(){
+        System.out.println("我是橘子："+name);
+    }
+}
 // ===========================================

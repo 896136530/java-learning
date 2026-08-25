@@ -13,5 +13,38 @@ public class Day8_Ex5 {
 }
 
 // ===== 你的代码写在这里（Bird 父类 + Penguin、Eagle 两个子类，后两个重写 eat/fly）=====
-
+class Bird{
+    String name;
+    Bird(String name){
+        this.name=name;
+    }
+    void eat(){
+        System.out.println(name+"在吃");
+    }
+    void fly(){
+        System.out.println(name+"不会飞");
+    }
+}
+class Penguin extends Bird{
+    Penguin(String name){
+        super(name);
+    }
+    void eat(){
+        System.out.println(name+"在吃鱼");
+    }
+    void fly(){
+        System.out.println(name+"不会飞");
+    }   
+}
+class Eagle extends Bird{
+    Eagle(String name){
+        super(name);
+    }
+    void eat(){
+        System.out.println(name+"在吃肉");
+    }
+    void fly(){
+        System.out.println(name+"飞得又高又快");
+    } 
+}
 // ===========================================

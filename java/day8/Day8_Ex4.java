@@ -13,5 +13,21 @@ public class Day8_Ex4 {
 }
 
 // ===== 你的代码写在这里（Person 父类 + Student 子类，Student 加新方法 study）=====
-
+class Person{
+    String name;
+    Person(String name){
+        this.name=name;
+    }
+    void introduce(){
+        System.out.println("我是人，我叫"+name);
+    }
+}
+class Student extends Person{
+    Student(String name){
+        super(name);
+    }
+    void study(){
+        System.out.println(name+"在学习");
+    }
+}
 // ===========================================

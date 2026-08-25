@@ -38,7 +38,7 @@ java-learning/
 | Day 5 | 类与对象 | ✅ |
 | Day 6 | 封装（private + getter/setter） | ✅ |
 | Day 7 | 继承（extends / super / 重写） | ✅ |
-| Day 8 | 多态（重写 / 重载 / 向上转型） | 🔄 进行中 |
+| Day 8 | 多态（重写 / 重载 / 向上转型） | ✅ |
 
 ## 目标
 
