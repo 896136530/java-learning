@@ -9,7 +9,7 @@
 java-learning/
 ├── README.md       ← 双分区导航（进度表 + 说明）
 ├── 任务生成规范.md   ← 🔑 换新对话必读：任务格式/批改规范/当前进度
-├── java/           ← 🟦 Java 就业主线（day1~day8 + 学习路线 + PPT）
+├── java/           ← 🟦 Java 就业主线（day1~day9 + 学习路线 + PPT）
 └── lanqiao/        ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1）
 ```
 
@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day8/` | 每天：知识点 → 练习题 → 标准答案 |
+| `day1~day9/` | 每天：知识点 → 练习题 → 标准答案 |
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
 
 ## 📌 蓝桥杯线（`lanqiao/`）
@@ -39,7 +39,8 @@ java-learning/
 | Day 6 | 封装（private + getter/setter） | ✅ |
 | Day 7 | 继承（extends / super / 重写） | ✅ |
 | Day 8 | 多态（重写 / 重载 / 向上转型） | ✅ |
-| Day 9 | 接口 + 抽象类（implements / abstract） | 🔄 进行中 |
+| Day 9 | 接口 + 抽象类（implements / abstract） | ✅ |
+| Day 10 | Object 类 + 常用方法（toString / equals / hashCode） | 🔄 进行中 |
 
 ## 目标
 
