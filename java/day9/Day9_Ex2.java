@@ -9,5 +9,26 @@ public class Day9_Ex2 {
 }
 
 // ===== 你的代码写在这里（接口 Flyable + 类 Bird、类 Plane，后两个实现 fly）=====
+interface Flyable{
+    void fly();
+}
+class Bird implements Flyable{
+    String name;
+    Bird(String name){
+        this.name=name;
+    }
+   public void fly(){
+        System.out.println(name+"扇翅膀飞了");
+    }
 
+}
+class Plane implements Flyable{
+    String name;
+    Plane(String name){
+        this.name=name;
+    }
+    public void fly(){
+        System.out.println(name+"喷气起飞");
+    }
+}
 // ===========================================

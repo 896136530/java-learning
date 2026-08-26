@@ -10,5 +10,24 @@ public class Day9_Ex3 {
 }
 
 // ===== 你的代码写在这里（接口 Swimmer、接口 Runner + 类 Athlete 实现两个接口）=====
-
+interface Swimmer{
+    void swim();
+}
+interface Runner{
+    void run();   // ⚠️ 原来写成了 Run()，大写 R 和小写 r 是两个方法名，实现不了
+}
+class Athlete implements Swimmer,Runner{
+    String name;
+    Athlete(String name){
+        this.name=name;
+    }
+    @Override
+    public void swim(){
+        System.out.println(name+"在蛙泳");
+    }
+    @Override
+    public void run(){
+        System.out.println(name+"在冲刺跑");
+    }
+}
 // ===========================================
