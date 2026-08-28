@@ -10,5 +10,26 @@ public class Day10_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 Book：title/price + 重写三件套）=====
-
+class Book{
+    String title;
+    int price;
+    Book(String title,int price){
+        this.title=title;
+        this.price=price;
+    }
+    @Override
+    public String toString(){
+        return "书名："+title+"，价格："+price;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Book)) return false;   // ⚠️ 少了这行，传进来非 Book 就崩
+        Book p=(Book)o;
+        return title.equals(p.title)&&price==(p.price);
+    }
+    @Override
+    public int hashCode(){
+        return title.hashCode()+price;
+    }
+}
 // ===========================================

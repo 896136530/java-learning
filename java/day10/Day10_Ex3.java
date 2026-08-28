@@ -11,5 +11,19 @@ public class Day10_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 Person：name/age + 重写 equals(Object o)）=====
-
+class Person{
+    String name;
+    int age;
+    Person(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(this==o) return true; 
+    if(!(o instanceof Person)) return false;
+    Person p=(Person)o;
+    return name.equals(p.name)&&age==(p.age);
+    }
+}
 // ===========================================

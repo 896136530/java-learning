@@ -8,5 +8,17 @@ public class Day10_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 Student：name/studentId + 重写 toString）=====
+class Student{
+    String name;
+    int studentId;
+    Student(String name,int studentId){
+        this.name=name;
+        this.studentId=studentId;
+    }
+    @Override
+    public String toString(){
+        return "姓名："+name+"，学号："+studentId;
+    }
+}
 
 // ===========================================

@@ -40,7 +40,7 @@ java-learning/
 | Day 7 | 继承（extends / super / 重写） | ✅ |
 | Day 8 | 多态（重写 / 重载 / 向上转型） | ✅ |
 | Day 9 | 接口 + 抽象类（implements / abstract） | ✅ |
-| Day 10 | Object 类 + 常用方法（toString / equals / hashCode） | 🔄 进行中 |
+| Day 10 | Object 类 + 常用方法（toString / equals / hashCode） | ✅ |
 
 ## 目标
 

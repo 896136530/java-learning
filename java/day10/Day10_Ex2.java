@@ -15,5 +15,10 @@ public class Day10_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 Phone：brand 属性 + 构造，不重写 equals）=====
-
+class Phone{
+    String brand;
+    Phone(String brand){
+        this.brand=brand;
+    }
+}
 // ===========================================

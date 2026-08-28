@@ -9,5 +9,15 @@ public class Day10_Ex4 {
 }
 
 // ===== 你的代码写在这里（父类 Animal + 子类 Dog，带 name 构造）=====
-
+class Animal{
+    String name;
+    Animal(String name){
+        this.name=name;
+    }
+}
+class Dog extends Animal{
+    Dog(String name){
+        super(name);
+    }
+}
 // ===========================================
