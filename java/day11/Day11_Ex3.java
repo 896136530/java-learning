@@ -9,5 +9,23 @@ public class Day11_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 TextUtil：shout/whisper/trimIt/upFirst 四个 static 方法）=====
-
+class TextUtil{
+    public static String shout(String x){
+        return x=x.toUpperCase();
+    }
+    public static String whisper(String y){
+        return y=y.toLowerCase();
+    }
+    public static String trimIt(String z){
+        return z=z.trim();
+    }
+    public static String upFirst(String w){
+        char s;
+        s=w.charAt(0);
+        String s1=String.valueOf(s);
+        s1=s1.toUpperCase();
+        String rest=w.substring(1);
+        return s1+rest;
+    }
+}
 // ===========================================

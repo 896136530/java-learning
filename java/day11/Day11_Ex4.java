@@ -8,5 +8,16 @@ public class Day11_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 SearchUtil：static int countChar(String s, char c)）=====
-
+class SearchUtil{
+    public static int countChar(String x,char w){
+        int count=0;
+        for(int i=0;i<x.length();i++){
+        char y=x.charAt(i); 
+        if(y==w){
+            count=count+1;
+        }   
+        }
+        return count;
+    }
+}
 // ===========================================

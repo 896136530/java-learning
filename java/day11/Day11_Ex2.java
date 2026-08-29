@@ -8,5 +8,15 @@ public class Day11_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 CharUtil：len/firstChar/lastChar 三个 static 方法）=====
-
+class CharUtil{
+    public static int len(String a){
+        return a.length();
+    }
+    public static char firstChar(String b){
+        return b.charAt(0);
+    }
+    public static char lastChar(String c){
+        return c.charAt(c.length()-1);
+    }
+}
 // ===========================================

@@ -8,5 +8,10 @@ public class Day11_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 CompareUtil：static boolean isSame(String a, String b)）=====
+class CompareUtil{
 
+    public static boolean isSame(String a,String b ){
+        return a.equals(b);
+    }
+}
 // ===========================================
