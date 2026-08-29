@@ -42,6 +42,7 @@ java-learning/
 | Day 9 | 接口 + 抽象类（implements / abstract） | ✅ |
 | Day 10 | Object 类 + 常用方法（toString / equals / hashCode） | ✅ |
 | Day 11 | String 字符串（比较 / 常用方法 / 不可变） | ✅ |
+| Day 12 | ArrayList（动态数组 / add / remove / set） | 🔄 进行中 |
 
 ## 目标
 
