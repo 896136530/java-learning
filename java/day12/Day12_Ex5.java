@@ -15,5 +15,23 @@ public class Day12_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 GradeUtil：top / raise 两个 static 方法）=====
+class GradeUtil{
+    public static int top(ArrayList<Integer>scores){
+       int temp=scores.get(0);
+       for(int i=0;i<scores.size();i++){
+        if(scores.get(i)>temp){
+            temp=scores.get(i);
+        }
+       }
+       return temp;
+    }
+    public static void raise(ArrayList<Integer>scores){
+        for(int i=0;i<scores.size();i++){
+            if(scores.get(i)<60){
 
+                scores.set(i,60);
+            }
+        }
+    }
+}
 // ===========================================

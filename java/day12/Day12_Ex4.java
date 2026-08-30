@@ -16,5 +16,12 @@ public class Day12_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 DedupeUtil：static void removeAll(ArrayList<Integer> nums, int target)）=====
-
+class DedupeUtil{
+    public static void removeAll(ArrayList<Integer>nums,int traget){
+        int x;
+        while((x=nums.indexOf(traget))!=-1){
+            nums.remove(x);
+        }
+    }
+}
 // ===========================================

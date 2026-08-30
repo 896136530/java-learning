@@ -14,5 +14,13 @@ public class Day12_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 EditUtil：lastItem / removeAt 两个 static 方法）=====
-
+class EditUtil{
+    public static String lastItem(ArrayList<String>list){
+        int size=list.size();
+        return list.remove(size-1);
+    }
+    public static String removeAt(ArrayList<String>list,int x){
+return list.get(x);
+    }
+}
 // ===========================================

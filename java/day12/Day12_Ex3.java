@@ -15,6 +15,20 @@ public class Day12_Ex3 {
     }
 }
 
-// ===== 你的代码写在这里（类 WordUtil：static String longest(ArrayList<String> words)）=====
-
+// ===== 你的代码写在这里（类 WordUtil：static String longest(ArrayList<String>
+// words)）=====
+class WordUtil {
+    public static String longest(ArrayList<String> words) {
+        String longWord = words.get(0);
+        int longLength = longWord.length();
+        for (int i = 0; i < words.size(); i++) {
+            String temp = words.get(i);
+            int tempLength = temp.length();
+            if (tempLength > longLength) {
+                longWord = temp;
+            }
+        }
+        return longWord;
+    }
+}
 // ===========================================

@@ -14,5 +14,13 @@ public class Day12_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 SumUtil：static int sum(ArrayList<Integer> nums)）=====
-
+class SumUtil{
+    public static int sum(ArrayList<Integer>nums){
+        int count=0;
+        for(int i=0;i<nums.size();i++){
+            count=count+nums.get(i);
+        }
+        return count;
+    }
+}
 // ===========================================
