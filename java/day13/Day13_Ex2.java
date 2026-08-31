@@ -12,5 +12,16 @@ public class Day13_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 Counter：static HashMap<String,Integer> countWords(String[] words)）=====
-
+class Counter{
+    public static HashMap<String ,Integer>  countWords(String[] words){
+        HashMap<String ,Integer> map=new HashMap<>();
+        for(String w:words){
+        if(map.containsKey(w)){
+            map.put(w,map.get(w)+1);
+        }
+        else{map.put(w,1);}
+    } 
+    return map;
+}
+}
 // ===========================================

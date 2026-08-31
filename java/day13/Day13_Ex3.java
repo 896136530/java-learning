@@ -13,5 +13,11 @@ public class Day13_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 Wage：static int raise(HashMap<String,Integer> map, String name, int amount)）=====
-
+class Wage{
+    public static int raise(HashMap<String,Integer>map,String name,int amount){
+        int x=(map.get(name)+amount);
+        map.put(name,x);
+        return  map.get(name);
+    }
+}
 // ===========================================

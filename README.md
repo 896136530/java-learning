@@ -43,7 +43,8 @@ java-learning/
 | Day 10 | Object 类 + 常用方法（toString / equals / hashCode） | ✅ |
 | Day 11 | String 字符串（比较 / 常用方法 / 不可变） | ✅ |
 | Day 12 | ArrayList（动态数组 / add / remove / set） | ✅ |
-| Day 13 | HashMap（键值对 / put / get / keySet） | 🔄 已生成待练习 |
+| Day 13 | HashMap（键值对 / put / get / keySet） | ✅ |
+| Day 14 | 其他集合（HashSet / LinkedList / Queue） | 🔄 已生成待练习 |
 
 ## 目标
 

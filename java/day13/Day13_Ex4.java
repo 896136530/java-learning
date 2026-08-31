@@ -15,5 +15,14 @@ public class Day13_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 Filter：static HashMap<String,Integer> keepPass(HashMap<String,Integer> map, int min)）=====
-
+class Filter{
+    public static HashMap<String,Integer> keepPass(HashMap<String,Integer>map,int min){
+        for(String w:map.keySet()){
+            if(map.get(w)<min){
+                map.remove(w);
+            }
+        }
+        return map;
+    }
+}
 // ===========================================

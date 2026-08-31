@@ -13,5 +13,12 @@ public class Day13_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 PriceMap：get / has 两个 static 方法）=====
-
+class PriceMap{
+    public static Integer get(HashMap<String ,Integer>fruit,String key){
+        return fruit .get(key);
+    }
+    public static boolean has(HashMap<String,Integer>fruit,String key){
+        return fruit.containsKey(key);
+    } 
+}
 // ===========================================
