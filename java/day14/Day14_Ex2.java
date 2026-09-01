@@ -15,5 +15,11 @@ public class Day14_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 QueueSim：static String serveNext(Queue<String> queue)）=====
-
+class QueueSim{
+    public static String serveNext(Queue<String>queue){
+        String x=queue.poll();
+    
+    return x;
+    }
+}
 // ===========================================

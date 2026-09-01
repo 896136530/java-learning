@@ -10,5 +10,19 @@ public class Day14_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 WordSet：static int common(String[] a, String[] b)）=====
-
+class WordSet{
+    public static int common(String[]a,String[]b){
+        HashSet<String>map=new HashSet<>();
+        for(String w:a){
+            map.add(w);
+        }
+        int count=0;
+        for(String w:b){
+            if(map.contains(w)){
+                count=count+1;
+            }
+        }
+        return count;
+    }
+}
 // ===========================================

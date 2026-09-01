@@ -9,5 +9,16 @@ public class Day14_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 SetStats：static int uniqueCount(String[] names)）=====
-
+class SetStats{
+    public static int uniqueCount(String[] names){
+        HashSet <String>map=new HashSet<>();
+        int count=0;
+        for(String w:names){
+            if(map.add(w)){
+                count=count+1;
+            }
+        }
+        return count;
+    }
+}
 // ===========================================

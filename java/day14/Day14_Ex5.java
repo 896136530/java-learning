@@ -14,5 +14,14 @@ public class Day14_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 TaskQueue：static int totalWait(Queue<Integer> jobs)）=====
-
-// ===========================================
+class TaskQueue{
+    public static int totalWait(Queue<Integer>jobs){
+        int count=0;
+        int y=jobs.size();
+        for(int i=0;i<y;i++){
+            count=count+jobs.poll();
+        }
+        return count;
+    }
+}
+// ===========================================Task
