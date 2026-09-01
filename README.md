@@ -10,7 +10,7 @@ java-learning/
 ├── README.md       ← 双分区导航（进度表 + 说明）
 ├── 任务生成规范.md   ← 🔑 换新对话必读：任务格式/批改规范/当前进度
 ├── java/           ← 🟦 Java 就业主线（day1~day9 + 学习路线 + PPT）
-└── lanqiao/        ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1）
+└── lanqiao/        ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 + python-day2）
 ```
 
 ## 📌 Java 线（`java/`）
@@ -26,6 +26,8 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `蓝桥杯备考路线.md` | Python 大学 B 组：按周备考计划（2026-09 → 2027-04）、教材对照表、报名提醒 |
+| `python-day1/` | ✅ print/变量/input/类型转换/split——作业已批改上传（2 处格式微瑕待改） |
+| `python-day2/` | 🔄 已生成待练习（if 判断 + 循环）|
 
 ## 打卡进度
 
