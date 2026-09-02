@@ -6,5 +6,12 @@
 # 提示：打擂法——初始擂主取第一个数，谁更大谁上位
 
 # ===== 你的代码写在这里 =====
-
+n=int(input("请输入一个整数:"))
+print("请输入几个整数：")
+max=int(input())
+for i in range(1,n):
+    temp=int(input())
+    if(temp>max):
+        max=temp
+print(f"最大的数:{max}")
 # ===========================
