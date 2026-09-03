@@ -7,5 +7,12 @@ public class Day16_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 Printer：static <T> void printAll(T[] arr)）=====
-
+class Printer{
+    public static <T> void printAll(T[] arr){
+        for(T s:arr){
+            System.out.print(s+" ");
+        }
+        System.out.println();
+    }
+}
 // ===========================================

@@ -9,5 +9,18 @@ public class Day16_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 Pair<K,V>：set / getKey / getValue）=====
-
+class Pair<K,V>{
+    private K key;
+    private V value;
+    public void set(K key,V value){
+        this.key=key;
+        this.value=value;
+    }
+    public  K getKey(){
+        return key;
+    }
+    public V getValue(){
+        return value;
+    }
+}
 // ===========================================

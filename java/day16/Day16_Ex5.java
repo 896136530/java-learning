@@ -14,5 +14,11 @@ public class Day16_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 Swapper：static <T> void swap(T[] arr, int i, int j)）=====
-
+class Swapper{
+    public static <T> void swap(T[] arr,int i,int j){
+        T temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+}
 // ===========================================

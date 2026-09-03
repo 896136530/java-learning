@@ -10,5 +10,9 @@ public class Day16_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 FirstEl：static <T> T first(T[] arr)）=====
-
+class FirstEl{
+    public static <T> T first(T[] arr){
+        return arr[0];
+    }
+}
 // ===========================================

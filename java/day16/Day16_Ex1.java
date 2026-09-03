@@ -12,5 +12,13 @@ public class Day16_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 Box<T>：set / get）=====
-
+class Box<T>{
+    private T value;
+    public  void set(T v){
+        this.value=v;
+    }
+    public  T get(){
+        return value;
+    }
+}
 // ===========================================
