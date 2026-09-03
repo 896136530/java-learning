@@ -9,5 +9,15 @@ public class Day15_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 Describe：static String describe(int[] arr, int i)）=====
-
+class Describe{
+    public static String describe(int[] arr,int i){
+        try{
+            return "值="+arr[i];
+        }catch(ArrayIndexOutOfBoundsException e){
+            return "<越界>";
+        }catch(NullPointerException e){
+            return "数组为null";
+        }
+    }
+}
 // ===========================================

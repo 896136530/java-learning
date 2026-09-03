@@ -8,5 +8,13 @@ public class Day15_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 ArrayAt：static String safeGet(String[] arr, int i)，越界返回 "<越界>"）=====
-
+class ArrayAt{
+    public static String safeGet(String[] arr,int i){
+        try{
+             return arr[i];
+    }catch (ArrayIndexOutOfBoundsException e){
+             return "<越界>";
+    }
+}
+}
 // ===========================================

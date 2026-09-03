@@ -48,7 +48,8 @@ java-learning/
 | Day 12 | ArrayList（动态数组 / add / remove / set） | ✅ |
 | Day 13 | HashMap（键值对 / put / get / keySet） | ✅ |
 | Day 14 | 其他集合（HashSet / LinkedList / Queue） | ✅ |
-| Day 15 | 异常处理（try / catch / finally） | 🔄 已生成待练习 |
+| Day 15 | 异常处理（try / catch / finally） | ✅ |
+| Day 16 | 泛型（Generic `<T>`：泛型类 / 泛型方法） | 🔄 已生成待练习 |
 
 ## 目标
 

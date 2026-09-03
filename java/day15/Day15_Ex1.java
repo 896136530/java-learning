@@ -10,5 +10,15 @@ public class Day15_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 DivSafe：static int safeDivide(int a, int b)，除零返回 -1）=====
-
+class DivSafe{
+    
+        public static int safeDivide(int a,int b){
+            try{
+            return a/b;
+        }catch(ArithmeticException e){
+            return -1;
+        }
+    }
+    
+}
 // ===========================================
