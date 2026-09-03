@@ -19,6 +19,7 @@ java-learning/
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
 | `day1~day9/` | 每天：知识点 → 练习题 → 标准答案 |
+| `项目-记账本/` | 📒 第一个 Java 小项目：命令行记账本（HashMap/异常/IO 综合实战，三步进行中）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
 
 ## 📌 蓝桥杯线（`lanqiao/`）
