@@ -1,0 +1,8 @@
+# 编译产物（VS Code 运行残留）
+*.class
+
+# 根目录的本地运行数据副本（day17 内的随作业入库，不入这里）
+/hello.txt
+/lines.txt
+/notes.txt
+/src.txt
