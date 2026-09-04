@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class Day17_Ex5 {
     public static void main(String[] args) {
@@ -9,5 +10,25 @@ public class Day17_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 CopyFile：static void copy(String src, String dst)）=====
-
+class CopyFile{
+    public static void copy(String src,String dst){
+        List<String>allLines=new ArrayList<>();
+        try(BufferedReader br=new BufferedReader(new FileReader( src))){
+            String line;
+            while((line=br.readLine())!=null){
+                allLines.add(line);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(dst,false))){
+            for(String line:allLines){
+                bw.write(line);
+                bw.newLine();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
 // ===========================================

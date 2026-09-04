@@ -9,5 +9,14 @@ public class Day17_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 AppendLine：static void appendLine(String path, String line)）=====
-
+class AppendLine{
+    public static void appendLine(String path,String line){
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(path,true))){
+            bw.write(line);
+            bw.newLine();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
 // ===========================================

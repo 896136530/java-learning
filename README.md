@@ -51,7 +51,7 @@ java-learning/
 | Day 14 | 其他集合（HashSet / LinkedList / Queue） | ✅ |
 | Day 15 | 异常处理（try / catch / finally） | ✅ |
 | Day 16 | 泛型（Generic `<T>`：泛型类 / 泛型方法） | ✅ |
-| Day 17 | IO 流（文件读写：FileReader / FileWriter） | 🔄 已生成待练习 |
+| Day 17 | IO 流（文件读写：FileReader / FileWriter） | ✅ |
 
 ## 目标
 

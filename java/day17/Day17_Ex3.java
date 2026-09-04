@@ -9,5 +9,14 @@ public class Day17_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 FileWrite：static void writeHello(String path)）=====
-
+class FileWrite{
+    public static void writeHello(String path){
+        try(BufferedWriter bw= new BufferedWriter(new FileWriter(path))){
+            bw.write("Hello IO!");
+            bw.newLine();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
 // ===========================================
