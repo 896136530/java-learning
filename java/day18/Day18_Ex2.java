@@ -13,5 +13,10 @@ public class Day18_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 Runner implements Runnable：run() 打印一次「跑起来了」）=====
-
+class Runner implements Runnable{
+    @Override 
+    public void run(){
+        System.out.println("跑起来了");
+    }
+}
 // ===========================================

@@ -9,5 +9,16 @@ public class Day18_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 Alarm extends Thread：run() 循环 3 次：打印「叮咚 i」+ Thread.sleep(200)）=====
-
+class Alarm extends Thread {
+    @Override 
+    public void run(){
+        for(int i=0;i<3;i++){
+        System.out.println("叮咚"+i);
+        try{Thread.sleep(200);
+        }catch(InterruptedException e){
+            System.out.println("catch");
+        }
+        }
+    }
+}
 // ===========================================

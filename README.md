@@ -60,7 +60,7 @@ java-learning/
 | Day 15 | 异常处理（try / catch / finally） | ✅ |
 | Day 16 | 泛型（Generic `<T>`：泛型类 / 泛型方法） | ✅ |
 | Day 17 | IO 流（文件读写：FileReader / FileWriter） | ✅ |
-| Day 18 | 多线程（Thread / Runnable / synchronized） | 🔄 已生成待练习 |
+| Day 18 | 多线程（Thread / Runnable / synchronized） | ✅ |
 
 ## 目标
 

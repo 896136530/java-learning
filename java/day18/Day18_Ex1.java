@@ -9,5 +9,12 @@ public class Day18_Ex1 {
 }
 
 // ===== 你的代码写在这里（类 HelloThread extends Thread：run() 打印 3 次「线程1：第i次」）=====
-
+class HelloThread extends Thread {
+    @Override
+    public void run(){
+        for(int i=0;i<3;i++){
+            System.out.println("线程1：第"+i+"次");
+        }
+    }
+}
 // ===========================================

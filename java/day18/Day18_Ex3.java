@@ -12,5 +12,16 @@ public class Day18_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 Adder implements Runnable：static int value=0；static synchronized void add()；run() 循环 500 次 add()）=====
-
+class Adder  implements Runnable{
+    public static int value=0;
+    public static synchronized void add(){
+            value++;
+    }
+    @Override 
+    public void run(){
+        for(int i=0;i<500;i++){
+            add();
+        }
+    }
+}
 // ===========================================
