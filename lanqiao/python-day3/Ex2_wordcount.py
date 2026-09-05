@@ -3,5 +3,7 @@
 # 输出：一行，单词个数
 
 # ===== 你的代码写在这里 =====
-
+lines=input()
+words=lines.split()
+print(len(words))
 # ===========================

@@ -30,7 +30,7 @@ java-learning/
 | `蓝桥杯备考路线.md` | Python 大学 B 组：按周备考计划（2026-09 → 2027-04）、教材对照表、报名提醒 |
 | `python-day1/` | ✅ print/变量/input/类型转换/split——作业已批改上传（2 处格式微瑕，用户决定保留） |
 | `python-day2/` | ✅ 作业已批改通过并上传（if 判断 + 循环）|
-| `python-day3/` | 🔄 已生成待练习（字符串 + 列表）|
+| `python-day3/` | ✅ 作业已批改通过并上传（字符串 + 列表）|
 
 ## 📌 数据结构跟课线（`datastructure/`）
 
@@ -61,6 +61,7 @@ java-learning/
 | Day 16 | 泛型（Generic `<T>`：泛型类 / 泛型方法） | ✅ |
 | Day 17 | IO 流（文件读写：FileReader / FileWriter） | ✅ |
 | Day 18 | 多线程（Thread / Runnable / synchronized） | ✅ |
+| Day 19 | 多线程综合实战（分工合并 / 银行取款 / 并发集合） | 🔄 已生成待练习 |
 
 ## 目标
 
