@@ -5,5 +5,14 @@
 # 输出：一行，分数最高者的 姓名 分数
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+nums=[]
+name=[]
+for i in range(n):
+    line=input()
+    words=line.split()
+    name.append(words[0])
+    nums.append(int(words[1]))
+max_nums=max(nums)
+print(name[nums.index(max_nums)],max_nums)
 # ===========================
