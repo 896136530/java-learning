@@ -32,6 +32,7 @@ java-learning/
 | `python-day2/` | ✅ 作业已批改通过并上传（if 判断 + 循环）|
 | `python-day3/` | ✅ 作业已批改通过并上传（字符串 + 列表）|
 | `python-day4/` | ✅ 作业已批改通过并上传（字典 + 集合；Review 待补）|
+| `python-day5/` | 🔄 已生成待练习（函数与作用域）|
 
 ## 📌 数据结构跟课线（`datastructure/`）
 
