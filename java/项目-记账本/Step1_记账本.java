@@ -25,12 +25,20 @@ public class Step1_记账本 {
                 int amount = Integer.parseInt(sc.nextLine());
 
                 // ===== Step1 TODO：把 (cat, amount) 记进 map（已存在就累加，不存在就新建）=====
-
+                if(map.containsKey(cat)){
+                    int old=map.get(cat);
+                    map.put(cat,old+amount);
+                }
+                else{
+                    map.put(cat,amount);
+                }
                 // ===========================================
 
             } else if (choice == 2) {
                 // ===== Step1 TODO：遍历 map，每行打印「分类：金额」=====
-
+                for(String key:map.keySet()){
+                    System.out.println(key+":"+map.get(key));
+                }
                 // ===========================================
 
             } else if (choice == 3) {
