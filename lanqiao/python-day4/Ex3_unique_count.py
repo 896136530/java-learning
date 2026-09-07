@@ -3,5 +3,7 @@
 # 输出：一行，去重后剩下的个数
 
 # ===== 你的代码写在这里 =====
-
+nums=map(int,input().split())
+nums=set(nums)
+print(len(nums))
 # ===========================

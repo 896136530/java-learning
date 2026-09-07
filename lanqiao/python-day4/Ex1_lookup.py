@@ -4,5 +4,11 @@
 # 固定字典：{"apple": "苹果", "banana": "香蕉", "cat": "猫", "dog": "狗"}
 
 # ===== 你的代码写在这里 =====
+d={"apple": "苹果", "banana": "香蕉", "cat": "猫", "dog": "狗"}
+word=input("")
+if word in d:
+    print(d[word])
+else:
+    print("没有这个词")
 
 # ===========================

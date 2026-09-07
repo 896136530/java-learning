@@ -3,5 +3,9 @@
 # 输出：三行，并集元素个数 / 交集元素个数 / A 有 B 没有的个数
 
 # ===== 你的代码写在这里 =====
-
+A=set(map(int,input().split()))
+B=set(map(int,input().split()))
+print(len(A|B))
+print(len(A&B))
+print(len(A-B))
 # ===========================

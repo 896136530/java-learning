@@ -31,7 +31,7 @@ java-learning/
 | `python-day1/` | ✅ print/变量/input/类型转换/split——作业已批改上传（2 处格式微瑕，用户决定保留） |
 | `python-day2/` | ✅ 作业已批改通过并上传（if 判断 + 循环）|
 | `python-day3/` | ✅ 作业已批改通过并上传（字符串 + 列表）|
-| `python-day4/` | 🔄 已生成待练习（字典 + 集合）|
+| `python-day4/` | ✅ 作业已批改通过并上传（字典 + 集合；Review 待补）|
 
 ## 📌 数据结构跟课线（`datastructure/`）
 
