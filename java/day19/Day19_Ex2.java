@@ -13,5 +13,28 @@ public class Day19_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 Account：私有余额+synchronized withdraw+getBalance；类 Person implements Runnable：run() 取 3 次每次 1000）=====
-
+class Account{
+    private int  balance;
+    public Account(int balance){
+        this.balance=balance;
+    }
+    public   synchronized  void withdraw(){
+        balance=balance-1000;
+    }
+    public  int getBalance(){
+        return balance;
+    }
+}
+class Person implements Runnable{
+    private Account acc;
+    public Person(Account acc){
+        this.acc=acc;
+    }
+    @Override 
+    public void run(){
+        for(int i=0;i<3;i++){
+            acc.withdraw();
+        }
+    }
+}
 // ===========================================

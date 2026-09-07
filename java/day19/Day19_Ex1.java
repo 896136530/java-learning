@@ -11,10 +11,30 @@ public class Day19_Ex1 {
         for (Thread t : ts) {
             t.join();
         }
-        System.out.println("总和：" + SumWorker.total);   // 期望：总和：5050
+        System.out.println("总和：" + SumWorker.total); // 期望：总和：5050
     }
 }
 
-// ===== 你的代码写在这里（类 SumWorker implements Runnable：start/end 构造；static int total；static synchronized void merge；run() 求和后 merge）=====
+// ===== 你的代码写在这里（类 SumWorker implements Runnable：start/end 构造；static int
+// total；static synchronized void merge；run() 求和后 merge）=====
+class SumWorker implements Runnable {
+    int start, end;
+    public SumWorker(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+     static int  total = 0;
+    public static synchronized void merge(int sum) {
+        total += sum;
+    }
+    @Override
+    public  void run() {
+        int sum = 0;
+        for (int i = start; i <=end; i++) {
+            sum = sum + i;
+        }
+        merge(sum);
+    }
 
+}
 // ===========================================

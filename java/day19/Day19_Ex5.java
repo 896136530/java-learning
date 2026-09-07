@@ -14,5 +14,22 @@ public class Day19_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 TicketBox：static int tickets=100 + static synchronized boolean sell()；类 Seller implements Runnable：while(TicketBox.sell())）=====
-
+class TicketBox{
+    public static int tickets=100;
+    public static synchronized boolean sell(){
+        if(tickets!=0){
+            tickets--;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+class Seller implements Runnable{
+    @Override 
+    public void run(){
+        while(TicketBox.sell());
+    }
+}
 // ===========================================

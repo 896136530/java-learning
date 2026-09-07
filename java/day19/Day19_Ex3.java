@@ -14,5 +14,15 @@ public class Day19_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 ListAdder implements Runnable：static List<String> list = Collections.synchronizedList(new ArrayList<>())；run() 循环 5000 次 add("x")）=====
+class ListAdder implements Runnable{
+    public static List<String> list=Collections.synchronizedList(new ArrayList<>());
+    @Override
+     public void run(){
+                for(int i=0;i<5000;i++){
+list.add("z");
+        }
 
+     }
+
+}
 // ===========================================
