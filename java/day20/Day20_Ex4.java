@@ -25,5 +25,27 @@ public class Day20_Ex4 {
 }
 
 // ===== 你的代码写在这里（类 CounterServer：static void start(int port)——accept 后循环读行，计数，回「第N条：」+原文，readLine 为 null 结束）=====
+class CounterServer{
+    public static void start(int port) {
+        try {
+            ServerSocket ss = new ServerSocket(port);
+            while (true) {
+                Socket s = ss.accept();
+                PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                String line;
+                int i=1;
+                while ((line = in.readLine()) != null) {
+                    out.println("第"+i+"条：" + line);
+                    i++;
+                }
+                s.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
 
 // ===========================================

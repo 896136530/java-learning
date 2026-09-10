@@ -21,5 +21,22 @@ public class Day20_Ex2 {
 }
 
 // ===== 你的代码写在这里（类 UpperServer：static void start(int port)——accept 后读一行，toUpperCase() 后回）=====
-
+class UpperServer{
+    public static void start(int port){
+        try{
+            ServerSocket ss=new ServerSocket(port);
+            while(true){
+            Socket s=ss.accept();
+            BufferedReader in=new BufferedReader(new InputStreamReader(s.getInputStream()));
+            PrintWriter out=new PrintWriter(s.getOutputStream(),true);
+            String line;
+            while((line=in.readLine())!=null){
+                out.println(line.toUpperCase());
+            }
+        }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
 // ===========================================

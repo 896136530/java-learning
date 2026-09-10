@@ -22,5 +22,22 @@ public class Day20_Ex3 {
 }
 
 // ===== 你的代码写在这里（类 SumServer：static void start(int port)——accept 后读两行，Integer.parseInt 求和，回「a + b = c」）=====
-
+class SumServer{
+    public static void start(int port){
+        try{
+            ServerSocket ss=new ServerSocket(port);
+            while(true){
+                Socket s=ss.accept();
+                BufferedReader in=new BufferedReader(new InputStreamReader(s.getInputStream()));
+                PrintWriter out=new PrintWriter(s.getOutputStream(),true);
+                int a=Integer.parseInt(in.readLine());
+                int b=Integer.parseInt(in.readLine());
+                out.println(a+" + "+b+" = "+(a+b));
+                s.close();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
 // ===========================================

@@ -66,7 +66,8 @@ java-learning/
 | Day 17 | IO 流（文件读写：FileReader / FileWriter） | ✅ |
 | Day 18 | 多线程（Thread / Runnable / synchronized） | ✅ |
 | Day 19 | 多线程综合实战（分工合并 / 银行取款 / 并发集合） | ✅ 五题全绿已上传 |
-| Day 20 | 网络编程基础（Socket：ServerSocket / 客户端-服务器模型） | 🔄 已生成待练习 |
+| Day 20 | 网络编程基础（Socket：ServerSocket / 客户端-服务器模型） | ✅ 五题全绿已上传 |
+| Day 21 | JDBC 数据库访问（MySQL 8.4.5 本机已装：`root/root`，库 `day21`） | 🔄 已生成待练习 |
 
 ## 目标
 

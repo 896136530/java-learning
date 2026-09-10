@@ -21,5 +21,25 @@ public class Day20_Ex5 {
 }
 
 // ===== 你的代码写在这里（类 MultiServer：static void start(int port)——循环 accept，每个连接 new Thread 开线程：读一行名字，回「欢迎，」+名字+「！」）=====
+class MultiServer{
+    public static void start(int port) {
+        try {
+            ServerSocket ss = new ServerSocket(port);
+            while (true) {
+                Socket s = ss.accept();
+                PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                String line;
+                while ((line = in.readLine()) != null) {
+                    out.println("欢迎，" + line + "！");
+                }
+                s.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
 
 // ===========================================
