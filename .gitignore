@@ -7,3 +7,8 @@
 /notes.txt
 /src.txt
 java/day21/lib/
+
+# VS Code Java 项目配置（本机专用，不入库）
+.classpath
+.project
+bin/
