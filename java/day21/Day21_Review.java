@@ -30,13 +30,75 @@ public class Day21_Review {
 // ===== 你的代码写在这里：类 DBUtil 全家桶 =====
 class DBUtil {
     static final String URL = "jdbc:mysql://localhost:3306/day21?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
 
-    // TODO：getConnection()
-    // TODO：createTable()（DROP + CREATE）
-    // TODO：insertStudent(name, score)（PreparedStatement）
-    // TODO：queryAll()（while(rs.next()) + printf）
-    // TODO：int deleteById(int id)（DELETE ... WHERE id = ?，返回 executeUpdate()）
-    // TODO：int updateScore(int id, int score)（UPDATE ... SET score = ? WHERE id = ?，返回 executeUpdate()）
-    // TODO：int getUserCount()（SELECT COUNT(*) FROM student；rs.next() 后 rs.getInt(1)）
+    public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    public static void createTable() throws SQLException {
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+            stmt.execute("DROP TABLE IF EXISTS student");
+            stmt.execute("""
+                    CREATE TABLE student(
+                    id INT PRIMARY KEY AUTO_INCREMENT,
+                    name VARCHAR(20),
+                    score INT
+                    )
+                    """);
+        }
+    }
+
+    public static void insertStudent(String name, int score) throws SQLException {
+        String sql = "INSERT INTO student(name, score) VALUES(?, ?)";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setInt(2, score);
+            ps.executeUpdate();
+        }
+    }
+
+    public static void queryAll() throws SQLException {
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM student")) {
+            while (rs.next()) {
+                System.out.printf("id=%d name=%s score=%d%n",
+                        rs.getInt("id"), rs.getString("name"), rs.getInt("score"));
+            }
+        }
+    }
+
+    public static int deleteById(int id) throws SQLException {
+        String sql = "DELETE FROM student WHERE id = ?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate();
+        }
+    }
+
+    public static int updateScore(int id, int score) throws SQLException {
+        String sql = "UPDATE student SET score = ? WHERE id = ?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, score);
+            ps.setInt(2, id);
+            return ps.executeUpdate();
+        }
+    }
+
+    public static int getUserCount() throws SQLException {
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM student")) {
+            rs.next();
+            return rs.getInt(1);
+        }
+    }
 }
 // ===========================================
