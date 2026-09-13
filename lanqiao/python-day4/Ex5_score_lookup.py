@@ -5,7 +5,7 @@
 # ===== 你的代码写在这里 =====
 n=int(input())
 d={}
-for n in range(0,n):
+for i in range(0,n):
     words=input().split()
     d[words[0]]=words[1]
 chaxun=input()
