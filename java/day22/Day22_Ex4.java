@@ -22,5 +22,21 @@ public class Day22_Ex4 {
 // TODO：Student 类
 //   字段：String name / int score，构造方法 (name, score)
 //   实现 Comparable<Student>，重写 compareTo → 分数高的排前面（倒过来比！）
+class  Student implements Comparable<Student>{
+    String name;
+    int score;
 
+    public Student(String name,int score){
+        this.name=name;
+        this.score=score;
+    }
+    @Override 
+    public int compareTo(Student o){
+        return Integer.compare(o.score,this.score);
+    } 
+    @Override
+    public String toString(){
+        return name+"("+score+")";
+    }
+}
 // ===========================================

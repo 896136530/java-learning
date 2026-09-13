@@ -26,5 +26,34 @@ public class Day22_Ex5 {
 // TODO：Student 类（name、score 字段 + 构造方法，不用 Comparable）
 // TODO：NameLenComparator implements Comparator<Student>
 //   compare(a, b) → 先比 name.length()（短的在前），长度相等再比 name 字典序（compareTo）
-
+class Student {
+    String name;
+    int score;
+    public Student(String name,int score){
+        this.name=name;
+        this.score=score;
+    }
+    public String getName(){
+        return name;
+    }
+    public int getScore(){
+        return score;}
+        @Override 
+        public String toString(){
+            return name+"("+score+")";
+        }
+    }
+class NameLenComparator implements Comparator<Student>{
+    @Override 
+    public int  compare(Student o1,Student o2){
+        int  lenResult=Integer.compare(
+            o1.getName().length(),
+            o2.getName().length()
+        );
+        if(lenResult==0){
+            return o1.getName().compareTo(o2.getName());
+        }
+        return lenResult;
+    }
+}
 // ===========================================

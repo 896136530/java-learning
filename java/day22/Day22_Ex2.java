@@ -18,5 +18,16 @@ public class Day22_Ex2 {
 //   addScore(String name, int score)      → put
 //   updateScore(String name, int score)   → put（相同 key 即覆盖）
 //   Integer getScore(String name)         → 返回 map.get(name)（不存在返回 null，别用 int！）
-
+class ScoreBook{
+      private  HashMap<String ,Integer>map= new  HashMap<>();
+    public  void addScore(String name,int score){
+    map.put(name,score);
+    }
+    public  void updateScore(String name, int score){
+        map.put(name,score);
+    }
+    public Integer getScore(String name){
+        return map.get(name);
+    }
+}
 // ===========================================

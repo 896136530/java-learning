@@ -19,10 +19,23 @@ public class Day22_Review {
 
 // ===== 你的代码写在这里：class Student + class RankBoard =====
 
-// TODO：Student 类（name、score 字段 + 构造方法）
-// TODO：RankBoard.printTop3(TreeMap<Integer, Student>) →
-//   1) 把 entrySet 倒进 List
-//   2) 按 value.score 降序排序（list.sort((a,b) -> b.getValue().score - a.getValue().score)）
-//   3) 打印前 3 名：第N名：姓名 分数
+class Student {
+    String name;
+    int score;
+    public Student(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+}
 
+class RankBoard {
+    static void printTop3(TreeMap<Integer, Student> students) {
+        List<Map.Entry<Integer, Student>> list = new ArrayList<>(students.entrySet());
+        list.sort((a, b) -> b.getValue().score - a.getValue().score);   // 按分数降序
+        for (int i = 0; i < Math.min(3, list.size()); i++) {
+            Map.Entry<Integer, Student> e = list.get(i);
+            System.out.println("第" + (i + 1) + "名：" + e.getValue().name + " " + e.getValue().score);
+        }
+    }
+}
 // ===========================================

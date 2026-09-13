@@ -20,5 +20,13 @@ public class Day22_Ex3 {
 //   新建 TreeMap<Integer,String>，插入（顺序故意打乱）：
 //     102 → "李四"   101 → "张三"   103 → "王五"
 //   （TreeMap 会按键自动升序，main 打印出来就是 101/102/103）
-
+class StudentMap{
+    public static TreeMap<Integer,String> build(){
+        TreeMap<Integer,String> map=new TreeMap<>();
+        map.put(102,"李四");
+        map.put(101,"张三");
+        map.put(103,"王五");
+        return map;
+        }
+}
 // ===========================================
