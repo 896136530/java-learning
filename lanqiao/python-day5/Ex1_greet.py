@@ -3,5 +3,9 @@
 # 输出：一行，「你好，」+ 名字 +「！」
 
 # ===== 你的代码写在这里 =====
-
+def  greet(name):
+    return "你好，"+name+"！"
+name=input("")
+greet(name)
+print(greet(name))
 # ===========================

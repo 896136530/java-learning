@@ -32,7 +32,8 @@ java-learning/
 | `python-day2/` | ✅ 作业已批改通过并上传（if 判断 + 循环）|
 | `python-day3/` | ✅ 作业已批改通过并上传（字符串 + 列表）|
 | `python-day4/` | ✅ 作业已批改通过并上传（字典 + 集合；Review 待补）|
-| `python-day5/` | 🔄 已生成待练习（函数与作用域）|
+| `python-day5/` | ✅ 作业已批改（**Ex1~Ex5 + Review 全绿**；Ex3/Ex4 按用户要求代改后复验通过，Review 为参考答案供复习）|
+| `python-day6/` | 🔄 已生成待练习（二维列表与矩阵操作）|
 
 ## 📌 数据结构跟课线（`datastructure/`）
 
@@ -68,7 +69,8 @@ java-learning/
 | Day 19 | 多线程综合实战（分工合并 / 银行取款 / 并发集合） | ✅ 五题全绿已上传 |
 | Day 20 | 网络编程基础（Socket：ServerSocket / 客户端-服务器模型） | ✅ 五题全绿已上传 |
 | Day 21 | JDBC 数据库访问（MySQL 8.4.5 本机已装：`root/root`，库 `day21`） | ✅ Ex1~5+Review 全绿已上传 |
-| Day 22 | 集合框架全解（HashMap 原理 / TreeMap / Comparable 与 Comparator） | 🔄 已生成待练习 |
+| Day 22 | 集合框架全解（HashMap 原理 / TreeMap / Comparable 与 Comparator） | ✅ 6/6 全绿已上传 |
+| Day 23 | 综合实战·学生成绩排行榜（类 + List + Map + 排序全家桶组装） | 🔄 已生成待练习 |
 
 ## 目标
 

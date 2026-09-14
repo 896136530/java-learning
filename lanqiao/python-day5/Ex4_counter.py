@@ -3,5 +3,13 @@
 # 输出：n 行，每读一行调用一次 add() 并打印返回值
 
 # ===== 你的代码写在这里 =====
-
+count=0
+def jishu():
+    global count
+    count=count+1
+    return count
+n=int(input(""))
+for i in range(n):
+    input("")
+    print(jishu())
 # ===========================
