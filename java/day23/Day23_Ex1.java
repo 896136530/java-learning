@@ -18,5 +18,24 @@ public class Day23_Ex1 {
 //   构造方法：Student(String name, int score)
 //   toString()：返回 "姓名 分数"（例如 张三 88），记得加 @Override
 //   static int maxOf(Student a, Student b)：返回两人中较高的分数
-
+class Student{
+    String name;
+    int score;
+    public Student(String name,int score){
+        this.name=name;
+        this.score=score;
+    }
+    @Override 
+    public String toString(){
+        return name+" "+score;
+    }
+    public static int maxOf(Student a,Student b){
+        if(a.score>b.score){
+            return a.score;
+        }
+        else{
+            return b.score;
+        }
+    }
+}
 // ===========================================

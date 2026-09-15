@@ -10,7 +10,7 @@ java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度
 ├── java/              ← 🟦 Java 就业主线（day1~day9 + 学习路线 + PPT + 项目-记账本）
-├── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day3）
+├── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day7）
 └── datastructure/     ← 📘 数据结构课本跟课线（严蔚敏 C 版第2版：思想笔记 + Python 落地）
 ```
 
@@ -33,7 +33,8 @@ java-learning/
 | `python-day3/` | ✅ 作业已批改通过并上传（字符串 + 列表）|
 | `python-day4/` | ✅ 作业已批改通过并上传（字典 + 集合；Review 待补）|
 | `python-day5/` | ✅ 作业已批改（**Ex1~Ex5 + Review 全绿**；Ex3/Ex4 按用户要求代改后复验通过，Review 为参考答案供复习）|
-| `python-day6/` | 🔄 已生成待练习（二维列表与矩阵操作）|
+| `python-day6/` | ✅ 作业已批改（Ex1~Ex4 全绿；Ex5 数值对、输出格式已代改；Review 矩阵乘法用户留待复习自写）|
+| `python-day7/` | 🔄 已生成待练习（排序与自定义排序：sort / key=lambda / 多关键字）|
 
 ## 📌 数据结构跟课线（`datastructure/`）
 

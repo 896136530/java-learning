@@ -5,5 +5,14 @@
 # 自测：别忘了试 1 1 的单元素矩阵、以及带负数的矩阵
 
 # ===== 你的代码写在这里 =====
-
+n,m=map(int,input().split())
+sum=0
+matrix=[]
+for i in range(n):
+    row=list(map(int,input().split()))
+    matrix.append(row)
+for j in range(n):
+    for k in range(m):
+        sum=sum+matrix[j][k]
+print(sum)
 # ===========================

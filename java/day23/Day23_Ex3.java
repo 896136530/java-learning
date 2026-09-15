@@ -22,6 +22,17 @@ public class Day23_Ex3 {
 //   内部字段：Map<String, Integer> map = new HashMap<>();
 //   void put(String name, int score)  → 存/改（put 同 key 即覆盖）
 //   Integer get(String name)          → 查，查不到返回 null（返回类型必须是 Integer！）
-//   int size()                        → 在册人数
-
+//   int size()       
+class  ScoreTable{
+    Map<String,Integer>map=new HashMap<>();
+    public void put(String name,int score){
+        map.put(name,score);
+    }
+    public Integer get(String name){
+        return map.get(name);
+    }
+    public int size(){
+        return map.size();
+    }
+}
 // ===========================================

@@ -21,5 +21,35 @@ public class Day23_Ex2 {
 //   static int count(List<Student> list)      → 返回人数
 //   static void printAll(List<Student> list)  → 增强 for 挨个 System.out.println(s)
 //   static int total(List<Student> list)      → 增强 for 累加 s.score
-
+class TeamUtil{
+    String name;
+    int score;
+    public TeamUtil(String name,int score){
+        this.name=name;
+        this.score=score;
+    }
+    public static int count(List<Student> list){
+        int count=0;
+        for(Student s:list){
+            count++;
+        }
+        return count;
+    }
+    @Override 
+    public String toString(){
+        return name+" "+score;
+    }
+    public static void printAll(List<Student>list){
+        for(Student s:list){
+            System.out.print(s.toString()+" / ");
+        }
+    }
+    public static int total(List<Student>list){
+        int total=0;
+        for(Student s:list){
+            total=total+s.score;
+        }
+        return total;
+    }  
+}
 // ===========================================

@@ -5,5 +5,15 @@
 # 自测：2 3 的矩阵应该输出 2 行
 
 # ===== 你的代码写在这里 =====
+n,m=map(int,input().split())
 
+matrix=[]
+for i in range(n):
+    row=list(map(int,input().split()))
+    matrix.append(row)
+for j in range(n):
+    sum=0
+    for k in range(m):
+        sum=sum+matrix[j][k]
+    print(sum)
 # ===========================

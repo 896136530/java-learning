@@ -5,5 +5,19 @@
 # 自测：最大值在左上角 / 右下角，各测一次
 
 # ===== 你的代码写在这里 =====
-
+n,m=map(int,input().split())
+matrix=[]
+for i in range(n):
+    row=list(map(int,input().split()))
+    matrix.append(row)
+max_nums=matrix[0][0]
+max_i=0
+max_j=0
+for i in range(n):
+    for j in range(m):
+        if matrix[i][j]>max_nums:
+            max_nums=matrix[i][j]
+            max_i=i
+            max_j=j
+print(max_nums,max_i+1,max_j+1)
 # ===========================

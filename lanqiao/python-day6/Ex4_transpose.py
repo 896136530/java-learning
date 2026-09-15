@@ -6,5 +6,18 @@
 # 自测：用 2×3 这种非方阵测，最能看出行列有没有写反
 
 # ===== 你的代码写在这里 =====
+n,m=map(int,input().split())
+n_m=[]
+for i in range(n):
+    row=list(map(int,input().split()))
+    n_m.append(row)
+m_n=[[0 for _ in range(n)] for _ in range(m)]
+for i in range(n):
+    for j in range(m):
+        m_n[j][i]=n_m[i][j]
+for i in range(m):
+    for j in range(n):
+        print(m_n[i][j],end=" ")
+    print("")
 
 # ===========================

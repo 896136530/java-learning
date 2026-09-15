@@ -6,6 +6,5 @@
 def  greet(name):
     return "你好，"+name+"！"
 name=input("")
-greet(name)
 print(greet(name))
 # ===========================
