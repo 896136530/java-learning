@@ -9,7 +9,7 @@
 java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度
-├── java/              ← 🟦 Java 就业主线（day1~day9 + 学习路线 + PPT + 项目-记账本）
+├── java/              ← 🟦 Java 就业主线（day1~day23 + 学习路线 + PPT + 项目-记账本）
 ├── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day7）
 └── datastructure/     ← 📘 数据结构课本跟课线（严蔚敏 C 版第2版：思想笔记 + Python 落地）
 ```
@@ -19,7 +19,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day9/` | 每天：知识点 → 练习题 → 标准答案 |
+| `day1~day23/` | 每天：知识点 → 练习题 → 标准答案 |
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+防崩 🔄 已建待做 |
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
 
@@ -75,6 +75,6 @@ java-learning/
 
 ## 目标
 
-- 🏆 蓝桥杯（Python 组，2026 省赛）—— 详见 `lanqiao/`
+- 🏆 蓝桥杯（Python 组，**2027-04 省赛**；报名窗口 2026-10~12）—— 详见 `lanqiao/`
 - 🎯 大创项目（SpringBoot 小系统申报）
 - 💼 大三/大四实习 → Java 后端就业
