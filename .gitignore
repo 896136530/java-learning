@@ -5,6 +5,12 @@
 # day24 文件 IO 练习：数据文件由程序自己生成，不入库
 java/day24/*.txt
 
+# Code Runner 的临时残留文件（每次 ▶ 都会自动生成）
+tempCodeRunnerFile.java
+
+# 本机专用运行器（路径写死本机 MySQL，换机器不可用）
+java/day25/运行SQL.bat
+
 # 根目录的本地运行数据副本（day17 内的随作业入库，不入这里）
 /hello.txt
 /lines.txt

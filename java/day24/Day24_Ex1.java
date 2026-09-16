@@ -25,4 +25,15 @@ public class Day24_Ex1 {
 //   · 用 PrintWriter 把每一行 println 到 path（**覆盖**写，不是追加）
 //   · 中文别乱码：new PrintWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))
 //   · 要保证数据真的落盘 → 用 try-with-resources（自动 close）
+class ScoreWriter{
+    public static void write(String path,List<String> lines) throws Exception{
+        try(PrintWriter pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(path),StandardCharsets.UTF_8))){
+            
+            for(String i : lines){
+                pw.println(i);
+            }
+            pw.close();
+}
+}
+}
 // ===========================================

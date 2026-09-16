@@ -27,4 +27,21 @@ public class Day24_Ex4 {
 //   · 其他读取出错 → 打印 "[提示] 读取失败：" + path
 //   · 正常 → 返回所有行
 //   · catch 顺序：FileNotFoundException（子类）写在 IOException（父类）前面
+class SafeReader{
+    public static List<String> read(String path){
+        String line;
+        List<String>lines=new ArrayList<>();
+        try(BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(path),StandardCharsets.UTF_8))){
+            while((line=br.readLine())!=null){
+                lines.add(line);
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("[提示] 文件不存在：" + path);
+        }catch(IOException e){
+            System.out.println("[提示] 读取失败：" + path);
+        }
+        return lines;
+    }
+}
+
 // ===========================================

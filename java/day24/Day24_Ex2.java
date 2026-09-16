@@ -31,4 +31,17 @@ public class Day24_Ex2 {
 //   · BufferedReader + readLine() 逐行读；**读到 null 就是文件末尾**（不是空字符串！）
 //   · 每读一行 add 进 List，最后 return
 //   · 编码指定 UTF-8：new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8)
+class ScoreReader{
+    public static List<String> read(String path) throws Exception{
+        try(BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(path),StandardCharsets.UTF_8))){
+            String line;
+            List<String>lines  =new ArrayList<>();          
+            while((line=br.readLine())!=null){
+                lines.add(line);
+            }
+        
+        return lines;
+        }
+    }
+}
 // ===========================================

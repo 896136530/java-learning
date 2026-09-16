@@ -25,4 +25,12 @@ public class Day24_Ex3 {
 //   · 关键：追加模式 → new FileOutputStream(path, true)，那个 true 就是 append 开关
 //   · 忘了写 true 的后果：新内容把旧内容**全部覆盖**，前两行消失
 //   · 完整版：new PrintWriter(new OutputStreamWriter(new FileOutputStream(path, true), StandardCharsets.UTF_8))
+class AppendUtil{
+    public static void append(String path,String line) throws Exception{
+        try(PrintWriter pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(path,true),StandardCharsets.UTF_8))){
+            pw.println(line);
+            pw.close();
+        }
+    }
+}
 // ===========================================

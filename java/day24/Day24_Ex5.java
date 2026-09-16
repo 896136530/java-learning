@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Day24_Ex5 {
@@ -13,22 +15,63 @@ public class Day24_Ex5 {
             System.out.println(s);
         }
         // 期望输出：
-        //   总分：364
-        //   及格 4 人
-        //   张三,88
-        //   李四,95
-        //   王五,76
-        //   赵六,60
+        // 总分：364
+        // 及格 4 人
+        // 张三,88
+        // 李四,95
+        // 王五,76
+        // 赵六,60
     }
 }
 
 // ===== 你的代码写在这里：class ScoreStat =====
 
 // TODO：两个方法
-//   ① static int total(List<String> lines)      → 所有分数的总和（空行跳过，不计数）
-//   ② static List<String> passOnly(List<String> lines) → 返回分数 ≥ 60 的**原始行**
-//   提示：
-//     · line.split(",") 得到 ["张三","88"]，分数是 parts[1]，用 Integer.parseInt 转成 int
-//     · 先判空行（line.trim().isEmpty()），再判 parts.length == 2，不合法就跳过
-//     · 上面两段判断重复了，可以抽一个 private static String[] split(String line) 复用（返回 null 表示这行不合法）
+// ① static int total(List<String> lines) → 所有分数的总和（空行跳过，不计数）
+// ② static List<String> passOnly(List<String> lines) → 返回分数 ≥ 60 的**原始行**
+// 提示：
+// · line.split(",") 得到 ["张三","88"]，分数是 parts[1]，用 Integer.parseInt 转成 int
+// · 先判空行（line.trim().isEmpty()），再判 parts.length == 2，不合法就跳过
+// · 上面两段判断重复了，可以抽一个 private static String[] split(String line) 复用（返回 null
+// 表示这行不合法）
+class ScoreStat {
+    private static String[] split(String line) {
+        if (line == null || line.trim().isEmpty()) {
+            return null;
+        }
+        String[] parts = line.split(",");
+               if (parts.length != 2) {
+            return null;
+        }
+        return parts;
+    }
+
+    public static int total(List<String> lines) {
+        int total = 0;
+        for (String i : lines) {
+            String[] parts = split(i);
+            if (parts == null) {
+                continue;
+            }
+            total = total + Integer.parseInt(parts[1]);
+        }
+        return total;
+    }
+
+    public static List<String> passOnly(List<String> lines) {
+        List<String> pass = new ArrayList<>();
+
+        for (String i : lines) {
+            String[] parts = split(i);
+            if (parts == null) {
+                continue;
+            }
+            if (Integer.parseInt(parts[1]) >= 60) {
+                pass.add(i);
+            }
+        }
+        return pass;
+    }
+}
+
 // ===========================================
