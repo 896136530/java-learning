@@ -37,7 +37,7 @@ class RankBoard{
     public static void printTop3(Map<String,Integer>scores){
         List<Map.Entry<String,Integer>>list=new ArrayList<>(scores.entrySet());
         list.sort((o1,o2)->Integer.compare(o2.getValue(),o1.getValue()));
-        for(int i=0;i<3;i++){
+        for(int i=0;i<Math.min(3,list.size());i++){
             System.out.println("第"+(i+1)+"名："+list.get(i).getKey()+" "+list.get(i).getValue());
         }
     }

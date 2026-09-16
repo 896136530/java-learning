@@ -43,7 +43,7 @@ class Student implements Comparable<Student>{
     }
     @Override 
     public int compareTo(Student o){
-        int result=Integer.compare(this.score,o.score);
+        int result=Integer.compare(o.score,this.score);
         if(result!=0){
             return result;
         }

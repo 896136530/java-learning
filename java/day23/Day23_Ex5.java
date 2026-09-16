@@ -27,8 +27,8 @@ public class Day23_Ex5 {
 //   ③ 计数套路：map.put(level, map.getOrDefault(level, 0) + 1);
 //   ④ 返
 class StatUtil{
-    static Map<String ,Integer>map=new HashMap<>();
     public static Map<String ,Integer>byLevel(int[] scores){
+        Map<String ,Integer>map=new HashMap<>();
         for(int i:scores){
             if(i>=90){
                 map.put("优秀",map.getOrDefault("优秀",0)+1);
