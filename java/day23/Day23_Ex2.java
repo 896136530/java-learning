@@ -41,7 +41,7 @@ class TeamUtil{
     }
     public static void printAll(List<Student>list){
         for(Student s:list){
-            System.out.print(s.toString()+" / ");
+            System.out.println(s);
         }
     }
     public static int total(List<Student>list){

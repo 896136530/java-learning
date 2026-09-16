@@ -25,6 +25,25 @@ public class Day23_Ex5 {
 //   ② 遍历 scores，按分数判档位：
 //        >= 90 → "优秀"   80~89 → "良好"   60~79 → "及格"   其余 → "不及格"
 //   ③ 计数套路：map.put(level, map.getOrDefault(level, 0) + 1);
-//   ④ 返回 map
-
+//   ④ 返
+class StatUtil{
+    static Map<String ,Integer>map=new HashMap<>();
+    public static Map<String ,Integer>byLevel(int[] scores){
+        for(int i:scores){
+            if(i>=90){
+                map.put("优秀",map.getOrDefault("优秀",0)+1);
+            } 
+            else if(i>=80){
+                map.put("良好",map.getOrDefault("良好",0)+1);
+            }
+            else if(i>=60){
+                map.put("及格",map.getOrDefault("及格",0)+1);
+            }
+            else{
+                map.put("不及格",map.getOrDefault("不及格",0)+1);
+            }
+        }
+        return map;
+    }
+}
 // ===========================================

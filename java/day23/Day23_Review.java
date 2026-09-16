@@ -33,5 +33,21 @@ public class Day23_Review {
 //      · 返回 String.format("%.2f", avg)（结果必须是 "83.80"）
 
 // ⚠️ 千万别把"成绩"当 key 用 TreeMap 排——同分会互相覆盖，人会消失！
-
+class RankBoard{
+    public static void printTop3(Map<String,Integer>scores){
+        List<Map.Entry<String,Integer>>list=new ArrayList<>(scores.entrySet());
+        list.sort((o1,o2)->Integer.compare(o2.getValue(),o1.getValue()));
+        for(int i=0;i<3;i++){
+            System.out.println("第"+(i+1)+"名："+list.get(i).getKey()+" "+list.get(i).getValue());
+        }
+    }
+    public static String average(Map<String,Integer>scores){
+        double sum=0;
+        for(int i:scores.values()){
+            sum+=i;
+        }
+        double avg=sum/scores.size();
+        return String.format("%.2f",avg);
+    }
+}
 // ===========================================

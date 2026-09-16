@@ -30,5 +30,24 @@ public class Day23_Ex4 {
 //     ② c != 0 就直接 return c
 //     ③ 分数相同时，返回 this.name.compareTo(o.name)（姓名升序兜底，保证顺序稳定！）
 //   toString()：返回 "姓名 分数"
-
+class Student implements Comparable<Student>{
+    String name;
+    int score;
+    public Student(String name,int score){
+        this.name=name;
+        this.score=score;
+    }
+    @Override 
+    public String  toString(){
+        return name+" "+score;
+    }
+    @Override 
+    public int compareTo(Student o){
+        int result=Integer.compare(this.score,o.score);
+        if(result!=0){
+            return result;
+        }
+        return this.name.compareTo(o.name);
+    }
+}
 // ===========================================

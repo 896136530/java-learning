@@ -1,5 +1,9 @@
 # 编译产物（VS Code 运行残留）
 *.class
+*.exe
+
+# day24 文件 IO 练习：数据文件由程序自己生成，不入库
+java/day24/*.txt
 
 # 根目录的本地运行数据副本（day17 内的随作业入库，不入这里）
 /hello.txt
