@@ -25,3 +25,4 @@ bin/
 
 # 本地运行器（Day21 JDBC 专用，commit 不进库）
 java/day21/运行Day21.bat
+java/day26/运行Day26.bat

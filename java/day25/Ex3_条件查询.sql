@@ -26,6 +26,10 @@ INSERT INTO student (name, score, class_name) VALUES
 ('孙八', 45, '三班'), ('周九', 82, '三班');
 
 -- ===== 你的 SQL 写在这里 =====
+SELECT name,score FROM student
+WHERE class_name='一班'AND score>=80
+ORDER BY score DESC
+LIMIT 2;
 
 
 

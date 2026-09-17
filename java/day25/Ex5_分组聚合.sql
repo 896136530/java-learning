@@ -28,7 +28,12 @@ INSERT INTO student (name, score, class_name) VALUES
 ('孙八', 45, '三班'), ('周九', 82, '三班');
 
 -- ===== 你的 SQL 写在这里 =====
-
+SELECT class_name,
+COUNT(*)AS 人数,
+ROUND(AVG(score),2)AS 平均分,
+MAX(score)AS 最高分
+FROM student
+GROUP BY class_name
 
 
 -- ===========================

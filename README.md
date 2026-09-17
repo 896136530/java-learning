@@ -73,7 +73,8 @@ java-learning/
 | Day 22 | 集合框架全解（HashMap 原理 / TreeMap / Comparable 与 Comparator） | ✅ 6/6 全绿已上传 |
 | Day 23 | 综合实战·学生成绩排行榜（类 + List + Map + 排序全家桶组装） | ✅ 作业已批改并**修完**：每题独立空目录编译运行 **6/6 逐字符一致**（AI 代改 4 处：Ex2 补 Student 类、Ex4 排序方向、Ex5 map 作用域、Review 越界防护）|
 | Day 24 | 文件与异常实战（成绩单导入导出：字符流读写 / 追加 / 异常兜底）| ✅ 批改 **5/5 全绿**（Ex1~Ex5 与期望逐字符一致；Review 未写）|
-| Day 25 | MySQL 基础（建库建表 / CRUD / 条件查询 / 分组聚合 / 多表 JOIN）| 🔄 已生成待练习 |
+| Day 25 | MySQL 基础（建库建表 / CRUD / 条件查询 / 分组聚合 / 多表 JOIN）| ✅ 批改 **Ex1~Ex4 全对**；Ex5 数据对但**漏写 ORDER BY**（指路未代改）；Review 未写 |
+| Day 26 | JDBC 实战·成绩管理系统 v1（PreparedStatement / ResultSet / 聚合下推 / LIMIT 参数化）| 🔄 已生成待练习 |
 
 ## 目标
 

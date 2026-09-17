@@ -21,7 +21,10 @@ CREATE TABLE student (
 ) DEFAULT CHARSET = utf8mb4;
 
 -- ===== 你的 SQL 写在这里 =====
-
+INSERT INTO student (name, score, class_name)
+VALUES ('张三', 88, '一班'),
+       ('李四', 95, '一班'),
+       ('王五', 76, '一班');
 
 
 -- ===========================

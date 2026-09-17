@@ -25,7 +25,11 @@ INSERT INTO student (name, score, class_name) VALUES
 ('孙八', 45, '三班'), ('周九', 82, '三班');
 
 -- ===== 你的 SQL 写在这里 =====
-
+UPDATE  student
+SET score=score+5
+WHERE class_name='一班';
+DELETE FROM student
+WHERE score<60;
 
 
 -- ===========================
