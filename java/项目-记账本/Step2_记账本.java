@@ -44,6 +44,15 @@ public class Step2_记账本 {
                 // 支出填负数（比如 -12）
                 int amount = 0;
                 // ===== 这里开始写你的防崩循环 =====
+                while(true){
+                    try{
+                        amount=Integer.parseInt(sc.nextLine());
+                        break;
+                    }catch(NumberFormatException e){
+                        System.out.println("金额必须是整数，请重新输入");
+                        continue;
+                    }
+                }
                 // ===========================================
 
                 System.out.print("备注（一句话，比如 食堂午饭）：");
@@ -58,6 +67,8 @@ public class Step2_记账本 {
 
                 // ===== Step2 TODO C：把这一笔包装成 Bill 对象，加入 bills 列表 =====
                 // bill = new Bill(cat, amount, note);  bills.add(bill);
+                Bill bill=new Bill(cat,amount,note);
+                bills.add(bill);
                 // ===========================================
                 System.out.println("已记一笔！");
 
@@ -95,6 +106,25 @@ public class Step2_记账本 {
                 // 然后提示输入序号（就是选项 3 打出来的那个编号），
                 // 序号非法（不在 1~bills.size() 之间）提示"序号无效"并 continue，
                 // 合法就 bills.remove(序号-1)，打印"已删除"
+                if(bills.isEmpty()){
+                    System.out.println("还没有明细，先记一笔吧");
+                    continue;
+                }
+                System.out.print("请输入序号（1~" + bills.size() + "）：");
+                int index;
+                try {
+                    index = Integer.parseInt(sc.nextLine());   // 输 abc 也不能崩
+                } catch (NumberFormatException e) {
+                    System.out.println("请输入数字！");
+                    continue;
+                }
+                if (index < 1 || index > bills.size()) {
+                    System.out.println("序号无效");
+                    continue;
+                }
+                bills.remove(index - 1);
+                System.out.println("已删除");
+
                 // ===========================================
 
             } else if (choice == 5) {
@@ -112,4 +142,14 @@ public class Step2_记账本 {
 // 三个公开字段：String cat（分类）、int amount（金额）、String note（备注）
 // 一个构造器：Bill(String cat, int amount, String note) 把三个参数赋给字段
 // ===== 这里开始写 Bill 类 =====
+class Bill{
+    String cat;
+    int amount;
+    String note;
+    Bill(String cat,int amount,String note){
+        this.cat=cat;
+        this.amount=amount;
+        this.note=note;
+    }
+}
 // ===========================================
