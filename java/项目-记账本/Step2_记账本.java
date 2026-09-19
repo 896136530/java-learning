@@ -67,15 +67,19 @@ public class Step2_记账本 {
 
                 // ===== Step2 TODO C：把这一笔包装成 Bill 对象，加入 bills 列表 =====
                 // bill = new Bill(cat, amount, note);  bills.add(bill);
-                Bill bill=new Bill(cat,amount,note);
+                Bill bill = new Bill(cat, amount, note);
                 bills.add(bill);
                 // ===========================================
                 System.out.println("已记一笔！");
 
             } else if (choice == 2) {
                 // 分类汇总（Step1 招式）
-                for (String key : map.keySet()) {
-                    System.out.println(key + "：" + map.get(key));
+                if (map.isEmpty()) {
+                    System.out.println("还没有账，先记一笔吧");
+                } else {
+                    for (String key : map.keySet()) {
+                        System.out.println(key + "：" + map.get(key));
+                    }
                 }
 
             } else if (choice == 3) {
