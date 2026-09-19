@@ -28,4 +28,27 @@ public class Day26_Ex4 {
 //        SELECT ROUND(AVG(score), 2) FROM student
 //   · 读出来用 rs.getDouble(1)（或 rs.getString(1)），返回前统一 String.format("%.2f", v)
 //   · 想清楚：为什么"算平均"要交给 SQL，而不是把数据全查回 Java 再算？（数据量 100 万时差在哪）
+class AggDao{
+    public static String avgOfClass(Connection conn,String cls) throws SQLException{
+        String sql="SELECT ROUND(AVG(score),2) FROM student WHERE class_name=?";
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1,cls);
+            try(ResultSet rs=ps.executeQuery()){
+                rs.next();
+                double avg=rs.getDouble(1);
+                return String.format("%.2f",avg);
+            }
+        }
+    }
+    public static String avgAll(Connection conn)throws SQLException{
+        String sql="SELECT ROUND(AVG(score),2) FROM student";
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            try(ResultSet rs=ps.executeQuery()){
+                rs.next();
+                double avg=rs.getDouble(1);
+                return String.format("%.2f",avg);
+            }
+        }
+    }
+}
 // ===========================================

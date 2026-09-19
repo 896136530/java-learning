@@ -35,4 +35,29 @@ public class Day26_Ex1 {
 //        · 用 **PreparedStatement**：SELECT score FROM student WHERE name = ?
 //        · setString(1, name) 之后 executeQuery，rs.next() 为 false 就返回 null
 //        · 返回类型必须是 Integer（不是 int！）——查不到要能表达"没有"
+class BasicDao{
+    public static int countAll(Connection conn) throws SQLException{
+        String sql="SELECT COUNT(*) FROM student";
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            try(ResultSet rs=ps.executeQuery()){
+                rs.next();
+                int count=rs.getInt(1);
+                return count;
+            }
+        }
+
+    }
+    public static Integer findScoreByName(Connection conn,String name) throws SQLException{
+        String sql="SELECT score FROM student WHERE name=?";
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1,name);
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt(1);
+                }
+                return null;
+            }
+        }
+    }
+}
 // ===========================================

@@ -36,4 +36,19 @@ public class Day26_Ex2 {
 //   · PreparedStatement：SELECT name, score FROM student WHERE class_name = ? ORDER BY score DESC
 //   · while (rs.next()) 逐行读，每行拼成 "姓名 分数" 塞进 List，最后 return
 //   · 提示：rs.getString("name") / rs.getInt("score")——按列名取，比按 1、2 更不容易错
+class ParamDao{
+    public static List<String> findByClass(Connection conn,String cls)  throws SQLException{
+        String sql="SELECT name,score FROM student WHERE class_name=? ORDER BY score DESC";
+        List<String>list=new ArrayList<>();
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1,cls);
+            try(ResultSet rs=ps.executeQuery()){
+                while(rs.next()){
+                    list.add(rs.getString("name")+" "+rs.getInt("score"));
+                }
+            }
+        }
+        return list;
+    }
+}
 // ===========================================

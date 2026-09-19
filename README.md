@@ -19,7 +19,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day23/` | 每天：知识点 → 练习题 → 标准答案 |
+| `day1~day27/` | 每天：知识点 → 练习题 → 标准答案 |
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+防崩 🔄 已建待做 |
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
 
@@ -74,7 +74,8 @@ java-learning/
 | Day 23 | 综合实战·学生成绩排行榜（类 + List + Map + 排序全家桶组装） | ✅ 作业已批改并**修完**：每题独立空目录编译运行 **6/6 逐字符一致**（AI 代改 4 处：Ex2 补 Student 类、Ex4 排序方向、Ex5 map 作用域、Review 越界防护）|
 | Day 24 | 文件与异常实战（成绩单导入导出：字符流读写 / 追加 / 异常兜底）| ✅ 批改 **5/5 全绿**（Ex1~Ex5 与期望逐字符一致；Review 未写）|
 | Day 25 | MySQL 基础（建库建表 / CRUD / 条件查询 / 分组聚合 / 多表 JOIN）| ✅ 批改 **Ex1~Ex5 全对**（Ex5 漏写的 ORDER BY + 别名已按用户要求代改并复验）；Review 未写 |
-| Day 26 | JDBC 实战·成绩管理系统 v1（PreparedStatement / ResultSet / 聚合下推 / LIMIT 参数化）| 🔄 已生成待练习 |
+| Day 26 | JDBC 实战·成绩管理系统 v1（PreparedStatement / ResultSet / 聚合下推 / LIMIT 参数化）| ✅ 批改 **Ex1~Ex5 全绿**（与期望逐字符一致 + 21 项刁钻用例全过；Ex5 的 TODO 注释被粘贴搅乱已代整理）；Review 未写 |
+| Day 27 | DAO 分层 + 事务（实体类 / mapRow / addBatch 批量 / setAutoCommit→commit→rollback）| 🔄 已生成待练习 |
 
 ## 目标
 

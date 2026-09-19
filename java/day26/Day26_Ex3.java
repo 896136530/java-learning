@@ -34,4 +34,24 @@ public class Day26_Ex3 {
 //   ② static int deleteBelow(Connection conn, int min)
 //        DELETE FROM student WHERE score < ?
 //   ⚠️ SQL 里的 WHERE 千万不能漏——这里的 WHERE 也是"数据安全线"
+class UpdateDao{
+    public static int addScore(Connection conn,String cls,int delta) throws SQLException{
+        String sql="Update student SET score=score+? WHERE class_name=?";
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setInt(1,delta);
+            ps.setString(2,cls);
+            return ps.executeUpdate();
+            
+        }
+    }
+    public static int deleteBelow(Connection conn,int min ) throws SQLException{
+        String sql="DELETE FROM student WHERE score<?";
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setInt(1,min);
+            return ps.executeUpdate();
+            
+        }
+    }
+}
+
 // ===========================================

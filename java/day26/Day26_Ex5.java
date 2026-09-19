@@ -30,10 +30,25 @@ public class Day26_Ex5 {
 
 // ===== 你的代码写在这里：class RankDao =====
 
-// TODO：static List<String> ranking(Connection conn, int limit)
-//   · PreparedStatement：
-//       SELECT name, score FROM student ORDER BY score DESC, name ASC LIMIT ?
+// TODO：static List<String> ranking(Connection conn, int limit)re DESC, name ASC LIMIT ?
 //   · LIMIT 的 ? 也用 setInt(1, limit) 传（这就是参数化的好处：连"取几条"都能当参数）
 //   · 返回 List<String>，每项 "姓名 分数"
 //   ⚠️ 同分时要按姓名升序兜底（Day23 的老朋友），否则同分顺序不稳定
+//   · PreparedStatement：
+//       SELECT name, score FROM student ORDER BY sco
+class RankDao{
+    public static List<String> ranking(Connection conn,int limit) throws SQLException{
+        String sql="SELECT name,score FROM student ORDER BY score DESC,name ASC LIMIT ?";
+        List<String> list=new ArrayList<>();
+        try(PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setInt(1,limit);
+            try(ResultSet rs=ps.executeQuery()){
+                while(rs.next()){
+                    list.add(rs.getString("name")+" "+rs.getInt("score"));
+                }
+                return list;
+    }
+}
+}
+}
 // ===========================================
