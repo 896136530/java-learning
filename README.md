@@ -34,6 +34,8 @@ java-learning/
 | `python-day5/` | ✅ 作业已批改（**Ex1~Ex5 + Review 全绿**；Ex3/Ex4 按用户要求代改后复验通过，Review 为参考答案供复习）|
 | `python-day6/` | ✅ 作业已批改（Ex1~Ex4 全绿；Ex5 数值对、输出格式已代改；Review 矩阵乘法用户留待复习自写）|
 | `python-day7/` | 🔄 已生成待练习（排序与自定义排序：sort / key=lambda / 多关键字）|
+| `python-day8/` | 💤 **已就绪、先放着**（常用库与内置函数：math / Counter / itertools / bisect；用户说等写完 day7 再打开）|
+| 逐日路线 | 见 `蓝桥杯备考路线.md` 的「📅 逐日路线」表——**Day 10 起每天配蓝桥风格真题 + 测试数据**（不用自己上网找题）|
 
 ## 📌 数据结构（不再单独建线）
 
