@@ -21,7 +21,7 @@ public class Day27_Ex3 {
             //   李四 95 一班
             //   张三 88 一班
             //   周九 82 三班
-            //   200 分以上：0 人（不报错）
+            //   200 分以上：0 人（不报错）：“”
         }
     }
 }
@@ -33,5 +33,20 @@ public class Day27_Ex3 {
 //   · while (rs.next()) 逐行 → 每行交给 RowMapper.mapRow(rs) 变成 Student → 塞进 List
 //   · ⚠️ RowMapper.mapRow 是 Ex1 写的（同一个目录、同一个包，直接用）
 //        这说明"转换逻辑只写一次，读表的地方都复用它"——这就是 DAO 分层的味道
-//   · 没查到时返回**空 List**（size 0），不是 null！返回 null 会让调用方每处都要判空
+//   · 没查到时返回**空 List**（size 0），不是 null！返回 null 会让调用方每处都要判空；
+class  StudentDao{
+    public static List<Student> findByMinScore(Connection conn, int min) throws SQLException{
+        List<Student> list=new ArrayList<>();
+        try(PreparedStatement ps=conn.prepareStatement("SELECT name, score, class_name FROM student WHERE score >= ? ORDER BY score DESC, name ASC")){
+                ps.setInt(1,min);
+            try(ResultSet rs=ps.executeQuery()){
+                    while (rs.next()){
+                        list.add(RowMapper.mapRow(rs));
+                    }
+                    return list;
+}
+}
+}
+}
+    
 // ===========================================

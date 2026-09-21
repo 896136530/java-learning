@@ -67,4 +67,16 @@ public class Day27_Ex5 {
 //   · catch SQLException e → conn.rollback(); throw e;
 //   · finally → conn.setAutoCommit(true)（把 conn 还给 main 时恢复原样）
 // ⚠️ 只写 setAutoCommit(false) 忘了 commit → 数据一点没变（看着像"没执行"）
-// ===========================================
+class SafeTransferService{
+    public static String tryTransfer(Connection conn, String from, String to, int amount) {
+        if(amount<=0){
+            return "金额必须大于 0";
+        }
+        if(from.equals(to)){
+            return "不能给自己转账";
+        }
+        
+    conn.setAutoCommit(false);
+    
+}
+}

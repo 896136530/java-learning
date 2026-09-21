@@ -47,4 +47,18 @@ public class Day27_Ex2 {
 //        想返回"总共插了几行"，要么循环累加这个数组，要么直接 return list.size()
 //   · 为什么不循环里直接 executeUpdate()？—— 每次执行都要一次网络往返，
 //     批量是"打包送一趟"，1000 行时差几十倍（知识点里有）
+class BatchDao {
+    public static int insertAll(Connection conn, List<Student> list) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO student (name, score, class_name) VALUES (?, ?, ?)")) {
+            for (Student s : list) {
+                ps.setString(1, s.getName());
+                ps.setInt(2, s.getScore());
+                ps.setString(3, s.getClassName());
+                ps.addBatch();
+            }
+            int[] rows = ps.executeBatch();
+            return list.size();
+        }
+    }
+}
 // ===========================================

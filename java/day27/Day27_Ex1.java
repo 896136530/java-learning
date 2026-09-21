@@ -39,4 +39,44 @@ public class Day27_Ex1 {
 //        PreparedStatement：SELECT name, score, class_name FROM student WHERE name = ?
 //        rs.next() 为 false 就 return null（List 版在 Ex3，这里只取一条）
 //        ⚠️ 别在返回 null 的地方顺手把 conn 关了（conn 是 main 给的）
+class Student{
+    private String name;
+    private int score;
+    private String className;
+    public Student(String name, int score, String className){
+        this.name = name;
+        this.score = score;
+        this.className = className;
+    }
+    public String getName(){
+        return name;
+    }
+    public int getScore(){
+        return score;
+    }
+    public String getClassName(){
+        return className;
+    }
+    @Override
+    public String toString(){
+        return name + " " + score + " " + className;
+    }
+}
+class RowMapper {
+    public static Student mapRow(ResultSet rs) throws SQLException {
+        return new Student(rs.getString("name"), rs.getInt("score"), rs.getString("class_name"));
+    }
+
+    public static Student one(Connection conn, String name) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT name, score, class_name FROM student WHERE name = ?")) {
+            ps.setString(1, name);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next() == false) {
+                    return null;
+                }
+                return mapRow(rs);
+            }
+        }
+    }
+}
 // ===========================================
