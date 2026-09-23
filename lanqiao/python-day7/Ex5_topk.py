@@ -5,5 +5,8 @@
 # 自测：k=n（全取）、k=1、数据里有重复值（重复也按个数算进 k 个）
 
 # ===== 你的代码写在这里 =====
-
+n,k=map(int,input().split())
+nums=list(map(int,input().split()))
+a=sum(sorted(nums,reverse=True)[:k])
+print(a)
 # ===========================
