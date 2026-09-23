@@ -88,6 +88,7 @@ public class Day27_Review {
 //      · 成功：setAutoCommit(false) → 扣钱 UPDATE + 加钱 UPDATE → commit() → return true
 //      · catch SQLException → rollback(); return false
 //      · finally → setAutoCommit(true)（conn 还给 main 前恢复原样）
-//      💡 转账 400：钱七 1000→600、赵六 1000→1400，对账始终 3000
+//      💡 转账 400：钱七 1000→600、赵六 1000→1400，对账始终 5000
+//         （5000 = Setup 的 张三/李四/王五 各 1000 共 3000 + ensureAccount 开的 钱七/赵六 各 1000）
 //         转账 99999 失败后：余额、对账**必须一个字都不变**（这就是事务的价值）
 // ===========================================

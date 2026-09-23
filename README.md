@@ -72,7 +72,7 @@ java-learning/
 | Day 24 | 文件与异常实战（成绩单导入导出：字符流读写 / 追加 / 异常兜底）| ✅ 批改 **5/5 全绿**（Ex1~Ex5 与期望逐字符一致；Review 未写）|
 | Day 25 | MySQL 基础（建库建表 / CRUD / 条件查询 / 分组聚合 / 多表 JOIN）| ✅ 批改 **Ex1~Ex5 全对**（Ex5 漏写的 ORDER BY + 别名已按用户要求代改并复验）；Review 未写 |
 | Day 26 | JDBC 实战·成绩管理系统 v1（PreparedStatement / ResultSet / 聚合下推 / LIMIT 参数化）| ✅ 批改 **Ex1~Ex5 全绿**（与期望逐字符一致 + 21 项刁钻用例全过；Ex5 的 TODO 注释被粘贴搅乱已代整理）；Review 未写 |
-| Day 27 | DAO 分层 + 事务（实体类 / mapRow / addBatch 批量 / setAutoCommit→commit→rollback）| 🔄 已生成待练习 |
+| Day 27 | DAO 分层 + 事务（实体类 / mapRow / addBatch 批量 / setAutoCommit→commit→rollback）| ✅ 批改 **Ex1~Ex5 全绿**（MySQL 实测：Ex1 逐字符一致、Ex2 7→3→10 行、Ex3 修复 `rs.next()` 吃行后 4 人正确、Ex4 对账 5000 守恒、Ex5 五道防线 + 转账 200 成功且钱守恒；AI 代改机械错 5 处：Ex1 空格、Ex2 泛型空格、Ex4 `rs→rs1`+`throws`+删半成品块、Ex5 `throws`+表名 `Account`/`back_account`→`bank_account`）；Review 未写 |
 
 ## 目标
 

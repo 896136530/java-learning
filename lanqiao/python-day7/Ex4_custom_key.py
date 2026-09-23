@@ -5,5 +5,7 @@
 # 自测：故意造两个长度相同的词（如 ant / cat），再看只有 1 个词的情况
 
 # ===== 你的代码写在这里 =====
-
+row=input().split()
+row.sort(key=lambda w:(len(w),w))
+print(' '.join(row))
 # ===========================

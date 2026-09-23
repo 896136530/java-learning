@@ -5,5 +5,10 @@
 # 自测：只有 1 个数、本身已排好序、全是负数，各测一组
 
 # ===== 你的代码写在这里 =====
+nums=list(map(int,input().split()))
+a=sorted(nums)
+nums.sort(reverse=True)
+print(' '.join(map(str,a)))
+print(' '.join(map(str,nums)))
 
 # ===========================

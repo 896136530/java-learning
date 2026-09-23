@@ -6,5 +6,12 @@
 # 自测：两人同分、n=1 各测一组
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+x=[]
+for i in range(n):
+    name,score=input().split()
+    x.append((name,int(score)))
+x.sort(key=lambda x:x[1],reverse=True)
+for name,score in x:
+    print(name,score)
 # ===========================

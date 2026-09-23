@@ -68,15 +68,41 @@ public class Day27_Ex5 {
 //   · finally → conn.setAutoCommit(true)（把 conn 还给 main 时恢复原样）
 // ⚠️ 只写 setAutoCommit(false) 忘了 commit → 数据一点没变（看着像"没执行"）
 class SafeTransferService{
-    public static String tryTransfer(Connection conn, String from, String to, int amount) {
+    public static String tryTransfer(Connection conn, String from, String to, int amount) throws SQLException {
         if(amount<=0){
             return "金额必须大于 0";
         }
         if(from.equals(to)){
             return "不能给自己转账";
         }
-        
-    conn.setAutoCommit(false);
-    
-}
+        if(Setup.balanceOf(conn,from)==-1){
+            return "账户不存在";
+        }
+        if(Setup.balanceOf(conn,to)==-1){
+                       return "账户不存在";
+        }
+        if(Setup.balanceOf(conn,from)<amount){
+            return "余额不足";
+        }
+        conn.setAutoCommit(false);
+        try{
+            try(PreparedStatement pstmt = conn.prepareStatement("update bank_account set balance = balance - ? where owner = ?")){
+                pstmt.setInt(1,amount);
+                pstmt.setString(2,from);
+                pstmt.executeUpdate();
+            }
+            try(PreparedStatement pstmt = conn.prepareStatement("update bank_account set balance = balance + ? where owner = ?")){
+                pstmt.setInt(1,amount);
+                pstmt.setString(2,to);
+                pstmt.executeUpdate();
+            }
+            conn.commit();
+            return "true";
+        }catch(SQLException e){
+            conn.rollback();
+            throw e;
+        }finally{
+            conn.setAutoCommit(true);
+        }
+    }
 }

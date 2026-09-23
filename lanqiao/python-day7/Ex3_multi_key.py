@@ -6,5 +6,12 @@
 # 自测：造一组「三人里两人同分」的数据，检查同分那两人是否按姓名排好了
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+x=[]
+for i in range(n):
+    name,score=input().split()
+    x.append((name,int(score)))
+x.sort(key=lambda x:(-x[1],x[0]))
+for name,score in x:
+    print(name,score)
 # ===========================
