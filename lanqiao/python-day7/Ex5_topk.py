@@ -7,6 +7,7 @@
 # ===== 你的代码写在这里 =====
 n,k=map(int,input().split())
 nums=list(map(int,input().split()))
-a=sum(sorted(nums,reverse=True)[:k])
-print(a)
+top=sorted(nums,reverse=True)[:k]
+print(' '.join(map(str,top)))
+print(sum(top))
 # ===========================
