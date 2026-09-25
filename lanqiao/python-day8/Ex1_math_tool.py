@@ -9,5 +9,9 @@
 # 自测：a=b、a 是 b 的倍数、和正好是平方数（比如 9+16=25）各测一组
 
 # ===== 你的代码写在这里 =====
-
+import math
+a,b=map(int,input().split())
+print(math.gcd(a,b))
+print(math.lcm(a,b))
+print(math.isqrt(a+b)**2==a+b)
 # ===========================

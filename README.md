@@ -10,7 +10,7 @@ java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度
 ├── java/              ← 🟦 Java 就业主线（day1~day23 + 学习路线 + PPT + 项目-记账本）
-└── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day7）
+└── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day9）
 ```
 
 ## 📌 Java 线（`java/`）
@@ -34,7 +34,8 @@ java-learning/
 | `python-day5/` | ✅ 作业已批改（**Ex1~Ex5 + Review 全绿**；Ex3/Ex4 按用户要求代改后复验通过，Review 为参考答案供复习）|
 | `python-day6/` | ✅ 作业已批改（Ex1~Ex4 全绿；Ex5 数值对、输出格式已代改；Review 矩阵乘法用户留待复习自写）|
 | `python-day7/` | ✅ 作业已批改并上传（**Ex1~Ex5 全绿**，14 组用例含边界；Ex5 少打第一行由 AI 按用户要求代改；Review 按用户要求留待复习自写；已清掉 Code Runner 的 `tempCodeRunnerFile.py`）|
-| `python-day8/` | 💤 **已就绪、先放着**（常用库与内置函数：math / Counter / itertools / bisect；用户说等写完 day7 再打开）|
+| `python-day8/` | ✅ 作业已批改并上传（**Ex1~Ex5 全绿**，16 组用例：Ex1 gcd/lcm/isqrt 全对、Ex4 combinations 边界 n=1→0 正确、Ex5 bisect 四组含"插在相同元素前"全对；AI 代改 Ex2/Ex3 两处**输出格式**——Ex2 原打印 `[('b', 3)]`+整个 Counter、Ex3 原打印列表 `['b','c']`，已改为 `b 3`/`4` 和 `bc`，复验通过；Review 未写）|
+| `python-day9/` | 🔄 **已生成待练习**（字符串进阶：切片/`join`/`find`/`ord-chr`/回文；**6 题 + 复习**，比平时多一题加练"旋转匹配 s+s 环形技巧"；无答案、不带期望输出；7 个模板已通过语法检查，答案惯例真机验证过）|
 | 逐日路线 | 见 `蓝桥杯备考路线.md` 的「📅 逐日路线」表——**Day 10 起每天配蓝桥风格真题 + 测试数据**（不用自己上网找题）|
 
 ## 📌 数据结构（不再单独建线）

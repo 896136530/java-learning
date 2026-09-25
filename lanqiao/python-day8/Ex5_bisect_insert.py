@@ -9,5 +9,13 @@
 # 自测：x 比所有数都小（位置 0）、x 比所有数都大（位置 = n）、x 等于表里已有的数（插在它前面，注意这时列表里会出现两个相同的数）
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+nums=list(map(int,input().split()))
+x=int(input())
+from bisect import bisect_left,insort
+c=sorted(nums)
+i=bisect_left(c,x)
+print(i)
+insort(c,x)
+print(' '.join(map(str,c)))
 # ===========================

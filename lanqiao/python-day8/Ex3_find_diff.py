@@ -7,5 +7,9 @@
 # 自测：多出 1 个字符、多出好几个相同字符（如 aab 和 b，多出 a 和 a）
 
 # ===== 你的代码写在这里 =====
-
+from collections import Counter
+a=Counter(input())
+b=Counter(input())
+diff=a-b
+print(''.join(sorted(diff.elements())))
 # ===========================

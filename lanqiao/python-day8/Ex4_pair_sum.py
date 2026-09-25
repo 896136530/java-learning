@@ -7,5 +7,13 @@
 # 自测：n=1（没有任何对 → 0）、凑不出任何一对（→ 0）、刚好有一对
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+nums=list(map(int,input().split()))
+target=int(input())
+count=0
+from itertools import combinations
+for x,y in combinations(nums,2):
+    if x+y==target:
+        count=count+1
+print(count)
 # ===========================

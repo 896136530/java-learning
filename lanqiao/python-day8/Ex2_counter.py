@@ -8,6 +8,11 @@
 #       ⚠️ 空格不要算进去（可以用 s.replace(" ", "") 或只在非空格字符上统计）
 # 自测：长度 1、全部字符相同、次数并列最多（看输出是哪个字符）
 
-# ===== 你的代码写在这里 =====
-
+# ===== 你的代码写在下面 =====
+row=input().replace(" ","")
+from collections import Counter
+c=Counter(row)
+ch,cnt=c.most_common(1)[0]
+print(ch,cnt)
+print(len(c))
 # ===========================
