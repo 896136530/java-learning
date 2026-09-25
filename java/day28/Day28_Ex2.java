@@ -1,4 +1,8 @@
 import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Day28_Ex2 {
     public static void main(String[] args) throws Exception {
@@ -72,5 +76,81 @@ public class Day28_Ex2 {
 //    "人数/平均分/最高分/前 N 名"这些活儿，数据库一行 SQL 就能算完；
 //    如果你 SELECT * 全捞回 Java 再用循环统计，数据量一大（几十万行）就慢得离谱。
 //    口诀：**能在数据库算的，就别搬回内存算。**
+class Student{
+    public String name;
+    public int score;
+    public String className;
+    public Student(String name,int score,String className){
+        this.name=name;
+        this.score=score;
+        this.className=className;
+    }
+    @Override 
+    public String toString(){
+        return name+" "+score+" "+className;
+    }
+}
+class StudentUtils{
+    public static Student mapRow(ResultSet rs) throws SQLException{
+    return new Student(
+        rs.getString("name"),
+        rs.getInt("score"),
+        rs.getString("class_name") // 数据库列名！不是className
+    );
+}
+    public static  int countStudents(Connection conn)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT COUNT(*)FROM student")){
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()==false){
+                    return 0;
+                }
+                return rs.getInt(1);
+            }
+        }
+    }
+    public static double avgScore(Connection conn)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT AVG(score) FROM student")){
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()==false){
+                    return 0.0;
+                }
+                return rs.getDouble(1);
+            }
+        }
+    }
+    public static int maxScore(Connection conn)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT MAX(score) FROM student")){
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()==false){
+                    return 0;
+                }
+                return rs.getInt(1);
+            }
+        }
+    }
+    public static List<Student> topN(Connection conn,int n)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT name,score,class_name FROM student ORDER BY score DESC,name ASC LIMIT ? ")){
+            ps.setInt(1,n);
+            try(ResultSet rs=ps.executeQuery()){
+                List<Student> list=new ArrayList<>();
+                while(rs.next()){
+                    list.add(mapRow(rs));
+                }
+                return list;
+            }
+        }
+    }
+    public static Map<String,Integer>countByClass(Connection conn)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT class_name,COUNT(*) FROM student GROUP BY class_name ORDER BY COUNT(*) DESC,MIN(id)")){
+            try(ResultSet rs=ps.executeQuery()){
+                Map<String,Integer> map=new LinkedHashMap<>();
+                while(rs.next()){
+                    map.put(rs.getString("class_name"),rs.getInt("COUNT(*)"));
+                }
+                return map;
+            }
+        }
+    }
+}
 
 // ===========================

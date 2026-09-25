@@ -59,5 +59,68 @@ public class Day28_Ex1 {
 //    · 插入成功 → 1（插了 1 行）
 //    · 改名不存在的人 → 0（**这不是异常**，是"没改到任何一行"）
 //    · 项目里就是靠这个 0/1 判断"到底改没改到"，所以 DAO 方法**必须 return 它**
+class Student{
+    public String name;
+    public int score;
+    public String className;
+    public Student(String name,int score,String className){
+        this.name=name;
+        this.score=score;
+        this.className=className;
+    }
+    @Override 
+    public String toString(){
+        return name+" "+score+" "+className;
+    }
+}
+class StudentUtils{
+    public static Student mapRow(ResultSet rs)throws SQLException{
+        return  new Student(rs.getString("name"),rs.getInt("score"),rs.getString("class_name"));
+    }
+    public static Student findOne(Connection conn,String name)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT name,score,class_name FROM student WHERE name=?")){
+            ps.setString(1,name);
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()==false){
+                    return null;
+                }
+                return mapRow(rs);
+            }
+        }
+    }
+    public static int findId(Connection conn,String name)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT id FROM student WHERE name=?")){
+            ps.setString(1,name);
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()==false){
+                    return -1;
+                }
+                return rs.getInt("id");
+            }
+        }
 
+    }
+    public static  int insert(Connection conn,String name,int score,String cls)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("INSERT INTO student (name,score,class_name) VALUES(?,?,?)")){
+            ps.setString(1,name);
+            ps.setInt(2,score);
+            ps.setString(3,cls);
+            return ps.executeUpdate();
+        }
+    }
+    public static int updateScore(Connection conn,String name,int score)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("UPDATE student SET score=? WHERE name=?")){
+            ps.setInt(1,score);
+            ps.setString(2,name);
+            return ps.executeUpdate();
+        }
+    }
+    public static int deleteById(Connection conn,int id)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("DELETE FROM student WHERE id=?")){
+            ps.setInt(1,id);
+            return ps.executeUpdate();
+        }
+    }
+
+}
 // ===========================

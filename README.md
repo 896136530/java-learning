@@ -73,7 +73,7 @@ java-learning/
 | Day 25 | MySQL 基础（建库建表 / CRUD / 条件查询 / 分组聚合 / 多表 JOIN）| ✅ 批改 **Ex1~Ex5 全对**（Ex5 漏写的 ORDER BY + 别名已按用户要求代改并复验）；Review 未写 |
 | Day 26 | JDBC 实战·成绩管理系统 v1（PreparedStatement / ResultSet / 聚合下推 / LIMIT 参数化）| ✅ 批改 **Ex1~Ex5 全绿**（与期望逐字符一致 + 21 项刁钻用例全过；Ex5 的 TODO 注释被粘贴搅乱已代整理）；Review 未写 |
 | Day 27 | DAO 分层 + 事务（实体类 / mapRow / addBatch 批量 / setAutoCommit→commit→rollback）| ✅ 批改 **Ex1~Ex5 全绿**（MySQL 实测：Ex1 逐字符一致、Ex2 7→3→10 行、Ex3 修复 `rs.next()` 吃行后 4 人正确、Ex4 对账 5000 守恒、Ex5 五道防线 + 转账 200 成功且钱守恒；AI 代改机械错 5 处：Ex1 空格、Ex2 泛型空格、Ex4 `rs→rs1`+`throws`+删半成品块、Ex5 `throws`+表名 `Account`/`back_account`→`bank_account`）；Review 未写 |
-| Day 28 | DAO 收口 + 事务隔离级别 + 连接池（影响行数 / 聚合下推 / REPEATABLE READ / 手写迷你池 + 动态代理）| 🔄 已生成待练习（Ex1~Ex5 + Review + 知识点 + 标准答案；**参考答案已真机跑通校正**，纠出两处易错期望值：中文排序 `class_name` 会得到"三班在二班前"、代理壳之间 `==` 恒为 false）|
+| Day 28 | DAO 收口 + 事务隔离级别 + 连接池（影响行数 / 聚合下推 / REPEATABLE READ / 手写迷你池 + 动态代理）| ✅ 批改 **Ex1~Ex5 全绿**（MySQL 实测逐条对齐：Ex1 `7→8→7` + 改不存在的人返回 0、Ex2 `{一班=3, 二班=2, 三班=2}`、Ex3 隔离级别四场景全对（B 看不到未提交的 700）、Ex4 池 3→借空→第 4 个 null→还回复用、Ex5 新建 193ms vs 池化 60ms；**用户独立写对 Proxy 包壳并自己补了 import**）；AI 代改 1 处（Ex2 `return map;F` 多打的字母）；Review 未写；Ex2 平均分显示 `78.0`（main 里是 println 拼接，要 `printf("%.2f")` 才显示 `78.00`，机械细节未改）|
 
 ## 目标
 

@@ -73,5 +73,48 @@ public class Day28_Ex3 {
 //
 // ⚠️ 场景 2 里你会看到：A 未提交时自己看到 500，rollback 之后回到 700（场景 1 提交的值）。
 //    **"自己能看到自己没提交的改动，别人看不到"** —— 这就是事务隔离的最直观样子。
+class BalanceDao{
+    public static  int balanceOf(Connection conn,String owner)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("SELECT balance FROM bank_account WHERE owner = ?")){
+            ps.setString(1,owner);
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()==false){
+                    return -1;
+                }
+                return rs.getInt(1);
+            }
+        }
+        }
+    public static int updateBalance(Connection conn,String owner,int balance)throws SQLException{
+        try(PreparedStatement ps=conn.prepareStatement("UPDATE bank_account SET balance = ? WHERE owner = ?")){
+            ps.setInt(1,balance);
+            ps.setString(2,owner);
+            return ps.executeUpdate();
+    }
+}
+    public static void openTx(Connection conn)throws SQLException{
+        conn.setAutoCommit(false);
+    }
+    public static void commit(Connection conn)throws SQLException{
+        conn.commit();
+    }
+    public static void rollback(Connection conn)throws SQLException{
+        conn.rollback();
+    }
+    public static String levelName(int level){
+        switch(level){
+            case Connection.TRANSACTION_READ_UNCOMMITTED:
+                return "READ UNCOMMITTED（读未提交）";
+            case Connection.TRANSACTION_READ_COMMITTED:
+                return "READ COMMITTED（读已提交）";
+            case Connection.TRANSACTION_REPEATABLE_READ:
+                return "REPEATABLE READ（可重复读）";
+            case Connection.TRANSACTION_SERIALIZABLE:
+                return "SERIALIZABLE（串行化）";
+            default:
+                return "未知(" + level + ")";
+        }
+    }
+}
 
-// ===========================
+// ===========================  

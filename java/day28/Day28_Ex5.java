@@ -1,5 +1,6 @@
 import java.sql.*;
-
+import java.util.*;
+import java.lang.reflect.Proxy; 
 public class Day28_Ex5 {
     public static void main(String[] args) throws Exception {
         // 题 5：为什么真实项目不用 DriverManager 每回新建连接？（跑一跑就懂了）
@@ -75,5 +76,38 @@ public class Day28_Ex5 {
 //    · 每次 newConnection() 都要走一次 TCP 连接 + 握手 + 认证（几十毫秒级别）
 //    · 池子里的连接是**已连好的**，借出来直接能用（微秒级别）
 //    1000 个请求 × 每次新建连接 = 几十秒都在"建连接"上；用池子 → 忽略不计。
+class MiniPool{
+    private final List<Connection> idel=new ArrayList<>();
+    private final int size;
+    MiniPool(int size)throws SQLException{
+        this.size=size;
+        for(int i=0;i<size;i++){
+            idel.add(Db.newConnection());
+        }
+    }
+    public Connection getConnection(){
+        if(idel.isEmpty()){
+            return null;
+        }
+        Connection real=idel.remove(idel.size()-1); 
+        return (Connection)  Proxy.newProxyInstance(
+            Connection.class.getClassLoader(),
+            new Class<?>[]{Connection.class},
+            (proxy,method,args)->{
+                if(method.getName().equals("close")){
+                    this.close(real);
+                    return null;
+                }
+                return method.invoke(real,args);
+            }
+        );
+    }
+    public int size(){
+        return idel.size();
+    }
+    public void close(Connection real){
+        idel.add(real);
+    }
+}
 
 // ===========================

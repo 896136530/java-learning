@@ -1,6 +1,6 @@
 import java.sql.*;
 import java.util.*;
-
+import java.lang.reflect.Proxy; 
 public class Day28_Ex4 {
     public static void main(String[] args) throws Exception {
         // 题 4：手写迷你连接池——搞懂"池"到底池了什么
@@ -107,5 +107,38 @@ public class Day28_Ex4 {
 //    ② 后面拿它执行 SQL 会报错：
 //       java.sql.SQLException: No operations allowed after connection closed.
 //    —— 所以"还回池子"这件事，只能靠包壳把 close() 换掉。这就是 Ex4 存在的全部理由。
+class MiniPool{
+    private final List<Connection> idel=new ArrayList<>();
+    private final int size;
+    MiniPool(int size)throws SQLException{
+        this.size=size;
+        for(int i=0;i<size;i++){
+            idel.add(Db.newConnection());
+        }
+    }
+    public Connection getConnection(){
+        if(idel.isEmpty()){
+            return null;
+        }
+        Connection real=idel.remove(idel.size()-1); 
+        return (Connection)  Proxy.newProxyInstance(
+            Connection.class.getClassLoader(),
+            new Class<?>[]{Connection.class},
+            (proxy,method,args)->{
+                if(method.getName().equals("close")){
+                    this.close(real);
+                    return null;
+                }
+                return method.invoke(real,args);
+            }
+        );
+    }
+    public int size(){
+        return idel.size();
+    }
+    public void close(Connection real){
+        idel.add(real);
+    }
+}
 
 // ===========================
