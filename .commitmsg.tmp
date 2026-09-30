@@ -1,0 +1,24 @@
+Day29 排错：修 运行Maven.bat 缺编译预检 + 修正驱动版本期望值
+
+用户第一天做 Maven 就报 "An exception occurred while executing the Java class.
+ex1.HelloMaven"，真身是 ClassNotFoundException —— 因为 mvn compile 就没过，target/classes 是空的。
+
+我的三处锅（已修）：
+1) 运行Maven.bat 原来只跑 exec:java、没有 mvn compile：
+   现在内置编译预检，失败时打印"最常见的三种编译错"提示并停下，
+   用户不会再看到那句没头没尾的异常
+2) ex1.HelloMaven.main 加 try/catch(SQLException)：连不上库时明确提示
+   "❌ 连不上数据库 + 怎么启动 MySQL"
+3) 知识点.md 新增第 9 节"一句话报错排错实战"：
+   mvn compile -> mvn exec:java -> mvn dependency:tree 三步法
+   + "找不到符号是类型名=缺 import / 是方法名=没写或拼错"的口诀
+
+期望值修正（第 7 次写错，本次最隐蔽）：
+首次验证 Ex1 我用 java -cp "target/classes;day21/lib/xxx.jar" 自己拼 classpath，
+混进旧驱动导致 getDriverVersion() 报 8.0.33，被我误当成"驱动内部版本属正常"写进模板；
+用 mvn exec:java 重跑是 8.4.0。教训：验证必须用用户实际会用的那条命令。
+
+用户代码状态：
+- Ex1 getUrl 写法正确，已真机跑通（临时挪开未写的 Ex2/Ex3 后 mvn compile + exec:java，13 行输出全对）
+- 代加 import java.sql.Connection/SQLException（机械错：写了方法忘 import）
+- Ex2 getDriverClass() / Ex3 loadFromClasspath() 属 TODO，未代写（只指路）
