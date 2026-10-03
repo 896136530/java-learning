@@ -1,43 +1,17 @@
-Day29 批改（Ex1~Ex5 全绿 + 发货成功）+ 生成 Day30 SpringBoot 上手
+补 Day29 的 Maven格式速查卡.md（用户反馈"过了但不知道 Maven 的格式"）
 
-## Day29 批改结果（真机实测）
+用户原话："我才发现我给29天过了我还不知道Maven的格式" —— 反馈很准：
+Day29 的 5 道题是"在 Maven 里写 Java 代码"，格式是散在各题里的，没有被正式收拢过。
 
-- Ex1 ✅ 驱动 8.4.0（与 pom 一致）+ SELECT 1 = 1
-- Ex2 ✅ jar 2533399 字节（用户自己补了 main 里的打印）
-- Ex3 ✅ 读到 4 行（用户删回去了 db.timeout，代码与文件一致）
-- Ex4 ✅ 瘦 16906 / 胖 4447423 字节；瘦 jar 报"没有主清单属性"
-  · 观察记录 5 条：②报错原文完全正确；①③④⑤方向对但表述要精确化，已批注
-  · ④单位算错（写 4344kb，实为 4343.2 KB）→ 批注"以后一律抄字节数"
-- Ex5 ✅ 5 本 577.5 元 + 录入新书后 6 本
-- **java -jar 发货成功**：用户把 mainClass 改成 ex5.BookApp 后重打，跑出小书店
+所以补一份速查卡（java/day29/Maven格式速查卡.md），八节：
+1. 标准目录结构 + 三条铁律（.java 位置 / resources 位置 / 包名=文件夹路径）
+2. pom.xml 骨架 6 块（GAV / properties / dependencies / build-plugins）
+3. Maven 的三个身份（包管理 + 项目规范 + 构建工具）
+4. 命令速查 8 个 + 生命周期三步
+5. ⭐ 核心技能：把普通 Java 项目改造成 Maven 项目的五步
+6. 报错对照表 8 条（含"An exception occurred...exec:java 真身是编译没过"）
+7. 自检清单
+8. 三个自测题（包名怎么定 / 20 个项目要不要下 20 次驱动 / 升级版本改几处）
 
-## 我修的（我的锅）
-
-1. 修正第 8 次写错的期望值：Ex5 库存总价值 580.5 -> 577.5（算式本身算错），共 10 处
-2. Day29 漏了 Review 题 -> 补 ex5/ReviewThen.java（4 个 TODO，空壳版已验证不影响构建）
-3. 用户两次"pom.xml 改不了"的根因：系统把 .xml 关联到 Edge（UserChoice=MSEdgeHTM），
-   双击变网页预览；已教 Open With -> Text Editor
-4. tempCodeRunnerFile.java 第三次出现（这次落在 src 里导致打包失败）：
-   已删 + 运行Maven.bat 增加"运行前自动清理 src 下所有 tempCodeRunnerFile.*"
-
-## Day30 生成（SpringBoot 上手）
-
-java/day30/：1 个项目 + 8 道题（3 观察 + 5 TODO）+ 知识点 + 标准答案 + 运行SpringBoot.bat
-
-全部真机验证（SpringBoot 3.3.5）：
-- mvn package 94 秒 -> jar 47,528,445 字节（约 45.3 MB，比 Day29 胖 jar 大 10 倍，教学点）
-- java -jar 21.63 秒起，Tomcat 8080
-- 10 个接口实测：/ping ok、/tasks 8 条、?day=3 2 条、/done 5 条、
-  /tasks/999 = 200+0字节（TODO③ 未写）、/tasks/report rate 0.0（TODO② 未写）、
-  /tasks/todo?day=5 = 400（TODO① 未写）、/abc 404、/h2-console 200
-- 建表 SQL 已抄录（dayNo -> day_no 映射正确）
-
-## 环境（今天两次"改不动的文件"引出的）
-
-- mvn 不在 PATH -> 建 C:\Users\89613\bin\mvn.bat + 加进用户 PATH（永久）
-- MySQL84 服务 net start 需管理员 -> 改用当前用户身份起 mysqld；写了 java/启动MySQL.bat
-- 直连 central 只有 4~16 KB/s -> 建 C:\Users\89613\.m2\settings.xml 走阿里云（747 KB/s）
-- 踩坑记录：Start-Process 传含空格路径会拆开；Invoke-WebRequest 把 UTF-8 当 Latin-1；
-  DataInitializer 的 System.out 不进启动日志（改 log.info）
-
-同步更新：README.md（Day29/30 行 + java 线目录）、任务生成规范.md、.gitignore
+"改造五步"已实测验证：临时建 demo 包 + resources/msg.txt + 极简 pom，
+mvn compile exit=0、exec:java 跑通、resources 文件确实被自动复制进 target/classes。
