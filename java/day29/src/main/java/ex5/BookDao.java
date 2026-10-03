@@ -39,26 +39,50 @@ public class BookDao {
     public static int insert(Connection conn, Book b) throws SQLException {
         // TODO① ：INSERT INTO book (title, author, price, stock) VALUES (?, ?, ?, ?)
         //         setString/setString/setDouble/setInt → return executeUpdate()
-        return 0;
+        try(PreparedStatement ps = conn.prepareStatement(
+                "INSERT INTO book (title, author, price, stock) VALUES (?, ?, ?, ?)")) {
+            ps.setString(1, b.title);
+            ps.setString(2, b.author);
+            ps.setDouble(3, b.price);   
+            ps.setInt(4, b.stock);
+            return ps.executeUpdate();
+        }
     }
 
     /** 总数 → SELECT COUNT(*) FROM book */
     public static int count(Connection conn) throws SQLException {
         // TODO② ：参考 Day28 Ex2 的 countStudents
-        return 0;
+        try(Statement st = conn.createStatement()) {
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM book");
+            rs.next();
+            return rs.getInt(1);
+        }
     }
 
     /** 按作者查书 → SELECT id, title, author, price, stock FROM book WHERE author = ? ORDER BY id */
     public static List<Book> findByAuthor(Connection conn, String author) throws SQLException {
         // TODO③ ：逐行 mapRow（下面给你写好了）塞进 List；查不到返回**空 List**
-        return new ArrayList<>();
+        try(PreparedStatement ps = conn.prepareStatement(
+                "SELECT id, title, author, price, stock FROM book WHERE author = ? ORDER BY id")) {
+            ps.setString(1, author);
+            ResultSet rs = ps.executeQuery();
+            List<Book> books = new ArrayList<>();
+            while(rs.next()) {
+                books.add(mapRow(rs));
+            }
+            return books;
+        }
     }
 
     /** 库存总价值 → SELECT SUM(price * stock) FROM book */
     public static double totalValue(Connection conn) throws SQLException {
         // TODO④ ：聚合下推（Day28 学过：能让数据库算的别搬回 Java 算）
         //          💡 注意：如果表里一行都没有，SUM 返回 NULL，getDouble 会给你 0.0 —— 正好
-        return 0.0;
+        try(Statement st = conn.createStatement()) {
+            ResultSet rs = st.executeQuery("SELECT SUM(price * stock) FROM book");
+            rs.next();
+            return rs.getDouble(1);
+        }
     }
 
     /** 全部书 → SELECT id, title, author, price, stock FROM book ORDER BY id */
@@ -66,7 +90,16 @@ public class BookDao {
         // TODO⑤ ：和 TODO③ 几乎一样，只是去掉 WHERE
         //          💡 想偷懒？把 findByAuthor(conn, null) 里判空走全量也行 —— 但**那是不好的设计**，
         //             一个方法干两件事，以后没人看得懂。老老实实写两段（重复三行代码，换清晰）
-        return new ArrayList<>();
+        //          💡 用 PreparedStatement 是为了防止 SQL 注入，不是为了效率
+        try(PreparedStatement ps = conn.prepareStatement(
+                "SELECT id, title, author, price, stock FROM book ORDER BY id")) {
+            ResultSet rs = ps.executeQuery();
+            List<Book> books = new ArrayList<>();
+            while(rs.next()) {
+                books.add(mapRow(rs));
+            }
+            return books;
+        }
     }
 
     /** 把结果集当前行变成 Book（已写好，别改） */

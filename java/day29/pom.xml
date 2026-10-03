@@ -37,7 +37,7 @@
 
   <build>
     <plugins>
-      <!-- ③-a 直接运行某个类：mvn exec:java -Dexec.mainClass=ex1.HelloMaven -->
+      <!-- ③-a 直接运行某个类：mvn exec:java -Dexec.mainClass=ex5.BookApp -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -56,7 +56,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ex1.HelloMaven</mainClass>
+                  <mainClass>ex5.BookApp</mainClass>
                 </transformer>
               </transformers>
             </configuration>

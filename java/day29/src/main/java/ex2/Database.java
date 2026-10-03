@@ -51,7 +51,30 @@ public class Database {
         System.out.println("jar 文件     ：mysql-connector-j-8.4.0.jar");
         System.out.println("👉 记住这条路径的形状：group/artifact/version/");
         System.out.println("   com.mysql / mysql-connector-j / 8.4.0 —— 正好就是 pom.xml 里三行的倒序！");
+        System.out.println("jar 大小     ：" + jarSize() + " 字节");
     }
+
+    // ===== 下面两个方法是【空壳】：先保证项目能编译（Maven 编译整个项目，一题没写完大家都跑不了）
+    //       ⭐ 你的任务就是把这两个空壳里的内容换掉 —— 见最下面的 TODO 提示 =====
+
+    static String getDriverClass() {
+        return "com.mysql.cj.jdbc.Driver";                    // TODO ① ：return "com.mysql.cj.jdbc.Driver";
+    }
+
+    static long jarSize() throws Exception {
+        // ⭐ 关键：不能写 repo —— 那是 main 方法里的【局部变量】，别的方法看不见！
+        //    方法只能看到三样东西：① 自己方法体里的变量 ② 类的成员（字段/方法） ③ 传进来的参数
+        //    所以这里要么自己算一遍，要么把 repo 提到类级别当字段（见下面 :: 注释）
+        String repo = System.getProperty("user.home") + "\\.m2\\repository";
+        return new java.io.File(repo + "\\com\\mysql\\mysql-connector-j\\8.4.0\\mysql-connector-j-8.4.0.jar").length();
+    }
+
+    // :: 进阶写法（把路径提成类的字段，两个方法共用一份）：把下面两行的注释去掉，
+    //    再把 main 里那行 String repo = ... 删掉、jarSize 里的 String repo = ... 也删掉，
+    //    就变成"成员字段"了 —— 字段全类可见，这正是"提成字段"要解决的问题。
+    //
+    // static final String REPO = System.getProperty("user.home") + "\\.m2\\repository";
+    // static final String JAR = REPO + "\\com\\mysql\\mysql-connector-j\\8.4.0\\mysql-connector-j-8.4.0.jar";
 
     // ===== TODO（你写）=====
     //
@@ -59,7 +82,7 @@ public class Database {
     //      → 直接 return "com.mysql.cj.jdbc.Driver";
     //      💡 写死字符串看起来"很傻"——但这正是你不会写 pom.xml 的代价：
     //         在真实项目里，这个类名由依赖包提供，你只需要在 pom.xml 里写 GAV，代码里连类名都不用写
-    //         （Spring Boot 之后连 Class.forName 都不需要了）
+    //          （Spring Boot 之后连 Class.forName 都不需要了）
     //
     // ② static long jarSize() throws Exception
     //      → 用 java.io.File 指向上面的 jar 路径，return 它的 length()（文件大小，字节）

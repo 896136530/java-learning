@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Day 30：SpringBoot 上手 —— 这是你第一个 SpringBoot 项目的 pom.xml
+
+  ⭐ 对比 Day29 的 pom.xml，你会发现最重要的变化：
+     Day29：你**手动**声明每个依赖（mysql 驱动），手动配 exec/shade 插件
+     Day30：你声明一个 **parent**（spring-boot-starter-parent），
+            然后依赖只写"我要用什么能力"（starter），版本号**全都不用写**！
+            → 这就是"约定优于配置"：SpringBoot 帮你把版本对齐好了
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- ① parent：继承 SpringBoot 的"默认配置 + 版本管理"（Day29 没有这个） -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.5</version>
+    <relativePath/>
+  </parent>
+
+  <!-- ② GAV：和 Day29 一模一样的三行（说明"Maven 项目"这个身份没变） -->
+  <groupId>com.xiaoming</groupId>
+  <artifactId>day30-springboot</artifactId>
+  <version>1.0</version>
+  <name>day30-springboot</name>
+  <description>Day30：SpringBoot 上手（第一个 Web 项目）</description>
+
+  <properties>
+    <java.version>21</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- ⭐ 让 javac 把参数名保留到字节码里：Spring 靠它绑定 @RequestParam 的名字 -->
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+  </properties>
+
+  <dependencies>
+    <!-- ③-a starter：一个依赖 = 一整套能力。
+         spring-boot-starter-web 里面装着：SpringMVC + 内嵌 Tomcat + Jackson(JSON) ...
+         注意：**没有版本号** —— parent 已经管好了 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- ③-b 数据访问：JPA（自动帮你写 SQL）+ H2（一个不用安装、纯 Java 的数据库） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- ③-c 测试（Day31 会用；先放着，不影响运行） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- ④ ⭐ 这个插件 = Day29 那个 shade 插件的"官方升级版"
+           它同样把依赖打进 jar，但还会自动写好 Main-Class、把类挪到 BOOT-INF/ 里
+           （SpringBoot 专用的可执行 jar 布局） -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

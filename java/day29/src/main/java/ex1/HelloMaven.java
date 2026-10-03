@@ -33,6 +33,12 @@ import tool.Db;
  *   这个项目里没有 lib/ 目录，也没有任何 -cp 参数 —— 驱动是 Maven 从本地仓库自动送来的。
  *   本地仓库位置：C:\Users\89613\.m2\repository\com\mysql\mysql-connector-j\8.4.0\
  *
+ * ⭐⭐ 最重要的一个 Maven 规则（2026-09-26 你真踩到了）：
+ *    **`mvn exec:java` 之前必须先编译，而 Maven 编译的是 `src/main/java` 下的【所有 .java 文件】。**
+ *    所以只要**任何一题**里还有没写完的方法（编译不过），**整个项目都跑不起来**——
+ *    你跑 Ex1 会看到 `ClassNotFoundException: ex1.HelloMaven`，它跟 Ex1 本身一点关系都没有。
+ *    这就是为什么"没写的 TODO"也必须留一个只返回默认值的方法骨架（空壳），不能整个删掉。
+ *
  * ⚠️ 踩坑记录（我生成时踩过，你要知道）：
  *    如果你看到"驱动内部版本"显示 **8.0.33**，那说明你的 classpath 里混进了 **day21/lib 里那个旧驱动**——
  *    用 `mvn exec:java` 跑就该是 8.4.0（.m2 仓库里那个）。**版本号显示异常 = 依赖来源不对**，

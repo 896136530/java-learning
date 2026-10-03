@@ -40,7 +40,7 @@ public class ConfigLoader {
         System.out.println("--- 用【类路径】读（正确姿势）---");
         String content = loadFromClasspath("db.properties");
         String[] lines = content.strip().split("\n");
-        System.out.println("读到 " + lines.length + " 行，内容：");
+        System.out.println("读到 " + countLines(content) + " 行，内容：");
         for (String line : lines) {
             if (!line.startsWith("#")) {          // 注释行（# 开头）跳过
                 System.out.println("  " + line.strip());
@@ -58,6 +58,24 @@ public class ConfigLoader {
         System.out.println("===== 一句话总结 =====");
         System.out.println("跟着代码走的文件（配置/模板）→ 放 resources、用类路径读");
         System.out.println("用户数据文件（账本.txt/导出.csv）→ 用磁盘路径读");
+    }
+
+    // ===== 下面两个方法是【空壳】：先保证项目能编译（Maven 编译整个项目，一题没写完大家都跑不了）
+    //       ⭐ 你的任务就是把这两个空壳里的内容换掉 —— 见最下面的 TODO 提示 =====
+
+    static String loadFromClasspath(String name) {
+        return Hold.readResource(name);                    // TODO ① ：return Hold.readResource(name);   （一行就够）
+    }
+
+    static int countLines(String content) {
+                int count=0;
+                for(String line:content.split("\n")){
+            String trimmedLine=line.strip();
+               if(!trimmedLine.startsWith("#")&&!trimmedLine.isEmpty()){          // 注释行（# 开头）跳过，空行跳过
+                        count++;
+                    }
+            }
+                return count;                     // TODO ② ：数有效行（跳过 # 注释和空行）
     }
 
     // ===== TODO（你写）=====

@@ -18,8 +18,9 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day27/` | 每天：知识点 → 练习题 → 标准答案 |
+| `day1~day30/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven、day30 = SpringBoot 已生成待练习**）|
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+删除+防崩 ✅ 已验收（A~D 四处全过）/ Step3 持久化 🔄 已生成待做（`Step3_记账本.java` + `Step3任务书.md` + `Step3标准答案.md`）|
+| `启动MySQL.bat` | 🔧 一键起 MySQL 8.4.5（Day29 之后常用；不需管理员，自动探活 + 等就绪）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
 
 ## 📌 蓝桥杯线（`lanqiao/`）
@@ -75,7 +76,8 @@ java-learning/
 | Day 26 | JDBC 实战·成绩管理系统 v1（PreparedStatement / ResultSet / 聚合下推 / LIMIT 参数化）| ✅ 批改 **Ex1~Ex5 全绿**（与期望逐字符一致 + 21 项刁钻用例全过；Ex5 的 TODO 注释被粘贴搅乱已代整理）；Review 未写 |
 | Day 27 | DAO 分层 + 事务（实体类 / mapRow / addBatch 批量 / setAutoCommit→commit→rollback）| ✅ 批改 **Ex1~Ex5 全绿**（MySQL 实测：Ex1 逐字符一致、Ex2 7→3→10 行、Ex3 修复 `rs.next()` 吃行后 4 人正确、Ex4 对账 5000 守恒、Ex5 五道防线 + 转账 200 成功且钱守恒；AI 代改机械错 5 处：Ex1 空格、Ex2 泛型空格、Ex4 `rs→rs1`+`throws`+删半成品块、Ex5 `throws`+表名 `Account`/`back_account`→`bank_account`）；Review 未写 |
 | Day 28 | DAO 收口 + 事务隔离级别 + 连接池（影响行数 / 聚合下推 / REPEATABLE READ / 手写迷你池 + 动态代理）| ✅ 批改 **Ex1~Ex5 全绿**（MySQL 实测逐条对齐：Ex1 `7→8→7` + 改不存在的人返回 0、Ex2 `{一班=3, 二班=2, 三班=2}`、Ex3 隔离级别四场景全对（B 看不到未提交的 700）、Ex4 池 3→借空→第 4 个 null→还回复用、Ex5 新建 193ms vs 池化 60ms；**用户独立写对 Proxy 包壳并自己补了 import**）；AI 代改 1 处（Ex2 `return map;F` 多打的字母）；Review 未写；Ex2 平均分显示 `78.0`（main 里是 println 拼接，要 `printf("%.2f")` 才显示 `78.00`，机械细节未改）|
-| Day 29 | **Maven 与项目结构**（pom.xml / GAV / 本地仓库 / 标准目录 / 生命周期 / 瘦 jar vs 胖 jar / 类路径读配置）| 🔄 已生成待练习（Maven 项目 5 题 + 知识点 + 标准答案；**全部真机跑通**：Maven 3.9.15 用 VS Code Oracle Java 扩展自带的，首次构建从中央仓库下载驱动成功，瘦 jar 17.7 KB → shade 胖 jar 4.45 MB 且 `java -jar` 免 `-cp` 跑通；`运行Maven.bat` 一键起 MySQL + 选题目）|
+| Day 29 | **Maven 与项目结构**（pom.xml / GAV / 本地仓库 / 标准目录 / 生命周期 / 瘦 jar vs 胖 jar / 类路径读配置）| ✅ 批改 **Ex1~Ex5 全绿 + Ex4 观察记录 5 条**（真机实测：Ex1 驱动 8.4.0 + `SELECT 1 = 1 ✅`、Ex2 jar 2533399 字节、Ex3 读到 4 行、Ex4 瘦 16906 / 胖 4447423 字节且瘦 jar 报"没有主清单属性"、Ex5 5 本 577.5 元 + 录入后 6 本；`java -jar` 发货成功跑出小书店）；**新增 Review 题 `ReviewThen.java`**（AI 补的，待写）；AI 代改 2 处（`import java.sql.SQLException`、`jarSize()` 里 `repo` 作用域）+ 修正期望值 8 处（580.5→577.5）；Review 未写 |
+| Day 30 | **SpringBoot 上手**（start.spring.io 同款结构 / starter + parent / 内嵌 Tomcat / REST 接口 / JPA 一行 DAO / H2 内嵌库 / 可执行 jar 45 MB）| 🔄 已生成待练习（1 个项目 + 8 道题（3 观察 + 5 TODO）+ 知识点 + 标准答案；**全部真机跑通**：SpringBoot 3.3.5，`mvn package` 94 秒（换阿里云镜像后）→ jar **47,528,445 字节**，`java -jar` 21.63 秒起，10 个接口全部实测（`/tasks` 8 条、`?day=3` 2 条、`/done` 5 条、`/ping` ok、`/abc` 404、`/h2-console` 200）；`运行SpringBoot.bat` 带端口占用预检）|
 
 ## 目标
 
