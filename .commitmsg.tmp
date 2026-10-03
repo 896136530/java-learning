@@ -1,17 +1,9 @@
-补 Day29 的 Maven格式速查卡.md（用户反馈"过了但不知道 Maven 的格式"）
+Day30 知识点补 package 声明铁律（Maven 格式里唯一漏讲的一条）
 
-用户原话："我才发现我给29天过了我还不知道Maven的格式" —— 反馈很准：
-Day29 的 5 道题是"在 Maven 里写 Java 代码"，格式是散在各题里的，没有被正式收拢过。
+用户原话："所以这个速查卡看不看都行明天也会讲" —— 判断正确，速查卡确实大部分能在 Day30 顺带学到。
+但复查发现：Day30 会带到目录分层/GAV/dependency/mvn 命令，**却唯独没讲 `package` 声明这条**，
+而 Day30 每个文件首行都有 `package com.xiaoming.day30...;` —— 属于我知识点的漏，已补进去：
 
-所以补一份速查卡（java/day29/Maven格式速查卡.md），八节：
-1. 标准目录结构 + 三条铁律（.java 位置 / resources 位置 / 包名=文件夹路径）
-2. pom.xml 骨架 6 块（GAV / properties / dependencies / build-plugins）
-3. Maven 的三个身份（包管理 + 项目规范 + 构建工具）
-4. 命令速查 8 个 + 生命周期三步
-5. ⭐ 核心技能：把普通 Java 项目改造成 Maven 项目的五步
-6. 报错对照表 8 条（含"An exception occurred...exec:java 真身是编译没过"）
-7. 自检清单
-8. 三个自测题（包名怎么定 / 20 个项目要不要下 20 次驱动 / 升级版本改几处）
-
-"改造五步"已实测验证：临时建 demo 包 + resources/msg.txt + 极简 pom，
-mvn compile exit=0、exec:java 跑通、resources 文件确实被自动复制进 target/classes。
+- 包名 = 文件夹路径，一个字母不能差
+- 三种情况对照（一致 ✅ / 写错文件夹 ❌ 编译报错 / 完全不写 -> 别的类 import 不到、SpringBoot 扫不到）
+- 点出 Day29 的 ex1/HelloMaven.java 首行就是 package ex1;，只是当时没点明这条规则
