@@ -61,6 +61,39 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!-- ============================================================
+         TODO⑥（附加题）：pom 里加依赖 → 代码里用起来
+
+         ⭐ 先"读"下面这三行 —— 这就是"往 pom 加依赖"的全部内容：
+
+              <groupId>org.apache.commons</groupId>     ← 谁做的
+              <artifactId>commons-lang3</artifactId>    ← 叫什么
+              <version>3.14.0</version>                 ← 哪个版本
+
+         📌 三行怎么读 = Maven 拿它去拼 jar 的路径：
+              .m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar
+              └── groupId 点变斜杠 ──┘ └ artifactId ┘ └version┘
+
+         ⚠️ 第三方包**必须自己写 version**。SpringBoot 自家的包不用写，
+            是因为 parent 里登记过；第三方包少写 version → 构建直接失败：
+              'dependencies.dependency.version' for org.apache.commons:commons-lang3:jar is missing
+
+         你要做的只有两件（pom 不用改了，已经写好）：
+           ① TaskController 里 import StringUtils（包名自己拼：org.apache.commons.lang3.???）
+           ② 把 8 个任务标题拼成一个长串，用 StringUtils.length(...) 数总字数，
+              放进 /tasks/report 的 "totalChars" 字段
+
+         验证：
+           运行SpringBoot.bat 选 5   → 依赖树里能看到 commons-lang3:3.14.0
+           mvn package && java -jar  → 47 MB 的 jar 里多了它
+           /tasks/report             → 多出 "totalChars": 那个数字
+         ============================================================ -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.14.0</version>
+    </dependency>
   </dependencies>
 
   <build>

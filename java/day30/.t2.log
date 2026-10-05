@@ -1,0 +1,16 @@
+[INFO] Scanning for projects...
+[ERROR] [ERROR] Some problems were encountered while processing the POMs:
+[ERROR] 'dependencies.dependency.artifactId' for ÇëÌîgroupId:ÇëÌîartifactId:jar with value 'ÇëÌîartifactId' does not match a valid id pattern. @ line 93, column 19
+[ERROR] 'dependencies.dependency.groupId' for ÇëÌîgroupId:ÇëÌîartifactId:jar with value 'ÇëÌîgroupId' does not match a valid id pattern. @ line 92, column 16
+ @ 
+[ERROR] The build could not read 1 project -> [Help 1]
+[ERROR]   
+[ERROR]   The project com.xiaoming:day30-springboot:1.0 (C:\Users\89613\Desktop\ĞÂ½¨ÎÄ¼ş¼Ğ (2)\java\day30\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.artifactId' for ÇëÌîgroupId:ÇëÌîartifactId:jar with value 'ÇëÌîartifactId' does not match a valid id pattern. @ line 93, column 19
+[ERROR]     'dependencies.dependency.groupId' for ÇëÌîgroupId:ÇëÌîartifactId:jar with value 'ÇëÌîgroupId' does not match a valid id pattern. @ line 92, column 16
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException

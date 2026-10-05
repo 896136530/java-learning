@@ -109,6 +109,14 @@ public class TaskController {
         //    然后把那个字段 put 进 result，键名叫 "appName"
         // result.put("appName", appName);
 
+        // ⭐ TODO⑥（附加题）：用 pom 里刚加的 commons-lang3 数"所有标题的总字数"
+        //    ① 先在文件顶部 import org.apache.commons.lang3.???;（包名自己拼）
+        //    ② 拿到所有任务，把标题拼成一个长字符串
+        //       提示：taskRepository.findAll()  →  遍历/stream 取 getTitle()  →  拼起来
+        //    ③ 用 StringUtils.length(那个长串) 数长度，put 进 result，键名 "totalChars"
+        //    期望：自己跑出来看那个数字（8 个标题加起来）
+        // result.put("totalChars", ？？？);
+
         return result;
     }
 

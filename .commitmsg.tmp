@@ -1,14 +1,19 @@
-Day30 练习题按"做题顺序"重排（用户反馈"没有标题号，不知道哪个是1,2,3"）
+Day30 加 TODO⑥：pom 加依赖 + 代码里用起来（用户："pom 需要自己手写，你帮我写好让我练习"）
 
-问题：题号 1~8 是按知识点顺序排的，正文里题号跳来跳去（题4在题3前面做），看着很乱。
+用户的判断对一半：真实项目里也没人手写 SpringBoot 的 pom（都是 start.spring.io 生成后往里加），
+所以真正要练的是"加依赖 + 在代码里用起来"，不是从零默写。据此加了一道附加题。
 
-改法：整个文件按"从头往下做"的顺序重写
-- 标题统一成「第 N 步」：第1步准备 -> 第2步启动日志 -> 第3步 H2控制台 ->
-  第4步 show-sql -> 第5步 完成率 -> 第6步 新增接口 -> 第7步 @Value ->
-  第8步 查不到(思考) -> 第9步 魔法方法名+新接口 -> 验收(打包发货)
-- 顶部加「总览：8步+1个验收」表，带预估时间和勾选框
-- 第9步拆成 9a 先加 Repository 方法 / 9b 再加 Controller 接口（顺序不能反）
-- 观察记录的四个小节也改成「第 N 步：...」，和正文一一对应
-- 每步都标了对应的 TODO②④⑤③①，方便和代码里的 TODO 对上号
+- pom.xml：加 commons-lang3:3.14.0（真实坐标，让用户【读】而不是【填】——
+  之前试过留空壳 <dependency>，结果 Maven 直接拒绝构建：
+  'dependencies.dependency.artifactId' for ::jar is missing，反而添乱）
+  · 注释里讲清三行怎么读（groupId 点变斜杠拼出 .m2 路径）
+  · 讲清第三方包必须写 version（SpringBoot 自家的不用，因为 parent 登记过）
+- TaskController.report()：加 TODO⑥ 注释（import StringUtils + 拼标题 + length）
+- 标准答案.md：补 TODO⑥ 答案与批改口径
+  · ⭐ totalChars = 91（手算 + java StringUtils.length 真机双确认，不再手算）
+  · 导入路径必须是 org.apache.commons.lang3（少 3 = 程序包不存在，联动 version 知识点）
+  · StringUtils.length 是 null 安全的
+  · 这题算附加分
+- 练习题和代码题目.md：总览改成 10 步 + 验收，新增「第 10 步（附加题）」
 
-现在打开文件从上往下做即可，不需要跳来跳去。
+真机验证：mvn compile BUILD SUCCESS，commons-lang3-3.14.0.jar 已下到 .m2（657,952 字节）
