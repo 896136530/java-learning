@@ -1,0 +1,42 @@
+Day30 批改完成：5/5 TODO 全绿 + 观察记录补齐 + 修 .properties 中文乱码
+
+## 用户完成情况（全部真机验证）
+
+| TODO | 用户写的 | 实测 |
+|---|---|---|
+| ① findByDayNoAndDone + /tasks/todo?day=5 | day 5 未完成 | 返回 1 条（记账本 Step3）✅ |
+| ② 完成率 | Math.round((double) finished / total * 1000) / 10.0 | 62.5 ✅ |
+| ③ 查不到（观察题） | 现象+想法 | /tasks/999 = 200 + 0 字节 ✅ |
+| ④ 新增接口 | return taskRepository.save(task) | {"id":9,...}，/tasks 变 9 条 ✅ |
+| ⑤ @Value 读配置 | @Value("${app.name:未配置}") | appName 正确 ✅ |
+| ⑥（附加）pom 依赖 | stream + Task::getTitle + Collectors.joining("") + StringUtils.length | totalChars = 91 ✅✅ |
+
+打包：BUILD SUCCESS，jar 48,188,284 字节（比加依赖前大 640 KB）
+
+## ⭐ 今天最大的收获：发现一个真 bug
+
+.properties 里直接写中文 → 接口返回乱码 "æçå¦ä¹ å©æ"。
+根因（真机对比同一个文件）：
+  Properties.load(InputStream)  默认 ISO-8859-1 → 乱码
+  Properties.load(Reader=UTF-8)               → 正确
+-Dspring.config.file-encoding=UTF-8 试过，没救回来。
+已改成标准解法 app.name=\u6211\u7684\u5b66\u4e60\u52a9\u624b，实测字节 e68891e79a84e5ada6e4b9a0e58aa9e6898b ✅
+知识点.md 新增 6.5 节记录此坑；标准答案.md 加批改口径。
+
+## 我代改的机械/格式错（按规矩：逻辑错只指路）
+
+1. TaskRepository：findByDayNoAndDone 那行原来"注释版答案"和真代码重复，且真代码后面挂着
+   "取消注释即可（这是答案）"的注释 —— 删掉重复行和误导注释
+2. TaskController：@GetMapping("todo") → @GetMapping("/todo")，并把方法从文件最底部
+   （"送分观察题"注释块之后）挪到 done() 旁边
+3. TaskController：TODO⑥ 代码顶格 → 缩进对齐；删掉两行调试用 System.out.println
+
+## 补的内容
+
+- 练习题和代码题目.md：观察记录 4 块全部补齐（启动日志/SQL/GROUP BY/999现象），
+  TODO 完成情况与自检清单全部打勾
+
+## 批改结论
+
+Day30 通过 ✅（含附加题 6/6）。用户对 5 步答案的描述有两处可精确化（Hibernate vs Spring、
+JpaRepository 名字），已在对话中指出。

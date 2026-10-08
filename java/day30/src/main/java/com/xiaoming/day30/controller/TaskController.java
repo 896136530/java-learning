@@ -3,6 +3,7 @@ package com.xiaoming.day30.controller;
 import com.xiaoming.day30.entity.Task;
 import com.xiaoming.day30.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang3.StringUtils;
+import java.util.stream.Collectors;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +61,8 @@ public class TaskController {
      */
     @Autowired
     private TaskRepository taskRepository;
+    @Value("${app.name:未配置}")
+    private String appName;
 
     /** ① 所有任务 → GET /tasks */
     @GetMapping
@@ -75,6 +80,12 @@ public class TaskController {
     @GetMapping("/done")
     public List<Task> done() {
         return taskRepository.findByDone(Boolean.TRUE);
+    }
+
+    /** ③-b 某一天里"未完成"的任务 → GET /tasks/todo?day=5（TODO①） */
+    @GetMapping("/todo")
+    public List<Task> todo(@RequestParam("day") Integer day) {
+        return taskRepository.findByDayNoAndDone(day, Boolean.FALSE);
     }
 
     /** ④ 某一个任务 → GET /tasks/3 */
@@ -96,6 +107,9 @@ public class TaskController {
         //    提示：total 为 0 时要避免除以 0；保留 1 位小数可以用
         //         Math.round(rate * 10) / 10.0
         double rate = 0.0;
+        if (total > 0) {
+            rate = Math.round((double) finished / total * 1000) / 10.0;
+        }
 
         // Map 转成 JSON 就是一个对象：{"total":8,"finished":5,"rate":62.5}
         Map<String, Object> result = new HashMap<>();
@@ -108,14 +122,18 @@ public class TaskController {
         //          （冒号后面的"未配置"是**默认值**——配置项没打开时就用它，这样不会启动失败）
         //    然后把那个字段 put 进 result，键名叫 "appName"
         // result.put("appName", appName);
+        result.put("appName", appName);
 
         // ⭐ TODO⑥（附加题）：用 pom 里刚加的 commons-lang3 数"所有标题的总字数"
         //    ① 先在文件顶部 import org.apache.commons.lang3.???;（包名自己拼）
         //    ② 拿到所有任务，把标题拼成一个长字符串
         //       提示：taskRepository.findAll()  →  遍历/stream 取 getTitle()  →  拼起来
         //    ③ 用 StringUtils.length(那个长串) 数长度，put 进 result，键名 "totalChars"
-        //    期望：自己跑出来看那个数字（8 个标题加起来）
-        // result.put("totalChars", ？？？);
+        //    期望：自己跑出来看那个数字（8 个标题加起来 = 91）
+        String allTitles = taskRepository.findAll().stream()
+                .map(Task::getTitle)              // 方法引用：等价于 map(t -> t.getTitle())
+                .collect(Collectors.joining("")); // 所有标题拼成一个长串
+        result.put("totalChars", StringUtils.length(allTitles));
 
         return result;
     }
@@ -131,7 +149,7 @@ public class TaskController {
     public Task add(@RequestBody Task task) {
         // ⭐ TODO④（你写）：保存并返回。提示：save 方法已经在 taskRepository 里了
         //    注意：save 返回的是"保存后的对象"（带上了数据库生成的自增 id），要把它 return 出去
-        return null;
+        return taskRepository.save(task);
     }
 
     // ══════════════ 下面是"送分观察题"，不用写代码 ══════════════

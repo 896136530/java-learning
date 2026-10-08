@@ -58,10 +58,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     // @Query("SELECT t FROM Task t WHERE t.title LIKE %:kw%")
     // List<Task> searchByTitle(@Param("kw") String kw);
 
-    /** TODO①（你写）：练习写一个方法名 —— 查"某一天里未完成"的任务
-     *   提示：字段是 dayNo 和 done，两个条件用 And 连
-     *   方法名应该长这样：findBy___________And___________（自己填空）
-     *   写完不用实现，直接在 Controller 里调用即可
-     */
-    // List<Task> findByDayNoAndDone(Integer dayNo, Boolean done);   ← 取消注释即可（这是答案，先自己试着拼）
+    /** TODO①（你写的）：查"某一天里未完成"的任务 —— 靠方法名，不写实现 */
+    List<Task> findByDayNoAndDone(Integer dayNo, Boolean done);
 }
