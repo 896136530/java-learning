@@ -9,7 +9,7 @@
 java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度
-├── java/              ← 🟦 Java 就业主线（day1~day23 + 学习路线 + PPT + 项目-记账本）
+├── java/              ← 🟦 Java 就业主线（day1~day31 + 学习路线 + PPT + 项目-记账本）
 └── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day9）
 ```
 
@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day30/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven、day30 = SpringBoot 已生成待练习**）|
+| `day1~day31/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 已生成待练习**）|
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+删除+防崩 ✅ 已验收（A~D 四处全过）/ Step3 持久化 🔄 已生成待做（`Step3_记账本.java` + `Step3任务书.md` + `Step3标准答案.md`）|
 | `启动MySQL.bat` | 🔧 一键起 MySQL 8.4.5（Day29 之后常用；不需管理员，自动探活 + 等就绪）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
@@ -78,6 +78,7 @@ java-learning/
 | Day 28 | DAO 收口 + 事务隔离级别 + 连接池（影响行数 / 聚合下推 / REPEATABLE READ / 手写迷你池 + 动态代理）| ✅ 批改 **Ex1~Ex5 全绿**（MySQL 实测逐条对齐：Ex1 `7→8→7` + 改不存在的人返回 0、Ex2 `{一班=3, 二班=2, 三班=2}`、Ex3 隔离级别四场景全对（B 看不到未提交的 700）、Ex4 池 3→借空→第 4 个 null→还回复用、Ex5 新建 193ms vs 池化 60ms；**用户独立写对 Proxy 包壳并自己补了 import**）；AI 代改 1 处（Ex2 `return map;F` 多打的字母）；Review 未写；Ex2 平均分显示 `78.0`（main 里是 println 拼接，要 `printf("%.2f")` 才显示 `78.00`，机械细节未改）|
 | Day 29 | **Maven 与项目结构**（pom.xml / GAV / 本地仓库 / 标准目录 / 生命周期 / 瘦 jar vs 胖 jar / 类路径读配置）| ✅ 批改 **Ex1~Ex5 全绿 + Ex4 观察记录 5 条**（真机实测：Ex1 驱动 8.4.0 + `SELECT 1 = 1 ✅`、Ex2 jar 2533399 字节、Ex3 读到 4 行、Ex4 瘦 16906 / 胖 4447423 字节且瘦 jar 报"没有主清单属性"、Ex5 5 本 577.5 元 + 录入后 6 本；`java -jar` 发货成功跑出小书店）；**新增 Review 题 `ReviewThen.java`**（AI 补的，待写）；AI 代改 2 处（`import java.sql.SQLException`、`jarSize()` 里 `repo` 作用域）+ 修正期望值 8 处（580.5→577.5）；Review 未写 |
 | Day 30 | **SpringBoot 上手**（start.spring.io 同款结构 / starter + parent / 内嵌 Tomcat / REST 接口 / JPA 一行 DAO / H2 内嵌库 / 可执行 jar 48 MB）| ✅ 批改 **6/6 全绿（含附加题）**（真机实测：TODO① `findByDayNoAndDone`+`/tasks/todo?day=5` 返回 1 条、TODO② 完成率 `62.5`、TODO③ 观察到 `/tasks/999` = 200+0 字节、TODO④ `save` 返回 `{"id":9}` 且条数 8→9、TODO⑤ `@Value` 读配置正确、**TODO⑥ 附加题 stream+`Task::getTitle`+`Collectors.joining("")`+`StringUtils.length` 得 `totalChars=91` 完全正确**；`mvn clean package` → jar **48,188,284 字节**（比加依赖前大 640 KB）；观察记录 4 块补齐）<br>⭐ **意外挖到的真坑**：`.properties` 直接写中文 → 接口返回乱码 `æçå¦ä¹ å©æ`（`java.util.Properties` 默认按 ISO-8859-1 解码，`-Dspring.config.file-encoding=UTF-8` 也救不回来）→ 改用 `\u6211\u7684\u5b66\u4e60\u52a9\u624b` 转义，实测字节正确；已写进 `知识点.md` 6.5 节<br>AI 代改机械/格式 3 处（Repository 答案行重复 + 误导注释、`@GetMapping("todo")`→`"/todo"` 并挪位置、TODO⑥ 缩进+删调试 println）|
+| Day 31 | **全局异常处理 + 统一响应**（`@RestControllerAdvice` / 自定义异常体系 / `Result<T>` 统一信封 / HTTP 状态码 vs 业务码 / 400-404-409-500 辨析 / `@Valid` + fieldErrors / 日志级别 warn vs error）| 🔄 已生成待练习（1 个 SKU 库存项目 + 8 步（3 观察 + 2 代码 TODO + 1 思考 + 验收）+ 知识点 13 节 + 标准答案；**13 个场景全部真机实测**：启动约 **4 秒**、`mvn clean package` BUILD SUCCESS；实测状态码 `GET /sku/999`=**404**、`/abc`=404（自带格式）、`/sku/boom`=**500（自带格式且泄露类名 `com.xiaoming.day31.sku.Sku.getTitle()`）**、`outbound?count=0`=**400**、`outbound?id=2&count=100`=**409**、`POST /sku` 空书名负价格=**400**+fieldErrors 三字段、`DELETE /sku/999`=404；**TODO①②的答案已在临时副本中打补丁验证**（兜底→`500 服务器开小差了`；delete 加库存判断→`/sku/1`=**409 「深入理解 Java 虚拟机」还有 10 件库存，不能删除**、`/sku/3`=200）；交付版**故意留两处错**：`/sku/boom` 走自带错误页 + `DELETE /sku/1`/`/sku/2` 返回 200（TODO 未写）<br>⭐ 设计取舍：今天**刻意不用数据库**（内存 Map + 3 条初始数据），隔离无关变量专心学异常；日志实测 WARN（业务异常，只 1 行）vs ERROR（系统异常，完整堆栈）|
 
 ## 目标
 

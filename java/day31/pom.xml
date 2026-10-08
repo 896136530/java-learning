@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Day 31：全局异常处理 + 统一响应
+
+  这个 pom 和 Day30 **几乎一模一样** —— 这就是 SpringBoot 的好处：
+    加功能不用改依赖（starter-web 里啥都有了：Web + JSON + 内嵌 Tomcat）
+    只多了 validation（参数校验用，Day32 会重点用）
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- parent：继承 SpringBoot 的默认配置 + 版本管理（老三样，和 Day30 相同） -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.5</version>
+    <relativePath/>
+  </parent>
+
+  <!-- GAV：只有 artifactId 改了（day31-springboot） -->
+  <groupId>com.xiaoming</groupId>
+  <artifactId>day31-springboot</artifactId>
+  <version>1.0</version>
+  <name>day31-springboot</name>
+  <description>Day31：全局异常处理 + 统一响应</description>
+
+  <properties>
+    <java.version>21</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+  </properties>
+
+  <dependencies>
+    <!-- web：SpringMVC + 内嵌 Tomcat + Jackson（和 Day30 一样） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- 数据访问：JPA + H2（和 Day30 一样，今天不换数据库，专心搞异常） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- ⭐ 新增：参数校验（@NotBlank / @Min / @Valid），Day32 会重点用
+         今天先加上，让 @Valid 失败时抛的异常也能被我们的全局处理器接住 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- 还是 Day30 那个插件：打成可执行 jar（java -jar 就能跑） -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
