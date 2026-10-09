@@ -5,5 +5,7 @@
 # 自测：k 等于 len(s)（前 k 个和后 k 个都是整个串）、k 等于 1、len(s) 等于 2
 
 # ===== 你的代码写在这里 =====
-
+words=input()
+n=int(input())
+print(" ".join([words[:n],words[-n:],words[::-1]]))
 # ===========================

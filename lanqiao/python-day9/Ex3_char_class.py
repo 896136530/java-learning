@@ -7,5 +7,21 @@
 # 自测：abc → 0 3 0 0；ABC → 3 0 0 0；12345 → 0 0 5 0；!@#$ → 0 0 0 4；a A 1 ! → 1 1 1 4
 
 # ===== 你的代码写在这里 =====
+words=input()
+upper=0
+lower=0
+dight=0
+other=0
+
+for i in words:
+    if 'A'<=i<='Z':
+        upper=upper+1
+    elif 'a'<=i<='z':
+        lower=lower+1
+    elif '0'<=i<='9':
+        dight=dight+1
+    else:
+        other=other+1
+print(" ".join  ([str(upper),str(lower),str(dight),str(other)]))
 
 # ===========================

@@ -6,5 +6,9 @@
 #       还有一组边界：偶数长度回文 abba（YES）
 
 # ===== 你的代码写在这里 =====
-
+temp=input()
+if temp==temp[::-1]:
+    print("YES")
+else:
+    print("NO")
 # ===========================

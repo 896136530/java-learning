@@ -8,5 +8,13 @@
 #       abc / abcd → NO；ab / abab → NO（长度不同，⭐ 这组最容易被漏掉）
 
 # ===== 你的代码写在这里 =====
-
+a=input()
+b=input()
+if len(a)==len(b):
+    if b in (a+a):
+        print("YES")
+    else:
+        print("NO")
+else:
+    print("NO")
 # ===========================

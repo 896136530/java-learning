@@ -8,5 +8,9 @@
 # 自测：aabcb / aab → bc；aabb / b → aab；abc / abc → 空行；baac / ab → ac
 
 # ===== 你的代码写在这里 =====
-
+words1=input()
+words2=input()
+from collections import Counter
+diff=Counter(words1)-Counter(words2)
+print("".join(sorted(diff.elements())))
 # ===========================

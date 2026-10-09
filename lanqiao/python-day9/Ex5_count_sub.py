@@ -10,9 +10,22 @@
 #       t 比 s 长 → 0；s 和 t 完全相同 → 1
 
 # ===== 你的代码写在这里（第 1 遍：count 版）=====
-
+s=input()
+t=input()
+print(s.count(t))
 # ===========================
 
 # ===== 第 2 遍：find 循环手写版 =====
-
+m=input()
+n=input()
+count=0
+start=0
+while True:
+    pos=m.find(n,start)
+    if pos==-1:
+        break
+    else:
+        count=count+1
+        start=pos+len(n)
+print(count)
 # ===========================
