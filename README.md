@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day31/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 已生成待练习**）|
+| `day1~day31/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改**）|
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+删除+防崩 ✅ 已验收（A~D 四处全过）/ Step3 持久化 🔄 已生成待做（`Step3_记账本.java` + `Step3任务书.md` + `Step3标准答案.md`）|
 | `启动MySQL.bat` | 🔧 一键起 MySQL 8.4.5（Day29 之后常用；不需管理员，自动探活 + 等就绪）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|

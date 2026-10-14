@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+// ⭐ 新东西：访问了一个"没有对应接口"的网址时，Spring 6 抛的就是它（相当于 404）
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -87,15 +89,14 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * ③ TODO①（你写）：兜底处理 —— 拦住所有"没预料到"的异常
+     * ③ TODO①（✅ 已完成）：兜底处理 —— 拦住所有"没预料到"的异常
      *
      * 为什么必须有它？——
      *   · 空指针、数组越界、除零……这类异常如果没人处理，
      *     Spring 会返回它自带的 Whitelabel 错误页（HTML！），前端根本没法解析。
      *   · 而且**堆栈信息会暴露给外面**（表名、类名、甚至密码），这是安全问题。
      *
-     * 你要做的：
-     *   写一个方法，处理 `Exception.class`（所有异常的最终兜底），要求：
+     * 【本条已实现，拆成下面 ④ 和 ⑤ 两个 handler】实现时的三条要求：
      *     ① 注解：@ExceptionHandler(Exception.class)
      *     ② **把完整堆栈写进日志**：log.error("系统异常", e);
      *        ⭐ 和上面 ①② 的区别：前两个是"预期内的"，只记一行；这个是"出 bug 了"，
@@ -104,17 +105,51 @@ public class GlobalExceptionHandler {
      *        Result.fail(ResultCode.SYSTEM_ERROR, "服务器开小差了，请稍后重试")
      *        ⚠️ 绝对不能把 e.getMessage() 返回给前端（会泄露内部实现）
      *
-     * 参考写法（照 ① 改就行）：
+     * 🎯 实测结论（2026-10-14 真机验证通过）：
+     *   GET /sku/boom → HTTP 500 + {"code":"500","message":"服务器开小差了，请稍后重试"}
+     *   日志里有 ERROR + 完整堆栈，响应体里**看不到** NullPointerException 字样 ✅
      *
-     *   @ExceptionHandler(Exception.class)
-     *   public ResponseEntity<Result<Void>> handleOther(Exception e) {
-     *       log.error("系统异常", e);                       // ← 完整堆栈
-     *       return ResponseEntity.status(500)
-     *               .body(Result.fail(ResultCode.SYSTEM_ERROR, "服务器开小差了，请稍后重试"));
-     *   }
-     *
-     * 验证：访问 GET /sku/boom （这个接口故意抛空指针）→ 应该返回 500 + 上面的 JSON
-     *       （不写这个方法的话，你会看到 SpringBoot 自带的 HTML 错误页）
+     * ⚠️ 实现过程中的一个副作用（第一版只有 ⑤，被真机测试抓出来了）：
+     *   兜底把 `NoResourceFoundException`（网址不存在）也接住了 → `/abc` 被报成 **500**。
+     *   → 教训：**兜底越宽，越容易误伤"本该精确处理"的情况**。
+     *     有些异常看着像"意外"，其实很常见（网址打错天天有），必须单独配 handler。
+     *     → 这就是 ④ 存在的理由。
      */
-    // ← 在这里写 TODO① 的方法
+
+    /**
+     * ④ 网址写错了（访问了一个没有对应接口的路径）
+     *
+     * ⭐ 为什么单独写一条？—— 因为 Spring 6 里"网址不存在"抛的是
+     *    `NoResourceFoundException`，它**也是 Exception 的子类**，
+     *    所以如果不单独接，就会被下面的 ⑤ 兜底接成 **500**（"服务器炸了"）。
+     *    那种后果：用户手抖输错网址 → 监控全站报警"服务器错误"，运维要被吵死。
+     *    所以这条**必须比兜底更具体**，放在兜底**之前**才对。
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Result<Void>> handleNoResourceFound(NoResourceFoundException e) {
+        log.warn("网址不存在：{}", e.getMessage());     // 这也是"预期内"的错，warn 一行就够
+        return ResponseEntity.status(404)
+                .body(Result.fail(ResultCode.NOT_FOUND, e.getMessage()));
+    }
+
+    /**
+     * ⑤ 【兜底】所有没被上面接住的异常
+     *
+     * ⭐ 必须放在最后 —— 就是你自己总结的那句"**优先走更具体的 handler**"。
+     *    Spring 选 handler 时是"最具体优先"：
+     *    ParamException / NoResourceFoundException  →  BaseException  →  Exception
+     *
+     * 两条铁律（都在这个方法里体现了）：
+     *   ① 日志要**详细**：log.error 把异常对象当最后一个参数传 → 完整堆栈进日志
+     *   ② 返回要**笼统**：不能把 e.getMessage() 给前端（会泄露类名、方法名、字段名）
+     *
+     * 验证：GET /sku/boom → 500 + 统一 JSON；
+     *      日志里有 ERROR + 完整堆栈，但响应体里**看不到** NullPointerException 字样。
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Result<Void>> handleOther(Exception e) {
+        log.error("系统异常", e);                       // ← 完整堆栈
+        return ResponseEntity.status(500)
+                .body(Result.fail(ResultCode.SYSTEM_ERROR, "服务器开小差了，请稍后重试"));
+    }
 }

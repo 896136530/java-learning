@@ -89,10 +89,16 @@ public class SkuService {
 
     /** 删除（不存在也算"没找到"） */
     public void delete(Long id) {
-        if (db.remove(id) == null) {
-            throw ResourceNotFoundException.of("SKU", id);   // ← 404
+        // ⭐ TODO②：先查 —— 复用 getById(id)，不存在它会自己抛 404（不用你再写判空）
+        Sku sku = getById(id);
+        // 有库存就不许删 —— 这是"业务规则冲突"→ 409，不是 400（参数没错）也不是 404（东西在）
+        // ⚠️ 注意 throw 之后就 return 了，所以下面那行"真的删除"不会执行
+        if (sku.getStock() > 0) {
+            throw new BizRuleException("该 SKU 还有 " + sku.getStock() + " 件库存，不能删除（请先清空库存）");
         }
+        db.remove(id);
     }
+
 
     /**
      * 出库 —— ⭐ **今天最典型的"业务规则冲突"**
