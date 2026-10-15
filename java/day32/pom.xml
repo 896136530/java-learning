@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Day 32：参数校验深入（分组校验 + 自定义校验注解）
+
+  ⭐ 这个 pom 和 Day31 的**一模一样**（只改了名字）—— 今天一个新依赖都不加。
+     因为今天要用的东西全都在 spring-boot-starter-validation 里了：
+       @Valid / @Validated / @NotBlank / @Min / @Constraint / ConstraintValidator ...
+
+  📌 顺便体会一件事：SpringBoot 把"参数校验"的 90% 都替你做完了
+     （加个注解就生效），今天学的只是"剩下那 10% 怎么自己定制"。
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- parent：继承 SpringBoot 的默认配置 + 版本管理（老三样，Day30 起没变过） -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.5</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.xiaoming</groupId>
+  <artifactId>day32-springboot</artifactId>
+  <version>1.0</version>
+  <name>day32-springboot</name>
+  <description>Day32：参数校验深入（分组校验 + 自定义校验注解）</description>
+
+  <properties>
+    <java.version>21</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+  </properties>
+
+  <dependencies>
+    <!-- web：SpringMVC + 内嵌 Tomcat + Jackson -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- 数据访问：JPA + H2（和 Day31 一样，今天不换数据库，专心搞校验） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- ⭐ 今天的主角依赖（Day31 已经加过了）：
+         @Valid / @Validated / @Constraint / ConstraintValidator 都来自它
+         （它底下是 Hibernate Validator —— Jakarta Bean Validation 的参考实现） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
