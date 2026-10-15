@@ -1,6 +1,8 @@
 package com.xiaoming.day32.sku;
 
 import com.xiaoming.day32.sku.valid.MaxStock;
+import com.xiaoming.day32.sku.valid.OnCreate;
+import com.xiaoming.day32.sku.valid.OnUpdate;
 import com.xiaoming.day32.sku.valid.SkuCode;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -51,8 +53,14 @@ public class SkuForm {
      *   写法示例：`@Null(message = "...", groups = OnCreate.class)`
      *
      */
-    public interface OnCreate{};
-    public interface OnUpdate{};
+    // ⚠️⚠️ 这里**曾经**写成 `public interface OnCreate{}` / `OnUpdate{}`（声明在本类里）——
+    //     而 Controller 上用的是 `com.xiaoming.day32.sku.valid.OnCreate`。
+    //     **组名的身份是 Class 对象本身**：`SkuForm.OnCreate` 和 `valid.OnCreate` 是两个
+    //     完全不同的组 → Controller 指定的组谁也匹配不上 → **注解层全部静默失效**
+    //     （接口照样 200，一条约束都没跑，报错都不会报）。整天的题就死在这一行。
+    //     📌 记住：组接口只该有**一份**，放在 `valid` 包里统一 import，别在本类里另起炉灶。
+    //     📌 排查口诀：只要"该 400 的返回了 200"，先看 Controller 上那个组和 SkuForm 上
+    //        注解里那个组**是不是同一个 Class**（IDE 里按住 Ctrl 点进去，看跳的是不是同一个文件）。
 
     @Null(message = "新增时不能自己指定 id（由服务器生成）",groups=OnCreate.class)
     @NotNull(message = "更新时必须指定 id",groups=OnUpdate.class)

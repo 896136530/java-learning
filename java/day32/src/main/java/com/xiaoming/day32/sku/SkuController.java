@@ -3,7 +3,6 @@ package com.xiaoming.day32.sku;
 import com.xiaoming.day32.common.Result;
 import com.xiaoming.day32.sku.valid.OnCreate;
 import com.xiaoming.day32.sku.valid.OnUpdate;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.validation.annotation.Validated;

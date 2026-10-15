@@ -15,22 +15,22 @@ import jakarta.validation.ConstraintViolationException;
 import java.util.Map;
 
 /**
- * 全局异常处理器 —— Day31 那份**原样搬过来** + 留了一个 TODO 给你写
+ * 全局异常处理器 —— Day31 那份**原样搬过来** + 第 7 步补的一条 handler
  *
- * 【本类索引：4 个 handler + 1 个 TODO，一张表看清】
+ * 【本类索引：5 个 handler（①②③⑤ + ④兜底），一张表看清】
  *   ┌──────┬──────────────────────────────────┬────────┬──────────────────────────────┐
  *   │ 编号 │ 接住的异常                        │ 状态码 │ 什么时候触发                  │
  *   ├──────┼──────────────────────────────────┼────────┼──────────────────────────────┤
  *   │ ①    │ BaseException（我们自己的异常父类）│ 看异常 │ Service 里 throw              │
  *   │ ②    │ MethodArgumentNotValidException  │ 400    │ **请求体**里的字段校验失败     │
  *   │ ③    │ NoResourceFoundException         │ 404    │ 网址写错                      │
- *   │ TODO │ ConstraintViolationException     │ 400    │ **方法参数**校验失败 ← 你写     │
+ *   │ ⑤    │ ConstraintViolationException     │ 400    │ **方法参数**校验失败(?limit=0) │
  *   │ ④    │ Exception（兜底，必须放最后）      │ 500    │ 任何没预料到的 bug            │
  *   └──────┴──────────────────────────────────┴────────┴──────────────────────────────┘
  *
- * 【⭐⭐ 今天最值钱的一句话 —— ② 和 TODO 那条**看着都是"参数校验失败"，其实是两个异常**】
+ * 【⭐⭐ 今天最值钱的一句话 —— ② 和 ⑤ 那条**看着都是"参数校验失败"，其实是两个异常**】
  *   ┌────────────┬────────────────────────────────┬──────────────────────────────────┐
- *   │            │ ② 请求体（JSON）里的字段         │ TODO 方法参数（?limit=0 这种）     │
+ *   │            │ ② 请求体（JSON）里的字段         │ ⑤ 方法参数（?limit=0 这种）       │
  *   ├────────────┼────────────────────────────────┼──────────────────────────────────┤
  *   │ 谁来校验    │ SpringMVC：把 JSON 转成对象时     │ Spring 的 AOP：调用方法**之前**     │
  *   │ 靠什么触发  │ 参数上的 @Valid / @Validated     │ **类上的 @Validated**             │
@@ -108,36 +108,33 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * ⭐ TODO（题目第 7 步）：**方法参数**校验失败
+     * ⭐ 第 7 步（TODO⑤）：**方法参数**校验失败 → 400 + fieldErrors
      *
      * 触发场景：`GET /sku/search?limit=0` —— limit 上有 @Min(1)，但你传了 0。
-     * 现在**没人接它** → 掉进下面的 ④ 兜底 → 返回 **500**。
-     * （明明是"用户传错参数"，却报"服务器开小差了" —— 这个错报得很离谱，所以要修。）
+     * 它抛的是 `ConstraintViolationException`（走 AOP 那条路，和 ② 的请求体校验不是一回事），
+     * 没人接就会掉进下面 ④ 兜底 → 返回 500「服务器开小差了」。
+     * 明明是用户传错参数，却报"服务器炸了"，所以要单独给它一条 handler。
      *
-     * 【要做的事，4 小步】
-     *   ① 加两个 import：
-     *        import jakarta.validation.ConstraintViolation;
-     *        import jakarta.validation.ConstraintViolationException;
-     *   ② 写方法（照 ② 的样子改）：
-     *        @ExceptionHandler(ConstraintViolationException.class)
-     *        public ResponseEntity<Result<Void>> handleConstraintViolation(ConstraintViolationException e) { ... }
-     *   ③ 方法体：
-     *        · 状态码 **400**（这是"你参数不对"，不是"服务器出错"）
-     *        · 用 `Result.failFields(...)` 把错误塞进 fieldErrors
-     *        · 错误从 `e.getConstraintViolations()` 拿，它是一个 `Set<ConstraintViolation<?>>`，
-     *          每个元素上：
-     *            - `getPropertyPath()` → 字段路径，形如 `search.limit`
-     *              ⭐ 建议只取最后一段（`.` 之后的部分）→ 前端才好对应输入框
-     *            - `getMessage()` → 就是你注解里写的 message
-     *        · 日志用 **warn**（预期内的错，不是 bug，别打堆栈）
-     *   ④ 写完把这段 TODO 注释删掉
-     *
-     * 【写的时候顺便想通一件事】
-     *   兜底 ④ 救了所有"意外"，但它**分不清"用户手滑"和"服务器炸了"** ——
-     *   所以越是常见的错误，越要单独配 handler。
-     *   （Day31 的 NoResourceFoundException 是这个道理，今天的 ConstraintViolationException 还是。
-     *     📌 规律：**只要有"经常发生但不算 bug"的异常，就该给它一条专属 handler**。）
+     * 三个要点：
+     *   ① 状态码 **400**：这是"请求不合法"，不是"服务器出错"
+     *   ② 用 `Result.failFields(...)` 装 fieldErrors（和 ② 的格式一致，前端好处理）
+     *   ③ ⭐ 字段名要**截断**：`getPropertyPath()` 给的是 `search.limit`（方法名.参数名），
+     *      直接丢给前端对应不上输入框 → 取最后一个 `.` 之后的部分
      */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Result<Void>> handleConstraintViolation(ConstraintViolationException e) {
+        Map<String, String> errors = Result.fieldErrors();
+        for (ConstraintViolation<?> v : e.getConstraintViolations()) {
+            String path = v.getPropertyPath().toString();       // 形如 "search.limit"
+            int dot = path.lastIndexOf('.');
+            String field = (dot >= 0) ? path.substring(dot + 1) : path;   // ⭐ 截成 "limit"
+            errors.putIfAbsent(field, v.getMessage());
+        }
+
+        log.warn("方法参数校验失败：{}", errors);          // 预期内的错 → warn，不打堆栈
+        return ResponseEntity.status(400)
+                .body(Result.failFields(ResultCode.PARAM_ERROR, "参数校验失败，请看 fieldErrors", errors));
+    }
 
     /**
      * ④ 【兜底】所有没被上面接住的异常
@@ -151,19 +148,6 @@ public class GlobalExceptionHandler {
      * 验证：GET /sku/boom → 500 + 统一 JSON；
      *      日志里有 ERROR + 完整堆栈，但响应体里**看不到** NullPointerException 字样。
      */
-    @ExceptionHandler(ConstraintViolationException.class)
-public ResponseEntity<Result<Void>> handleConstraintViolation(ConstraintViolationException e) {
-    Map<String, String> errors = Result.fieldErrors();
-    for (ConstraintViolation<?> v : e.getConstraintViolations()) {
-        String path = v.getPropertyPath().toString();       // 形如 "search.limit"
-        int dot = path.lastIndexOf('.');
-        String field = (dot >= 0) ? path.substring(dot + 1) : path;   // ⭐ 截成 "limit"
-        errors.putIfAbsent(field, v.getMessage());
-    }
-    log.warn("方法参数校验失败：{}", errors);
-    return ResponseEntity.status(400)
-            .body(Result.failFields(ResultCode.PARAM_ERROR, "参数校验失败，请看 fieldErrors", errors));
-}
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Result<Void>> handleOther(Exception e) {
         log.error("系统异常", e);                       // ← 完整堆栈
