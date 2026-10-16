@@ -96,14 +96,15 @@ public class OrderProbeFilter implements Filter {
         log.info("[Filter① OrderProbe] 退出 {}", httpRequest.getRequestURI());
 
         // ==================== ⭐ TODO⑤（第 7 步·第 1 处）：清柜子 ====================
-        // 请在这里补上**一行**：
-        //     recorder.clear();
+        // ✅ 已补（答案版）：下面这一行就是"清柜子"，也是**整个请求的最后一句代码**。
         //
         // ⭐ 为什么清在这一层、而不是拦截器的 afterCompletion 里？
         //    因为本类是 order=1（最早进、最晚出），上面那两行是**整个请求的最后两句**；
         //    拦截器 afterCompletion 跑完之后，CostFilter 和本过滤器还会继续记轨迹 ——
         //    在 afterCompletion 里清，等于"扫完地又有人进来踩了两脚"（实测会残留 3 行）。
         //    （更详细的实测对照见 `练习题和代码题目.md` 第 7 步）
+        // 📌 口诀：**谁最后动这份数据，谁负责清理。**
+        recorder.clear();
         // ==========================================================================
     }
 

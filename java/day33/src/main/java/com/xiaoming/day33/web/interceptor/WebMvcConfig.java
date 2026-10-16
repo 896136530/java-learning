@@ -44,9 +44,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
      *    ⚠️ 对比下面那个 `new AuthInterceptor()` —— 一眼就能看出差别。
      */
     private final TraceInterceptor traceInterceptor;
+    private final AuthInterceptor authInterceptor;
 
-    public WebMvcConfig(TraceInterceptor traceInterceptor) {
+    public WebMvcConfig(TraceInterceptor traceInterceptor, AuthInterceptor authInterceptor) {
         this.traceInterceptor = traceInterceptor;
+        this.authInterceptor = authInterceptor;
     }
 
     @Override
@@ -75,11 +77,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //          AuthController 的 /login、PublicController 的 /public/**、
         //          TraceController 的 /trace/**（调试接口，不登录也得能看）
         // ================================================================
-        registry.addInterceptor(new AuthInterceptor())
-                .addPathPatterns("/sku");
+        registry.addInterceptor(authInterceptor)
+                .addPathPatterns("/sku/**","/me/**","/cart/**","/order/**")
+                .excludePathPatterns("/login", "/public/**", "/trace/**");
 
         // ==================== ③ 实验用：preHandle 里抛异常 ====================
         // 本拦截器没有依赖，new 出来完全没问题
+        // ⭐ 判断题：ThrowInterceptor 没有 @Component、也没有任何依赖 → 保持 new（不必做成 Spring Bean）
         registry.addInterceptor(new ThrowInterceptor())
                 .addPathPatterns("/trace/throw/**");
     }

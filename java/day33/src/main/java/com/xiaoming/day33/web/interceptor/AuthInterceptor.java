@@ -1,12 +1,16 @@
 package com.xiaoming.day33.web.interceptor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiaoming.day33.auth.CurrentUser;
 import com.xiaoming.day33.auth.TokenStore;
+import com.xiaoming.day33.common.Result;
+import com.xiaoming.day33.common.ResultCode;
+import com.xiaoming.day33.web.trace.TraceRecorder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
@@ -41,13 +45,24 @@ import org.springframework.web.servlet.HandlerInterceptor;
  *   只在"带 token 访问 /sku"时才炸（`NullPointerException` → 500）。
  *   ⭐ 这正是那句老话：**编译通过 ≠ 注入成功**。
  */
+@Component
 public class AuthInterceptor implements HandlerInterceptor {
+    private final TokenStore tokenStore;
+    private final TraceRecorder recorder;
+    private final ObjectMapper objectMapper;
+
+    public AuthInterceptor(TokenStore tokenStore, TraceRecorder recorder, ObjectMapper objectMapper) {
+        this.tokenStore = tokenStore;
+        this.recorder = recorder;
+        this.objectMapper = objectMapper;
+    }
 
     private static final Logger log = LoggerFactory.getLogger(AuthInterceptor.class);
 
     /** 约定：token 放在这个请求头里 */
     public static final String TOKEN_HEADER = "X-Token";
-
+    
+    
     /**
      * ⭐ @Autowired：让 Spring 自动把容器里的 TokenStore 塞进来。
      *
@@ -58,8 +73,7 @@ public class AuthInterceptor implements HandlerInterceptor {
      *   修法不是"再加一个 @Autowired"，而是**让拦截器成为 Spring Bean**
      *   （@Component + 构造器注入），然后在 WebMvcConfig 里注入进来用。
      */
-    @Autowired
-    private TokenStore tokenStore;
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -74,6 +88,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 
             // ⭐ 状态码给 401（不是 400/403，见 UnauthorizedException 的注释）
             response.setStatus(401);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(Result.fail(ResultCode.UNAUTHORIZED, "未登录或登录已过期，请在请求头带上 X-Token")));
+
+
+
 
             // ==================== ⭐ TODO②（第 4 步）：这里少了响应体 ====================
             // 现在客户端只收到一个光秃秃的 401（**0 字节**），前端 `res.json()` 直接报错。
@@ -101,6 +120,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             //      ⚠️ 忘了 charset → 中文变乱码（真机实测过）
             // ==========================================================================
 
+
             return false;      // ⭐ false = 拦死：Controller 不执行，后面的拦截器也不执行
         }
 
@@ -112,9 +132,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (username == null) {
             log.warn("[Auth] 拒绝：token 无效（{}）", token);
             response.setStatus(401);
+            response.setContentType("application/json;charset=UTF-8");
+            Result<Void> body = Result.fail(ResultCode.UNAUTHORIZED, "未登录或登录已过期，请在请求头带上 X-Token");
+            response.getWriter().write(objectMapper.writeValueAsString(body));
             // ⭐ TODO② 也要在这条分支里写 JSON（两个 401 出口都得写）
             return false;
         }
+        
+
 
         // ---------- 情况③：验证通过 ----------
         log.info("[Auth] 放行：{} ← 登录用户 {}", uri, username);
@@ -142,4 +167,9 @@ public class AuthInterceptor implements HandlerInterceptor {
      *   **本拦截器自己的 afterCompletion 不会被调用**（Spring 只回调"已经成功通过"的那些）。
      *   但那种情况下 CurrentUser 本来也没 set，所以没有泄漏。
      */
+    @Override 
+    public void afterCompletion(HttpServletRequest request,HttpServletResponse response,Object handler,Exception ex) {
+        CurrentUser.clear();      // ⭐ 谁 set 谁 clear —— 不清就是越权事故
+    }
+
 }

@@ -82,6 +82,7 @@ public class TraceInterceptor implements HandlerInterceptor {
         //     recorder.record("[拦截器 Trace] postHandle");
         // ⭐ 顺便看第四个参数 ModelAndView：我们是 REST 接口，它是 **null**。
         // ======================================================================
+        recorder.record("[拦截器 Trace] postHandle");
     }
 
     /**

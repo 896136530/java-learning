@@ -64,23 +64,25 @@ public class CostFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         // ==================== ⭐ TODO⑥（第 8 步·第 1 处）：开始计时 ====================
-        // 提示：毫秒时间戳用 System.currentTimeMillis()
-        //      long start = System.currentTimeMillis();
+        // ✅ 已补（答案版）—— 毫秒时间戳。
+        // ⚠️ 计时变量必须是**局部变量**：过滤器是单例，存成 `private long start` 字段
+        //    会在并发下串时间（Day18/19 的坑）。
+        long start = System.currentTimeMillis();
         // ==========================================================================
 
         chain.doFilter(request, response);          // ⭐ 放行（这行千万别删）
 
         // ==================== ⭐ TODO⑥（第 8 步·第 2 处）：算耗时并记录 ====================
-        // 要做两件事：
-        //   ① 算耗时：long cost = System.currentTimeMillis() - start;
-        //   ② 打一行日志（用下面这个 log，它已经声明好了）：
-        //      log.info("[Filter② Cost] {} {} → {}，耗时 {} ms",
-        //               httpRequest.getMethod(), httpRequest.getRequestURI(), httpResponse.getStatus(), cost);
-        //   ③ 顺手写进轨迹（第 1 步你要在 /trace/last 里看到这一行）：
-        //      recorder.record("[Filter② Cost] 耗时 " + cost + " ms");
+        // ✅ 已补（答案版）：三件事 —— ① 算耗时 ② 打日志（用 {} 占位符，不拼字符串）
+        //    ③ 顺手写进轨迹（这样"耗时"才会出现在 /trace/last 里）。
         //  📌 httpResponse.getStatus() 在这一刻**已经是最终状态码**了
         //     （响应是走完 framework 才写出去的，但状态码已经 set 好了）
         // ==============================================================================
+        long cost = System.currentTimeMillis() - start;
+
+        log.info("[Filter② Cost] {} {} → {}，耗时 {} ms",
+                httpRequest.getMethod(), httpRequest.getRequestURI(), httpResponse.getStatus(), cost);
+        recorder.record("[Filter② Cost] 耗时 " + cost + " ms");
 
         recorder.record("[Filter② Cost] 退出");
         // 📌 本过滤器**不负责**清理轨迹 —— 那是最外层 OrderProbeFilter 的活（见那里 TODO⑤ 的说明）
