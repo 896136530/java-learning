@@ -1,0 +1,174 @@
+# ============================================================
+# Day 34 · 「答案版差异」补丁（交付版 → 答案版 / 中间态 / 变体 B）
+# ============================================================
+#
+# 【这份文件是干什么的】
+#   仓库里的 java/day34 永远是**交付版**（6 个 TODO 都是坏的）。
+#   但本项目有条硬规矩：**"答案版"和"交付版"都要能复验**。
+#   所以把"答案版到底改了哪几行"落成这份 diff，任何人拿到仓库都能自己验一遍，
+#   不必依赖生成时的临时目录。
+#
+# 【怎么来的 —— 逐行比对，不是手工照文档重建】
+#   拿制作时的三份副本（%TEMP%\day34gen\{mid,answer,answerb}）与仓库交付版
+#   逐字节/逐行比对后生成的（git diff --no-index）。
+#   ✅ 结论：下面这些 hunk 就是全部**真正影响行为**的改动。
+#
+# 【⚠️ 一个必须说明的坑：那三份副本是「较早的快照」】
+#   比对时发现 gen 副本与仓库交付版共有 15 个文件不一致，但把 201 行改动逐行过了一遍，
+#   其中**只有 13 行不是注释**，而这 13 行**恰好就是本文件的内容**
+#   （OrderService 6 行 + AuditService 4 行 + application.properties 里一行"位置移动"）。
+#   → 也就是说：其余差异**全部在注释文字里**（那批文件里 Day33 遗留的
+#     "✅ 已补 / ⬜ 你写" 措辞还没改完），**对运行行为没有影响**；
+#     并且两边**生效配置 15/15 完全一致**（application.properties 只有注释不同）。
+#   → 因此本文件只收录 OrderService.java / AuditService.java 这两个真正改行为的文件，
+#     其余"注释级差异"一律不收（它们也不该出现在答案版差异里）。
+#
+# 【6 个 TODO ↔ 本文件 hunk 的对应关系】
+#   TODO① place()               加 @Transactional                 → hunk 2
+#   TODO② placeViaSelfCall()    给"对外入口自己"加注解            → hunk 3
+#   TODO③ place() 的注解        改成 rollbackFor = Exception.class → hunk 2（与①同一行）
+#   TODO④ placeSwallow() catch  补 setRollbackOnly()              → hunk 4
+#   TODO⑤ AuditService.writeLog REQUIRED → REQUIRES_NEW           → AuditService hunk 1
+#   TODO⑥ placeReadOnly()       去掉 readOnly = true              → hunk 5
+#   （外加：hunk 1 只是 import 一行；变体 B 见第 3 节）
+#
+# 【怎么自己复现（不改仓库）】
+#   把 java/day34 整个目录复制一份到临时目录，照下面 hunk 改，然后：
+#     mvn -B clean package -DskipTests
+#     java -jar target\day34-springboot-1.0.jar
+#   再跑 运行Day34.bat 的第 4 项（一键取证），对照 标准答案.md 第 3.1 节那张
+#   "十个场景 × 三种状态"的表 —— 答案版那一列应该逐格吻合。
+#
+#   也可以用 `git apply` 自动打（⚠️ 它只认从 `diff --git` 开始的部分，
+#   前面这些 `#` 说明行会被当成"垃圾"忽略；路径前缀是 delivery/ / mid/ / answer/ ...，
+#   和仓库里的真实路径不同，所以真要 apply 得先改前缀或用 -p 调整 —— 手改更省事）。
+#
+# 【验收数字一律只看 /db/state】
+#   orders / audit_log / SKU-0001 的 STOCK 才是判分依据；
+#   HTTP 状态码和"响应体字符/字节"只是旁证（200 的那些响应带 createdAt，长度会飘）。
+#
+# 生成时间：2026-10-18（独立复验时补齐）  生成方式：git diff --no-index
+# ============================================================
+
+
+# ------------------------------------------------------------
+# 第 1 节：交付版 → 中间态（只修 TODO①）
+#   中间态 = 只给 place() 加 @Transactional，**没写 rollbackFor**。
+#   用途：第 5 步的对照实验 —— fail=runtime 干净了、fail=checked 还是脏的。
+# ------------------------------------------------------------
+diff --git a/delivery/src/main/java/com/xiaoming/day34/order/OrderService.java b/mid/src/main/java/com/xiaoming/day34/order/OrderService.java
+index f0623e8..b282193 100644
+--- a/delivery/src/main/java/com/xiaoming/day34/order/OrderService.java
++++ b/mid/src/main/java/com/xiaoming/day34/order/OrderService.java
+@@ -93,6 +93,7 @@ public class OrderService {
+      *
+      * @param fail none = 正常下单；runtime = 抛运行时异常；checked = 抛受检异常
+      */
++    @Transactional
+     public Order place(Long skuId, int count, String fail) throws ExternalServiceException {
+         Order order = writeOrderAndStock(skuId, count);
+         maybeFail(fail);
+
+# ------------------------------------------------------------
+# 第 2 节：交付版 → 答案版（TODO①~⑥ 全修）
+#   这一节就是"答案版"的完整定义。
+# ------------------------------------------------------------
+diff --git a/delivery/src/main/java/com/xiaoming/day34/order/AuditService.java b/answer/src/main/java/com/xiaoming/day34/order/AuditService.java
+index 48efae4..9d6c9a3 100644
+--- a/delivery/src/main/java/com/xiaoming/day34/order/AuditService.java
++++ b/answer/src/main/java/com/xiaoming/day34/order/AuditService.java
+@@ -40,7 +40,7 @@ public class AuditService {
+      * ⭐⭐⭐ TODO⑤（第 7 步）：把下面的 `Propagation.REQUIRED` 改成正确的那一种。
+      *
+      *   ┌─ 现状（交付版）──────────────────────────────────────────────────────────┐
+-     *   │ @Transactional(propagation = Propagation.REQUIRED)   ← 会跟着主业务一起回滚  │
++     *   │ @Transactional(propagation = Propagation.REQUIRES_NEW)   ← 会跟着主业务一起回滚  │
+      *   └──────────────────────────────────────────────────────────────────────────┘
+      *
+      *   ┌─ 你要改成（答案）────────────────────────────────────────────────────────┐
+@@ -60,9 +60,9 @@ public class AuditService {
+      *      如果主业务想在审计里带上"刚下的订单 id"，那个 id 在内层是**查不到**的 ——
+      *      所以本项目是把 id 当**参数**传进来的（而不是让内层去查库）。
+      */
+-    @Transactional(propagation = Propagation.REQUIRED)
++    @Transactional(propagation = Propagation.REQUIRES_NEW)
+     public void writeLog(String action, String detail) {
+         repo.insert(action, detail);
+-        log.info("[audit] 已记审计：action={} detail={}（当前传播行为 = REQUIRED）", action, detail);
++        log.info("[audit] 已记审计：action={} detail={}（当前传播行为 = REQUIRES_NEW）", action, detail);
+     }
+ }
+\ No newline at end of file
+diff --git a/delivery/src/main/java/com/xiaoming/day34/order/OrderService.java b/answer/src/main/java/com/xiaoming/day34/order/OrderService.java
+index f0623e8..89da88d 100644
+--- a/delivery/src/main/java/com/xiaoming/day34/order/OrderService.java
++++ b/answer/src/main/java/com/xiaoming/day34/order/OrderService.java
+@@ -8,7 +8,8 @@ import com.xiaoming.day34.sku.SkuRepository;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import org.springframework.stereotype.Service;
+-import org.springframework.transaction.annotation.Transactional;
++import org.springframework.transaction.annotation.Transactional;
++import org.springframework.transaction.interceptor.TransactionAspectSupport;
+ 
+ import java.util.List;
+ 
+@@ -93,6 +94,7 @@ public class OrderService {
+      *
+      * @param fail none = 正常下单；runtime = 抛运行时异常；checked = 抛受检异常
+      */
++    @Transactional(rollbackFor = Exception.class)
+     public Order place(Long skuId, int count, String fail) throws ExternalServiceException {
+         Order order = writeOrderAndStock(skuId, count);
+         maybeFail(fail);
+@@ -121,6 +123,7 @@ public class OrderService {
+      *   │    → 对比两个结果，你就亲眼看到"代理"这两个字值多少钱了                              │
+      *   └──────────────────────────────────────────────────────────────────────────┘
+      */
++    @Transactional(rollbackFor = Exception.class)
+     public Order placeViaSelfCall(Long skuId, int count, String fail) throws ExternalServiceException {
+         // ⭐ TODO②：问题就出在这一行。修法（任选一种，说明理由即可）：
+         //    A. 给"对外入口"自己加 @Transactional（最常用：谁是对外入口，谁负责开事务）
+@@ -165,7 +168,8 @@ public class OrderService {
+             throw new BizRuleException("模拟：下单后调用内部积分服务失败");
+         } catch (BizRuleException e) {
+             log.warn("[swallow] 异常被我 catch 了，没有往外抛，只记了一行日志：{}", e.getMessage());
+-            // ⭐ TODO④：这里少了一句"请务必回滚"
++            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
++            log.warn("[swallow] 已 setRollbackOnly()：事务照样回滚，但方法仍正常返回 200");
+             return order;      // ← 正常返回 → 事务**提交** → 脏数据留在库里
+         }
+     }
+@@ -221,7 +225,7 @@ public class OrderService {
+      *      ② 提醒下一个读代码的人"这个方法不该写库"
+      *      想靠它做安全防线，是**靠不住**的。
+      */
+-    @Transactional(readOnly = true)
++    @Transactional(rollbackFor = Exception.class)
+     public Order placeReadOnly(Long skuId, int count) {
+         return writeOrderAndStock(skuId, count);
+     }
+
+# ------------------------------------------------------------
+# 第 3 节：答案版 → 变体 B（只把 TODO④ 的救法换成 `throw e;`）
+#   第 6 步的两种救法，**都算对**，但数字不一样：
+#     · 救法 A（setRollbackOnly()，即第 2 节）→ HTTP 仍 200、orders=0、库存 10
+#     · 救法 B（throw e;，即本节）            → HTTP 变 409 / 74 字符、orders=0、库存 10
+#   实测：救法 A 是 200 + ≈186 字符（响应体一字不差，但数据回滚了）；
+#         救法 B 是 409 + 74 字符。
+# ------------------------------------------------------------
+diff --git a/answer/src/main/java/com/xiaoming/day34/order/OrderService.java b/answerb/src/main/java/com/xiaoming/day34/order/OrderService.java
+index 89da88d..459cb96 100644
+--- a/answer/src/main/java/com/xiaoming/day34/order/OrderService.java
++++ b/answerb/src/main/java/com/xiaoming/day34/order/OrderService.java
+@@ -168,9 +168,7 @@ public class OrderService {
+             throw new BizRuleException("模拟：下单后调用内部积分服务失败");
+         } catch (BizRuleException e) {
+             log.warn("[swallow] 异常被我 catch 了，没有往外抛，只记了一行日志：{}", e.getMessage());
+-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+-            log.warn("[swallow] 已 setRollbackOnly()：事务照样回滚，但方法仍正常返回 200");
+-            return order;      // ← 正常返回 → 事务**提交** → 脏数据留在库里
++            throw e;   // 变体B：直接抛出去 → 事务回滚，接口变成 409
+         }
+     }
+ 

@@ -9,7 +9,7 @@
 java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度/**DSH 环境与待办**（看第 10 节）
-├── java/              ← 🟦 Java 就业主线（day1~day32 + 学习路线 + PPT + 项目-记账本）
+├── java/              ← 🟦 Java 就业主线（day1~day34 + 学习路线 + PPT + 项目-记账本）
 └── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day10）
 ```
 
@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day32/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改、day32 = 参数校验深入 🔄已生成待练习**）|
+| `day1~day34/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改、day32 = 参数校验深入 ✅已批改（2026-10-15）、day33 = 拦截器 / 过滤器 ✅已批改（2026-10-16）、day34 = Spring 事务管理 `@Transactional` 🔄已生成待练习（2026-10-17）**）|
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+删除+防崩 ✅ 已验收（A~D 四处全过）/ Step3 持久化 🔄 已生成待做（`Step3_记账本.java` + `Step3任务书.md` + `Step3标准答案.md`）|
 | `启动MySQL.bat` | 🔧 一键起 MySQL 8.4.5（Day29 之后常用；不需管理员，自动探活 + 等就绪）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
@@ -82,6 +82,7 @@ java-learning/
 | Day 31 | **全局异常处理 + 统一响应**（`@RestControllerAdvice` / 自定义异常体系 / `Result<T>` 统一信封 / HTTP 状态码 vs 业务码 / 400-404-409-500 辨析 / `@Valid` + fieldErrors / 日志级别 warn vs error）| ✅ **批改通过（2026-10-14，8 步全过 / 真机 100% 通过）**（1 个 SKU 库存项目 + 8 步（3 观察 + 2 代码 TODO + 1 思考 + 验收）+ 知识点 13 节 + 标准答案；**13 个场景全部真机实测**：启动约 **4 秒**、`mvn clean package` BUILD SUCCESS；实测状态码 `GET /sku/999`=**404**、`/abc`=404（自带格式）、`/sku/boom`=**500（自带格式且泄露类名 `com.xiaoming.day31.sku.Sku.getTitle()`）**、`outbound?count=0`=**400**、`outbound?id=2&count=100`=**409**、`POST /sku` 空书名负价格=**400**+fieldErrors 三字段、`DELETE /sku/999`=404；**TODO①②的答案已在临时副本中打补丁验证**（兜底→`500 服务器开小差了`；delete 加库存判断→`/sku/1`=**409 「深入理解 Java 虚拟机」还有 10 件库存，不能删除**、`/sku/3`=200）；交付版**故意留两处错**：`/sku/boom` 走自带错误页 + `DELETE /sku/1`/`/sku/2` 返回 200（TODO 未写）<br>✅ **批改结论（2026-10-14）**：**8 步全过** —— TODO① 兜底由用户自写，并在实测中**自己发现**了 `/abc` 从 404 变 500 是兜底误伤了 `NoResourceFoundException`（Spring 6 里它是 `Exception` 的子类），自己加了专属 handler 修回 404（这是"兜底越宽越容易误伤"的活教材）；TODO② 初版误用 `repository.deleteById`（把 Day30 的 JPA 记忆带进了内存 Map 项目）编译报错，改对后 409/404/200 全对。详见 `任务生成规范.md` 第 8 节的 Day31 条目<br>⭐ 设计取舍：今天**刻意不用数据库**（内存 Map + 3 条初始数据），隔离无关变量专心学异常；日志实测 WARN（业务异常，只 1 行）vs ERROR（系统异常，完整堆栈）|
 | Day 32 | **参数校验深入**（分组校验 / 自定义校验注解：`@Valid` vs `@Validated`、标记接口 `OnCreate`/`OnUpdate`、**静默失效**、`@Constraint` 注解三件套、`ConstraintValidator` 的 `initialize`+`isValid`、`{max}` 插值、**两条校验路径两个异常**）| ✅ **批改通过（2026-10-15）** —— 首轮真机批改**未通过**（约 43~48/100），⭐⭐ 唯一根因 **组名静默失效**：`SkuForm` 里自建同名组接口 `SkuForm$OnCreate`，与 Controller 引用的 `valid.OnCreate` **不是同一个 Class** → 11 条约束一条没匹配、**注解层一次都没执行**（`POST {}` fieldErrors=null、`POST {"id":99}`=200、`code:"abc"`=200）。**已修**：删自建组接口 + import 指向 `valid.*` + 清 3 处排版残留 + **补第 2/8 步作答 10 分**；**复验：第 1/3/4/5/6/7 步 + Day31 老四场景共 24 条全绿，日志出现 `请求体校验失败：{...}`**（铁证）|
 | Day 33 | **拦截器 / 过滤器（另一种"横切"）**（Filter 生命周期 + 两条铁律、`FilterRegistrationBean.setOrder`、Interceptor 三方法分工、**执行顺序正序进倒序出**、`preHandle` 返回 false 的连锁、**Filter vs Interceptor**、拦截器 `@Autowired` 为什么是 null、`ThreadLocal` **清在哪一层**、401 的 JSON 信封、404 走不走拦截器、拦截器异常走不走统一处理器）| ✅ **批改通过（2026-10-16）**：6 个 TODO 全对，**30+ 条真机验收全绿**。亮点：带 token 的 `/sku` **500→200**、无 token 的 401 **0 字节→83 字符 JSON 信封**、`/sku/1` 越权 **200→401**、`/sku/outbound` 无 token **不再改库存（3→2 已关闭）**、轨迹 `steps` **4→5**（postHandle 到位）、`currentRequest` **3→27 递增 → 恒为 3**。⭐⭐ **本日最大收获：`recorder.clear()` 写在 `afterCompletion` 里清不干净**（过滤器在 `chain.doFilter` 之后还会记 3 行），必须清在 **order=1 最外层过滤器最后一行**。⚠️ 首轮编译 **12 个错**（漏 5 个 import + `TOKEN_HEADER` 被误删），另有 `WebMvcConfig` 构造器**字段自赋值 = null**（被第一批错误挡住，改完才暴露）|
+| Day 34 | **Spring 事务管理 `@Transactional`**（`@Transactional` 加在 Service 层 / 7 种传播行为 / 缺 `rollbackFor` → 受检异常**竟然提交** / `catch` 把异常吞掉 = 回滚变提交 / 审计日志用 `REQUIRES_NEW` 才不被主事务带走 / `readOnly = true` **拦不住写** / 同类自调用绕过代理、`new` 出来的"野生 Service"不生效、包级方法事务生效、注解写在 Controller 上也会回滚 —— 后三条**推翻了三条流传很广的老博客说法**）| 🔄 **已生成，待练习（2026-10-17）**：1 个项目 / **9 步 / 100 分 / 6 个 TODO（①~⑥）+ 3 个"不改代码、只观察"的实验**（`java/day34/`，**44 个 `.java`**）；SpringBoot 3.3.5 + **H2 内存库 + `JdbcTemplate`（不用 JPA）** —— 理由"**一条代码 = 一条 SQL**"；⭐ **核心教学点：事务到底有没有生效，状态码和响应体完全看不出来，只能查库（orders / 库存行数）** —— 最狠的一条：**同一个 `place()` 方法、同样参数，从 `/order/place` 进就回滚、从 `/order/place-selfcall` 进就不回滚，两个接口的响应体一字不差（409 / 81 字符 / 127 字节）**（`this.place(...)` 绕过了代理）；⚠️ Day31 遗留的「兜底把 4xx 吃成 5xx」（`POST /db/state` 返回 500 而不是 405）**今天没修**，已写进 `标准答案.md`；真机数据见 `java\day34\标准答案.md` |
 
 ## 目标
 
