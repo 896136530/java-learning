@@ -12,7 +12,39 @@
 # 自测：询问在两个修改之间、修改加负数、l == r、L == R、只有询问没有修改
 
 # ===== 你的代码写在这里 =====
+def rebuild(d,n):
+    a=[0]*(n+1)
+    cur=0
+    for i in range(1,n+1):
+        cur+=d[i]
+        a[i-1]=cur
+    return a
+def range_sum(a,n,l,r):
+    pre=[0]*(n+1)
+    for i in range(1,n+1):
+        pre[i]=pre[i-1]+a[i-1]
+    return pre[r]-pre[l-1]
+if __name__== '__main__':
+    n,q=map(int,input().split())
+    m=list(map(int,input().split()))
+    
+    d=[0]*(n+2)
+    d[1]=m[0]
+    for i in range(2,n+1):
+        d[i]=m[i-1]-m[i-2]  
+    for i in range(1,q+1):
+        caozuo=list(map(int,input().split()))
+        if caozuo[0]==1:
+            d[caozuo[1]]+=caozuo[3]
+            d[caozuo[2]+1]-=caozuo[3]
+        if caozuo[0]==2:
+            a= rebuild(d,n)
+            print(range_sum(a,n,caozuo[1],caozuo[2]))
 
+
+        
+
+    
 
 
 # ===========================

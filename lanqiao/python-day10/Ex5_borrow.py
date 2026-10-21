@@ -10,6 +10,22 @@
 #       多申请叠在同一天、有位置超量但不是第一个超的（考验"编号最小"）
 
 # ===== 你的代码写在这里 =====
+n=int(input())
+r=[0]+list(map(int,input().split()))
+k=int(input())
+d=[0]*(n+2)
+for i in range(k):
+    L,R,v=map(int,input().split())
+    d[L]+=v
+    d[R+1]-=v
+    cur=0
+    for j in range(1,n+1):
+        cur+=d[j]
+        if cur>r[j]:
+            print(i+1)
+            print(j)
+            exit(0)
+print(0)
 
 
 

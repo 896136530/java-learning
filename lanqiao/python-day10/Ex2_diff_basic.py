@@ -6,7 +6,17 @@
 # 自测：R = n（⭐ 看你会不会 IndexError）、L == R、v 是负数
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+a=list(map(int,input().split()))
+d=[0]*(n+2)
+L,R,v=map(int,input().split())
+d[L]+=v
+d[R+1]-=v
+cur=0
+for i in range(1,n+1):
+    cur+=d[i]
+    a[i-1]+=cur
+print(*a)
 
 
 # ===========================

@@ -6,7 +6,16 @@
 # 自测：区间有重叠、有完全相同的区间、l == r、某位置完全没被覆盖（应为 0）
 
 # ===== 你的代码写在这里 =====
-
-
+n,k=map(int,input().split())
+d=[0]*(n+2)
+for i in range(k):
+    l,r=map(int,input().split())
+    d[l]+=1
+    d[r+1]-=1
+ans=[0]*(n+1)
+ans[0]=0
+for i in range(1,n+1):
+    ans[i]=ans[i-1]+d[i]
+print(*ans[1:])
 
 # ===========================

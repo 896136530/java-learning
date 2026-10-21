@@ -8,8 +8,14 @@
 # 提示：pre = [0] + list(accumulate(a))；答案是 pre[r] - pre[l-1]
 
 # ===== 你的代码写在这里 =====
-
-
+n,q=map(int,input().split())
+a=list(map(int,input().split()))
+pre=[0]*(n+1)
+for i in range(1,n+1):
+    pre[i]=pre[i-1]+a[i-1]
+for i in range(q):
+    l,r=map(int,input().split())
+    print(pre[r]-pre[l-1])
 
 # ===========================
 

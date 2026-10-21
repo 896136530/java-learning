@@ -7,7 +7,14 @@
 # 自测：l = 1（考验 pre[0]）、l == r（单个元素）、r = n（整段）
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+m=list(map(int,input().split()))
+pre=[0]*(n+1)
+for i in range(1,n+1):
+    pre[i]=pre[i-1]+m[i-1]
+print(*pre)
+l,r=map(int,input().split())
+print(pre[r]-pre[l-1])
 
 
 # ===========================
