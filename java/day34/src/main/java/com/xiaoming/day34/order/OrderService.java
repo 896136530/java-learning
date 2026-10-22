@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 
@@ -93,6 +94,7 @@ public class OrderService {
      *
      * @param fail none = 正常下单；runtime = 抛运行时异常；checked = 抛受检异常
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order place(Long skuId, int count, String fail) throws ExternalServiceException {
         Order order = writeOrderAndStock(skuId, count);
         maybeFail(fail);
@@ -121,6 +123,7 @@ public class OrderService {
      *   │    → 对比两个结果，你就亲眼看到"代理"这两个字值多少钱了                              │
      *   └──────────────────────────────────────────────────────────────────────────┘
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order placeViaSelfCall(Long skuId, int count, String fail) throws ExternalServiceException {
         // ⭐ TODO②：问题就出在这一行。修法（任选一种，说明理由即可）：
         //    A. 给"对外入口"自己加 @Transactional（最常用：谁是对外入口，谁负责开事务）
@@ -165,6 +168,7 @@ public class OrderService {
             throw new BizRuleException("模拟：下单后调用内部积分服务失败");
         } catch (BizRuleException e) {
             log.warn("[swallow] 异常被我 catch 了，没有往外抛，只记了一行日志：{}", e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             // ⭐ TODO④：这里少了一句"请务必回滚"
             return order;      // ← 正常返回 → 事务**提交** → 脏数据留在库里
         }
@@ -221,7 +225,7 @@ public class OrderService {
      *      ② 提醒下一个读代码的人"这个方法不该写库"
      *      想靠它做安全防线，是**靠不住**的。
      */
-    @Transactional(readOnly = true)
+    @Transactional
     public Order placeReadOnly(Long skuId, int count) {
         return writeOrderAndStock(skuId, count);
     }

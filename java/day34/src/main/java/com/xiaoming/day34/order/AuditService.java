@@ -60,7 +60,7 @@ public class AuditService {
      *      如果主业务想在审计里带上"刚下的订单 id"，那个 id 在内层是**查不到**的 ——
      *      所以本项目是把 id 当**参数**传进来的（而不是让内层去查库）。
      */
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void writeLog(String action, String detail) {
         repo.insert(action, detail);
         log.info("[audit] 已记审计：action={} detail={}（当前传播行为 = REQUIRED）", action, detail);
