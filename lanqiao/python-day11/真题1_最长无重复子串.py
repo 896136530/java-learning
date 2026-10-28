@@ -11,8 +11,23 @@
 # 自测：|s| = 1、整串本身就不重复、aaaaab、有多个等长答案
 
 # ===== 你的代码写在这里 =====
-
-
+s=input()
+n=len(s)
+last=[-1]*26
+l=0
+best_len=0
+best_l=0
+for r in range(n):
+    c=ord(s[r])-ord('a')
+    if last[c]>=l:
+        l=last[c]+1
+    last[c]=r
+    window_len=r-l+1
+    if window_len>best_len:
+        best_len=window_len
+        best_l=l
+print(best_len)
+print(s[best_l:best_l+best_len])
 
 
 # ===========================

@@ -14,7 +14,29 @@
 #       单个元素超过 S 但要继续往右找
 
 # ===== 你的代码写在这里 =====
-
+n,S=map(int,input().split())
+a=list(map(int,input().split()))
+cur=0
+best_len=0
+l=0
+right=0
+left=0
+for i in range(n):
+    cur+=a[i]
+    while cur>S:
+        cur-=a[l]
+        l+=1
+    if l<=i:
+        window_len=i-l+1
+        if window_len>best_len:
+            best_len=window_len
+            left=l
+            right=i
+print(best_len)
+if best_len==0:
+    print(0,0)
+else:
+    print(left+1,right+1)
 
 
 

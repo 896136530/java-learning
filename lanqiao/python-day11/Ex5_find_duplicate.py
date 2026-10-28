@@ -13,8 +13,17 @@
 # 自测：n = 1、重复的数字在第一位、在最后一位、a[0] 自己就是重复的、同一数字出现 3 次
 
 # ===== 你的代码写在这里 =====
-
-
-
+n=int(input())
+a=list(map(int,input().split()))
+slow=a[0]
+fast=a[a[0]]
+while slow!=fast:
+    slow=a[slow]
+    fast=a[a[fast]]
+p=0
+while p!=slow:
+    p=a[p]
+    slow=a[slow]
+print(p)
 
 # ===========================

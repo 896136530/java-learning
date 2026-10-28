@@ -10,7 +10,23 @@
 # 自测：答案是最左一对、最右一对、无解、有重复数字、n = 2
 
 # ===== 你的代码写在这里 =====
+n,target=map(int,input().split())
+a=list(map(int,input().split()))
+l,r=0,n-1
+while l<r:
+    if a[l]+a[r]==target:
+        print(l+1,r+1)
+        break
+    
+    elif a[l]+a[r]>target:
+        r-=1
+    else:
+        l+=1
+else:
+    print(-1)
 
+    
+    
 
 
 

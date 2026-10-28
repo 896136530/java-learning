@@ -14,8 +14,30 @@
 #       全相同且 target 不等于 3 倍那个数
 
 # ===== 你的代码写在这里 =====
-
-
+n,target=map(int,input().split())
+a=list(map(int,input().split()))
+a.sort()
+ans=0
+for i in range(n):
+    if i>0 and a[i]==a[i-1]:
+        continue
+    l=i+1
+    r=n-1
+    while l<r:
+        s=a[i]+a[l]+a[r]
+        if s==target:
+            ans+=1
+            while l<r and a[r]==a[r-1]:
+                r-=1
+            while l<r and a[l]==a[l+1]:
+                l+=1
+            l+=1
+            r-=1
+        elif s>target:
+            r-=1
+        else:
+            l+=1
+print(ans)
 
 
 # ===========================

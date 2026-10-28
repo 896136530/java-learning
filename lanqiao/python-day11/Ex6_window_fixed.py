@@ -9,8 +9,13 @@
 # 自测：k = 1、k = n、全是负数、最大值在最左边、最大值在最右边
 
 # ===== 你的代码写在这里 =====
-
-
-
-
+n,k=map(int,input().split())
+a=list(map(int,input().split()))
+cur=sum(a[:k])
+best=cur
+for i in range(k,n):
+    cur+=a[i]-a[i-k]
+    if cur>best:
+        best=cur
+print(best)
 # ===========================

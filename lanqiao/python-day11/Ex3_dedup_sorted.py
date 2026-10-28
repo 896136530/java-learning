@@ -10,7 +10,16 @@
 # 自测：n = 1、完全没有重复、重复连续很多个、第一个就重复、最后一个元素是新的
 
 # ===== 你的代码写在这里 =====
-
+n=int(input())
+a=list(map(int,input().split()))
+a.sort()
+slow=0
+for fast in range(1,n):
+    if a[fast]!=a[slow]:
+        slow+=1
+        a[slow]=a[fast]
+print(slow+1)
+print(' '.join(map(str,a[:slow+1])))
 
 
 

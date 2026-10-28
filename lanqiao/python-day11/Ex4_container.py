@@ -10,8 +10,17 @@
 # 自测：高度全一样、两端就是最优、最优在中间、有 0 高度、高度递增 / 递减
 
 # ===== 你的代码写在这里 =====
-
-
-
+n=int(input())
+a=list(map(int,input().split()))
+left=0
+right=n-1
+max_area=0
+while left<right:
+    max_area=max(max_area,min(a[left],a[right])*(right-left))
+    if a[left]<a[right]:
+        left+=1
+    else:
+        right-=1
+print(max_area)
 
 # ===========================
