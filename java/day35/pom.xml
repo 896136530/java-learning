@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Day 35：换真 MySQL（H2 → MySQL）+ 还"数据库约束"的债
+
+  ⭐ 这份 pom 是**交付版（H2 起步）**。今天要动的地方标了 TODO①。
+
+  【TODO①（第 3 步）：把数据库依赖从 H2 换成 MySQL 驱动】
+  现在（交付版，跑 H2 内存库）：
+      com.h2database : h2                        ← 一个纯 Java 的内存库，jar 里自带
+  要改成（答案版，跑真 MySQL）：
+      com.mysql : mysql-connector-j              ← MySQL 官方 JDBC 驱动
+
+  【为什么要换依赖？——一句话：JDBC 的"驱动"是数据库厂商提供的翻译官】
+      · 你的代码只认 JDBC 接口（Connection / PreparedStatement …）
+      · 真正把 `jdbc:mysql://...` 这句 url 翻译成"MySQL 的网络协议"的，是驱动
+      · `jdbc:h2:...` 和 `jdbc:mysql://...` 是**两套完全不同的协议**，
+        所以要换驱动；而**业务代码一行都不用改**（这就是 JDBC 的价值）
+  ⭐ 一个必须知道的事实：**SpringBoot 不会替你猜数据库**。
+     它在 classpath 里找到哪个驱动，就认哪种 url；
+     两个驱动都在（h2 + mysql）时，它靠 `spring.datasource.driver-class-name`
+     或者 url 的前缀来决定用谁。所以换的时候**最好把 h2 删掉**，免得"以为换了其实没换"。
+
+  【HikariCP 是哪来的？——不用你写依赖】
+      `spring-boot-starter-jdbc` **已经把 HikariCP 带进来了**（传递依赖）。
+     （连接池是 Day35 的知识点之一，配置文件里要调它的参数，见 application.properties ⑤）
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- parent：继承 SpringBoot 的默认配置 + 版本管理（老三样，Day30 起没变过） -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.5</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.xiaoming</groupId>
+  <artifactId>day35-springboot</artifactId>
+  <version>1.0</version>
+  <name>day35-springboot</name>
+  <description>Day35：H2 换真 MySQL + 数据库约束/唯一索引/逻辑删除/连接池</description>
+
+  <properties>
+    <java.version>21</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+  </properties>
+
+  <dependencies>
+    <!-- web：SpringMVC + 内嵌 Tomcat + Jackson（Day31~34 的成果全在这里） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- spring-jdbc（JdbcTemplate）+ ⭐ HikariCP 连接池（传递依赖，不用单独声明） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ⭐⭐ TODO①（第 3 步）：下面这两块"数据库驱动"要换过来
+         ══════════════════════════════════════════════════════════════════
+         操作顺序（别搞反，反了会启动失败）：
+           ① 把下面 <dependency> h2 那一段**整段注释掉或删掉**
+           ② 把下面 mysql-connector-j 那一段的注释去掉
+           ③ 再去改 application.properties（TODO②）
+         ⚠️ 为什么必须"先删 h2 再加 mysql"？
+            两个驱动同时在 classpath 上时，SpringBoot 有可能会挑错那个 ——
+            你不会收到任何警告，只会在日志里看到它连的还是 H2（"以为换了其实没换"）。
+         ⚠️ version 不用自己写：SpringBoot 的 parent 已经管好了（Day29 学的"依赖管理"）。
+            查它到底引入了哪个版本：`mvn dependency:tree`（运行Day35.bat 菜单 6）。
+    -->
+
+    <!-- ⭐ 交付版：H2 内存数据库（TODO① 做完后删掉这一段） -->
+    <!--<dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>-->
+
+    <!--⭐⭐⭐ TODO① 目标：MySQL 官方 JDBC 驱动（现在注释着，做完 TODO① 就放开）
+         版本号事实（真机核对，别抄网上那些"8.4.0"的说法）：
+           · **不写 `<version>`** → 由 SpringBoot 3.3.5 的 parent 管理，
+             实测 `spring-boot-dependencies-3.3.5.pom` 里是 `<mysql.version>8.3.0</mysql.version>`
+             → 也就是拿到 **8.3.0**（⛔ 不是 8.4.0）。
+           · 想要 **8.4.0**（本机 MySQL 服务端是 8.4.5，驱动同代），
+             必须**显式写** `<version>8.4.0</version>` —— 见 `答案版/pom.xml`。
+           · 验证命令：`mvn dependency:tree`（运行Day35.bat 菜单 6）-->
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    
+
+    <!-- 参数校验（Day32 的主角；今天留着它，是为了"老功能不能退化"） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
