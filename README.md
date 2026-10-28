@@ -9,7 +9,7 @@
 java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度/**DSH 环境与待办**（看第 10 节）
-├── java/              ← 🟦 Java 就业主线（day1~day34 + 学习路线 + PPT + 项目-记账本）
+├── java/              ← 🟦 Java 就业主线（day1~day35 + 学习路线 + PPT + 项目-记账本）
 └── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day10）
 ```
 
@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day34/` | 每天：知识点 → 练习题 → 标准答案（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改、day32 = 参数校验深入 ✅已批改（2026-10-15）、day33 = 拦截器 / 过滤器 ✅已批改（2026-10-16）、day34 = Spring 事务管理 `@Transactional` ✅已批改（2026-10-22，80/100）**）|
+| `day1~day35/` | 每天：知识点 → 练习题（**2026-10-23 起不再配标准答案**，写完喊我检查）（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改、day32 = 参数校验深入 ✅已批改（2026-10-15）、day33 = 拦截器 / 过滤器 ✅已批改（2026-10-16）、day34 = Spring 事务管理 `@Transactional` ✅已批改（2026-10-22，80/100）、day35 = 换真 MySQL（H2→MySQL + 约束债）✅ 已生成（2026-10-23）**）|
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+删除+防崩 ✅ 已验收（A~D 四处全过）/ Step3 持久化 🔄 已生成待做（`Step3_记账本.java` + `Step3任务书.md` + `Step3标准答案.md`）|
 | `启动MySQL.bat` | 🔧 一键起 MySQL 8.4.5（Day29 之后常用；不需管理员，自动探活 + 等就绪）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
@@ -83,6 +83,7 @@ java-learning/
 | Day 32 | **参数校验深入**（分组校验 / 自定义校验注解：`@Valid` vs `@Validated`、标记接口 `OnCreate`/`OnUpdate`、**静默失效**、`@Constraint` 注解三件套、`ConstraintValidator` 的 `initialize`+`isValid`、`{max}` 插值、**两条校验路径两个异常**）| ✅ **批改通过（2026-10-15）** —— 首轮真机批改**未通过**（约 43~48/100），⭐⭐ 唯一根因 **组名静默失效**：`SkuForm` 里自建同名组接口 `SkuForm$OnCreate`，与 Controller 引用的 `valid.OnCreate` **不是同一个 Class** → 11 条约束一条没匹配、**注解层一次都没执行**（`POST {}` fieldErrors=null、`POST {"id":99}`=200、`code:"abc"`=200）。**已修**：删自建组接口 + import 指向 `valid.*` + 清 3 处排版残留 + **补第 2/8 步作答 10 分**；**复验：第 1/3/4/5/6/7 步 + Day31 老四场景共 24 条全绿，日志出现 `请求体校验失败：{...}`**（铁证）|
 | Day 33 | **拦截器 / 过滤器（另一种"横切"）**（Filter 生命周期 + 两条铁律、`FilterRegistrationBean.setOrder`、Interceptor 三方法分工、**执行顺序正序进倒序出**、`preHandle` 返回 false 的连锁、**Filter vs Interceptor**、拦截器 `@Autowired` 为什么是 null、`ThreadLocal` **清在哪一层**、401 的 JSON 信封、404 走不走拦截器、拦截器异常走不走统一处理器）| ✅ **批改通过（2026-10-16）**：6 个 TODO 全对，**30+ 条真机验收全绿**。亮点：带 token 的 `/sku` **500→200**、无 token 的 401 **0 字节→83 字符 JSON 信封**、`/sku/1` 越权 **200→401**、`/sku/outbound` 无 token **不再改库存（3→2 已关闭）**、轨迹 `steps` **4→5**（postHandle 到位）、`currentRequest` **3→27 递增 → 恒为 3**。⭐⭐ **本日最大收获：`recorder.clear()` 写在 `afterCompletion` 里清不干净**（过滤器在 `chain.doFilter` 之后还会记 3 行），必须清在 **order=1 最外层过滤器最后一行**。⚠️ 首轮编译 **12 个错**（漏 5 个 import + `TOKEN_HEADER` 被误删），另有 `WebMvcConfig` 构造器**字段自赋值 = null**（被第一批错误挡住，改完才暴露）|
 | Day 34 | **Spring 事务管理 `@Transactional`**（`@Transactional` 加在 Service 层 / 7 种传播行为 / 缺 `rollbackFor` → 受检异常**竟然提交** / `catch` 把异常吞掉 = 回滚变提交 / 审计日志用 `REQUIRES_NEW` 才不被主事务带走 / `readOnly = true` **拦不住写** / 同类自调用绕过代理、`new` 出来的"野生 Service"不生效、包级方法事务生效、注解写在 Controller 上也会回滚 —— 后三条**推翻了三条流传很广的老博客说法**）| ✅ **批改通过（2026-10-22，80/100）**：1 个项目 / **9 步 / 100 分 / 6 个 TODO（①~⑥）+ 3 个"不改代码、只观察"的实验**（`java/day34/`，**44 个 `.java`**）；SpringBoot 3.3.5 + **H2 内存库 + `JdbcTemplate`（不用 JPA）** —— 理由"**一条代码 = 一条 SQL**"；⭐ **核心教学点：事务到底有没有生效，状态码和响应体完全看不出来，只能查库（orders / 库存行数）** —— 最狠的一条：**同一个 `place()` 方法、同样参数，从 `/order/place` 进就回滚、从 `/order/place-selfcall` 进就不回滚，两个接口的响应体一字不差（409 / 81 字符 / 127 字节）**（`this.place(...)` 绕过了代理）；⚠️ Day31 遗留的「兜底把 4xx 吃成 5xx」（`POST /db/state` 返回 500 而不是 405）**今天没修**，已写进 `标准答案.md`；真机数据见 `java\day34\标准答案.md`<br>✅ **批改结论（2026-10-22，80/100）**：学生只改了 2 个文件 7 行，**5 处修复逻辑全对** —— 真机 10 个场景的 `orders`/`auditLog`/`STOCK` **全部命中答案版预期**（selfcall 0/10、swallow 0/10、audit 0/1/10、readonly 1/8、package-private 0/10、place-new 1/8、on-controller 0/10），老功能自检 12 项无退化。⭐ **交付态缺 1 行 import（`TransactionAspectSupport`）→ 编译不过**，已按用户要求代改，复验 `BUILD SUCCESS` + 端到端 3 场景通过。扣分集中在"打了勾却没写字/没数字"：9.2 验收表 7 列全空、实验①~④结论一处没写、TODO②"选 A 的理由"没写、思考题 1 归因错。详见 `java/day34/批改报告-2026-10-22.md` |
+| Day 35 | **换真 MySQL（H2 → 真 MySQL）+ 还"数据库约束"的债**（改 `application.properties` / 换 `mysql-connector-j` / 把建表语句搬进 `schema.sql` / **唯一索引撞车 → `DuplicateKeyException` → 500 改成 409** / 逻辑删除 `is_deleted` / `DECIMAL` vs `DOUBLE` / `utf8` 是假的 UTF-8 / HikariCP 连接池 / H2 与 MySQL 的差异清单）| ✅ **已生成（2026-10-23）**：1 个项目 / **9 步 / 100 分 / 6 个 TODO（①~⑥）**（`java/day35/`，**46 个 `.java`**）；起点仍是 H2，第 1~2 步由学生自己换成真 MySQL；⭐ 债点 = Day32 那张"三层校验"表第 ③ 层（数据库约束真触发时 → `ERROR 1062 (23000)` → `DuplicateKeyException` → 原本 **500** → 改 handler 后 **409**）；⭐ 真机核实"H2 不校验 `VARCHAR` 长度"是**假差异**（H2 2.2.224 也拦，只是报错原文不同）；答案文件已按用户要求删除、以后不再生成 |
 
 ## 目标
 
