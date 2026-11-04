@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+  mybatis-config.xml：MyBatis 的全局配置。整个项目只有一份。
+
+  四块内容：
+    1. settings   ：行为开关（驼峰转换、SQL 日志）
+    2. typeAliases：给实体类起短名，XML 里就能写 type="Student" 而不是全限定名
+    3. environments：连哪个库（transactionManager + dataSource）
+    4. mappers    ：mapper XML 在哪（少一个就会报 "Invalid bound statement"）
+-->
+<configuration>
+
+    <settings>
+        <!-- 列 cls_id → 属性 clsId 自动转（有这个，简单的单表查询连 resultMap 都能省） -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- SQL 日志交给 slf4j：默认只打警告，想看真实 SQL 就用 运行Day38.bat 菜单 4（DEBUG） -->
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+
+    <typeAliases>
+        <!-- 只给这两个类起短名，XML 里就能写 type="Student"。
+             没有用 <package> 扫包：打成胖 jar 时扫包会刷一堆 VFS 日志，噪音太大 -->
+        <typeAlias alias="Student"   type="com.xiaoming.day38.entity.Student"/>
+        <typeAlias alias="ClassInfo" type="com.xiaoming.day38.entity.ClassInfo"/>
+    </typeAliases>
+
+    <environments default="dev">
+        <environment id="dev">
+            <!-- JDBC = 交给 JDBC 自己管事务：不 commit 就回滚（今天演示插入不脏数据靠它） -->
+            <transactionManager type="JDBC"/>
+            <!-- POOLED = MyBatis 自带的简易连接池（Day28 学过池子为什么必须有） -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://127.0.0.1:3306/day38?useSSL=false&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true"/>
+                <property name="username" value="day38"/>
+                <property name="password" value="day38"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- 用 resource：从 classpath 的 mapper/ 目录下找 -->
+        <mapper resource="mapper/StudentMapper.xml"/>
+    </mappers>
+
+</configuration>

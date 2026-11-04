@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  StudentMapper.xml —— 这里放"一条 SQL 一条语句"。
+
+  namespace 必须 = 接口的全限定名（com.xiaoming.day38.mapper.StudentMapper）：
+  MyBatis 靠它把 <select id="findById"> 和接口方法 Student findById(int) 对上号。
+
+  两种映射方式今天都写了：
+    ① resultMap：列名 → 属性名 一个个写清楚（多表/名字对不上时必须用）
+    ② 全局 mapUnderscoreToCamelCase：cls_id 自动变 clsId（简单场景省事）
+-->
+<mapper namespace="com.xiaoming.day38.mapper.StudentMapper">
+
+    <!-- ① 单表映射：列名和属性名不一样的地方，在这里点对点说清楚 -->
+    <resultMap id="studentMap" type="Student">
+        <id     column="id"          property="id"/>
+        <result column="name"        property="name"/>
+        <result column="score"       property="score"/>
+        <result column="cls_id"      property="clsId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- ② 带班级的映射：extends = 继承上面那个，再补一个 association（一个学生 → 一个班级） -->
+    <resultMap id="studentWithClass" type="Student" extends="studentMap">
+        <association property="classInfo" javaType="ClassInfo">
+            <id     column="c_id"      property="id"/>
+            <result column="c_name"    property="name"/>
+            <result column="c_teacher" property="teacher"/>
+        </association>
+    </resultMap>
+
+    <!-- ========== 给好的示例 ========== -->
+
+    <select id="findById" resultMap="studentMap">
+        SELECT id, name, score, cls_id, create_time
+        FROM student
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="studentMap">
+        SELECT id, name, score, cls_id, create_time
+        FROM student
+        ORDER BY score DESC, id ASC
+    </select>
+
+    <!-- 联表：s.* + c.*，别名 c_xx 交给 association 去装 -->
+    <select id="findAllWithClass" resultMap="studentWithClass">
+        SELECT s.id, s.name, s.score, s.cls_id, s.create_time,
+               c.id AS c_id, c.name AS c_name, c.teacher AS c_teacher
+        FROM student s
+        LEFT JOIN class_info c ON s.cls_id = c.id
+        ORDER BY s.score DESC, s.id ASC
+    </select>
+
+    <!-- 安全写法：#{} 会变成占位符 ?，参数走 setString，值里带引号也只是普通字符 -->
+    <select id="searchByNameSafe" resultMap="studentMap">
+        SELECT id, name, score, cls_id, create_time
+        FROM student
+        WHERE name LIKE CONCAT('%', #{kw}, '%')
+    </select>
+
+    <!-- 危险写法：${} 是"字符串直接拼进去"。只用来演示注入，项目里禁止这么写参数 -->
+    <select id="searchByNameUnsafe" resultMap="studentMap">
+        SELECT id, name, score, cls_id, create_time
+        FROM student
+        WHERE name LIKE '%${kw}%'
+    </select>
+
+    <!-- ================== 今天要你写的 5 条 ==================
+
+         TODO ① findByScore(min, max)
+           要求：分数在 [min, max] 闭区间，按分数升序
+           提示：WHERE score BETWEEN #{min} AND #{max}
+
+         TODO ② insert(student)
+           要求：插入 name / score / cls_id，并让 MyBatis 把自增主键写回 student.id
+           提示：<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+                 列 create_time 有默认值，可以不写
+
+         TODO ③ updateScore(id, score)
+           要求：改一个人的分数，返回影响行数
+           提示：<update> 标签，改不存在的 id 会返回 0（正常）
+
+         TODO ④ findWithClass(id)
+           要求：按 id 查一个学生，并且带出班级信息（用 association）
+           提示：照抄 findAllWithClass 的 SELECT 和 resultMap，只改 WHERE
+
+         TODO ⑤ deleteById(id)
+           要求：按 id 删，返回影响行数
+           提示：<delete> 标签；删不存在的行返回 0，不要抛异常
+    ========================================================= -->
+
+</mapper>
