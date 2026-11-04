@@ -9,8 +9,8 @@
 java-learning/
 ├── README.md          ← 三线导航（进度表 + 说明）
 ├── 任务生成规范.md      ← 🔑 换新对话必读：任务格式/批改规范/当前进度/**DSH 环境与待办**（看第 10 节）
-├── java/              ← 🟦 Java 就业主线（day1~day35 + 学习路线 + PPT + 项目-记账本）
-└── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day10）
+├── java/              ← 🟦 Java 就业主线（day1~day38 + 学习路线 + PPT + 项目-记账本）
+└── lanqiao/           ← 🟩 蓝桥杯 Python 竞赛线（备考路线 + python-day1 ~ python-day12）
 ```
 
 ## 📌 Java 线（`java/`）
@@ -18,7 +18,7 @@ java-learning/
 | 内容 | 说明 |
 |---|---|
 | `学习路线.md` | Java 就业主线：完整时间线、Day 级计划、里程碑 |
-| `day1~day35/` | 每天：知识点 → 练习题（**2026-10-23 起不再配标准答案**，写完喊我检查）（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改、day32 = 参数校验深入 ✅已批改（2026-10-15）、day33 = 拦截器 / 过滤器 ✅已批改（2026-10-16）、day34 = Spring 事务管理 `@Transactional` ✅已批改（2026-10-22，80/100）、day35 = 换真 MySQL（H2→MySQL + 约束债）✅ 已生成（2026-10-23）**）|
+| `day1~day38/` | 每天：知识点 → 练习题（**2026-10-23 起不再配标准答案**，写完喊我检查）（**day29 = Maven ✅、day30 = SpringBoot ✅已批改、day31 = 全局异常处理 ✅已批改、day32 = 参数校验深入 ✅已批改（2026-10-15）、day33 = 拦截器 / 过滤器 ✅已批改（2026-10-16）、day34 = Spring 事务管理 `@Transactional` ✅已批改（2026-10-22，80/100）、day35 = 换真 MySQL（H2→MySQL + 约束债）✅ 首轮 47/100 → 当日修完（2026-10-28 复核：编译通过 + 409 + 逻辑删除 + `/db/reset` 真机全过）、day36 = MySQL 索引（一）🔄 已生成（2026-10-28）、day37 = MySQL 索引（二）✅ 已批改（2026-11-04，**81/100**，问答卷）、day38 = MyBatis 基础 🔄 已生成（2026-11-04，问答 + 5 个代码 TODO）**）|
 | `项目-记账本/` | 📒 命令行记账本：Step1 分类汇总 ✅ 已验收 / Step2 明细+删除+防崩 ✅ 已验收（A~D 四处全过）/ Step3 持久化 🔄 已生成待做（`Step3_记账本.java` + `Step3任务书.md` + `Step3标准答案.md`）|
 | `启动MySQL.bat` | 🔧 一键起 MySQL 8.4.5（Day29 之后常用；不需管理员，自动探活 + 等就绪）|
 | `AI时代学Java-PPT/` | 网页 PPT 分享（Swiss Style）|
@@ -37,7 +37,9 @@ java-learning/
 | `python-day7/` | ✅ 作业已批改并上传（**Ex1~Ex5 全绿**，14 组用例含边界；Ex5 少打第一行由 AI 按用户要求代改；Review 按用户要求留待复习自写；已清掉 Code Runner 的 `tempCodeRunnerFile.py`）|
 | `python-day8/` | ✅ 作业已批改并上传（**Ex1~Ex5 全绿**，16 组用例：Ex1 gcd/lcm/isqrt 全对、Ex4 combinations 边界 n=1→0 正确、Ex5 bisect 四组含"插在相同元素前"全对；AI 代改 Ex2/Ex3 两处**输出格式**——Ex2 原打印 `[('b', 3)]`+整个 Counter、Ex3 原打印列表 `['b','c']`，已改为 `b 3`/`4` 和 `bc`，复验通过；Review 未写）|
 | `python-day9/` | ✅ 作业已批改并上传（**Ex1~Ex6 全绿**，31 组用例含中文/空格/长度1/大小写/不重叠计数；Ex3 中文归类正确、Ex4 用 `join` 修好了 Day8 栽过的"输出列表"、Ex5 手写 find 版与 count 版结果完全一致；**唯一问题**：`Ex5_count_sub.py` 里 count 版和手写版**同时生效**，交替读了 4 行输入 → 按题目只给 2 行会 `EOFError`（题目原话是"把第 1 遍注释掉"，做了但没注释）；Review 未写；顺手清掉 `tempCodeRunnerFile.py`）|
-| `python-day10/` | 🔄 **已生成待练习**（**前缀和与差分**：一维/二维前缀和、区间和 O(1)、差分区间加、覆盖次数、借教室；**6 题 + 复习 + 3 道蓝桥真题**；真题**带输入样例写在题目里**，不配测试数据文件、不给答案）|
+| `python-day10/` | ✅ **已批改（2026-10-21）**（前缀和与差分；10 题里 9 题逐 token 全对，AI 代修 6 处输出格式/哨兵/`for...else` 归属；遗留：真题3 未做、`Ex5` 与真题2 的 O(n·k) 待 Day14 二分答案重写）|
+| `python-day11/` | 🔄 已生成（2026-10-21，**双指针**：左右/快慢/滑动窗口；6 题 + 复习 + 3 道综合训练）；用户已开始写（Ex1 完成）|
+| `python-day12/` | 🔄 **已生成待练习**（2026-10-29，**递归与分治**：递归三要素 / 斐波那契记忆化 / 汉诺塔 / 快速幂 / 归并排序 / 全排列回溯；**6 题 + 复习「逆序对」+ 3 道真题「FBI 树 / 数的划分 / 最大子段和」**；样例全部真机跑出，不配数据文件、不给答案）|
 | 逐日路线 | 见 `蓝桥杯备考路线.md` 的「📅 逐日路线」表——**Day 10 起每天配蓝桥风格真题，输入样例直接写在题目里**（不用自己上网找题）|
 
 ## 📌 数据结构（不再单独建线）
@@ -84,6 +86,9 @@ java-learning/
 | Day 33 | **拦截器 / 过滤器（另一种"横切"）**（Filter 生命周期 + 两条铁律、`FilterRegistrationBean.setOrder`、Interceptor 三方法分工、**执行顺序正序进倒序出**、`preHandle` 返回 false 的连锁、**Filter vs Interceptor**、拦截器 `@Autowired` 为什么是 null、`ThreadLocal` **清在哪一层**、401 的 JSON 信封、404 走不走拦截器、拦截器异常走不走统一处理器）| ✅ **批改通过（2026-10-16）**：6 个 TODO 全对，**30+ 条真机验收全绿**。亮点：带 token 的 `/sku` **500→200**、无 token 的 401 **0 字节→83 字符 JSON 信封**、`/sku/1` 越权 **200→401**、`/sku/outbound` 无 token **不再改库存（3→2 已关闭）**、轨迹 `steps` **4→5**（postHandle 到位）、`currentRequest` **3→27 递增 → 恒为 3**。⭐⭐ **本日最大收获：`recorder.clear()` 写在 `afterCompletion` 里清不干净**（过滤器在 `chain.doFilter` 之后还会记 3 行），必须清在 **order=1 最外层过滤器最后一行**。⚠️ 首轮编译 **12 个错**（漏 5 个 import + `TOKEN_HEADER` 被误删），另有 `WebMvcConfig` 构造器**字段自赋值 = null**（被第一批错误挡住，改完才暴露）|
 | Day 34 | **Spring 事务管理 `@Transactional`**（`@Transactional` 加在 Service 层 / 7 种传播行为 / 缺 `rollbackFor` → 受检异常**竟然提交** / `catch` 把异常吞掉 = 回滚变提交 / 审计日志用 `REQUIRES_NEW` 才不被主事务带走 / `readOnly = true` **拦不住写** / 同类自调用绕过代理、`new` 出来的"野生 Service"不生效、包级方法事务生效、注解写在 Controller 上也会回滚 —— 后三条**推翻了三条流传很广的老博客说法**）| ✅ **批改通过（2026-10-22，80/100）**：1 个项目 / **9 步 / 100 分 / 6 个 TODO（①~⑥）+ 3 个"不改代码、只观察"的实验**（`java/day34/`，**44 个 `.java`**）；SpringBoot 3.3.5 + **H2 内存库 + `JdbcTemplate`（不用 JPA）** —— 理由"**一条代码 = 一条 SQL**"；⭐ **核心教学点：事务到底有没有生效，状态码和响应体完全看不出来，只能查库（orders / 库存行数）** —— 最狠的一条：**同一个 `place()` 方法、同样参数，从 `/order/place` 进就回滚、从 `/order/place-selfcall` 进就不回滚，两个接口的响应体一字不差（409 / 81 字符 / 127 字节）**（`this.place(...)` 绕过了代理）；⚠️ Day31 遗留的「兜底把 4xx 吃成 5xx」（`POST /db/state` 返回 500 而不是 405）**今天没修**，已写进 `标准答案.md`；真机数据见 `java\day34\标准答案.md`<br>✅ **批改结论（2026-10-22，80/100）**：学生只改了 2 个文件 7 行，**5 处修复逻辑全对** —— 真机 10 个场景的 `orders`/`auditLog`/`STOCK` **全部命中答案版预期**（selfcall 0/10、swallow 0/10、audit 0/1/10、readonly 1/8、package-private 0/10、place-new 1/8、on-controller 0/10），老功能自检 12 项无退化。⭐ **交付态缺 1 行 import（`TransactionAspectSupport`）→ 编译不过**，已按用户要求代改，复验 `BUILD SUCCESS` + 端到端 3 场景通过。扣分集中在"打了勾却没写字/没数字"：9.2 验收表 7 列全空、实验①~④结论一处没写、TODO②"选 A 的理由"没写、思考题 1 归因错。详见 `java/day34/批改报告-2026-10-22.md` |
 | Day 35 | **换真 MySQL（H2 → 真 MySQL）+ 还"数据库约束"的债**（改 `application.properties` / 换 `mysql-connector-j` / 把建表语句搬进 `schema.sql` / **唯一索引撞车 → `DuplicateKeyException` → 500 改成 409** / 逻辑删除 `is_deleted` / `DECIMAL` vs `DOUBLE` / `utf8` 是假的 UTF-8 / HikariCP 连接池 / H2 与 MySQL 的差异清单）| ✅ **已生成（2026-10-23）**：1 个项目 / **9 步 / 100 分 / 6 个 TODO（①~⑥）**（`java/day35/`，**46 个 `.java`**）；起点仍是 H2，第 1~2 步由学生自己换成真 MySQL；⭐ 债点 = Day32 那张"三层校验"表第 ③ 层（数据库约束真触发时 → `ERROR 1062 (23000)` → `DuplicateKeyException` → 原本 **500** → 改 handler 后 **409**）；⭐ 真机核实"H2 不校验 `VARCHAR` 长度"是**假差异**（H2 2.2.224 也拦，只是报错原文不同）；答案文件已按用户要求删除、以后不再生成 |
+| Day 36 | **MySQL 索引（一）**（B+ 树为什么快 / 聚簇索引 vs 二级索引·**回表** / 主键·唯一·普通·联合·前缀索引 / **最左前缀** / 索引失效 7 种写法 / 什么时候不该建索引）| 🔄 **已生成（2026-10-28）**：`java/day36/` = 知识点（8 节紧凑版）+ **6 步 / 100 分** + 20 万行 `member` 造数脚本 + **`IndexBench`**（1 个 Java 文件：按 .sql 文件计时 / 打 EXPLAIN，shade 打胖 jar）；⭐ 真机实测：手机号查询 **48.5 ms → 0.24 ms（≈200 倍）**、回表对比 **3.66 ms vs 23.9 ms**、`key_len` 82/86/87 与列类型推算一致；⚠️ 真机推翻一条流传说法：`WHERE age=25` 在**覆盖查询**下会走 `Using index for skip scan`（8.0.13+），但 `SELECT *` 仍全表扫 |
+| Day 37 | **MySQL 索引（二）**（覆盖索引 `Using index` / 读懂 EXPLAIN 11 列与 `type` 六档 / `rows`·`filtered` 都是估算 / `ORDER BY` 与 `filesort` / 深分页三种写法 / **ICP 索引下推** / 索引设计五步 + 冗余索引）| ✅ **已批改（2026-11-04，81/100）**：问答卷（10 名词 + 3 组执行计划 + 5 场景 + 2 原理）。**全对**：ICP、深分页三写法、LIKE 两条路、冗余索引（含风险）、报告三整组。**扣分点**：① `EXPLAIN` 答成"先执行一遍看出错"（它不是执行，是给计划）；② 报告二把 `rows` 当结果行数，倍数算成 0.16（正解：199269×10%≈19927，真实 171429，差 8.6 倍）；③ 深分页名词只说"从前往后翻"（正解：读出 150020 行扔掉前 15 万）；④ 漏答"回表次数 20000 vs 0"；⑤ 游标法写成"避免回表"（正解：用位置代替偏移量，不扫前面 15 万行）。第一版 6 步跑测试的答案备份在 `练习题和代码题目-旧版-带答案-2026-11-03.md` |
+| Day 38 | **MyBatis 基础**（`SqlSessionFactory`/`SqlSession` / Mapper 接口 + `namespace` 对号 / `#{}` vs `${}`（注入现场演示 8 行 vs 0 行）/ `resultMap` + 驼峰 / `association` 联表 / MyBatis vs JPA vs JDBC）| 🔄 **已生成（2026-11-04）**：`java/day38/` = Maven 项目（`mybatis 3.5.16` + `mysql-connector-j` + slf4j，**不用 Spring**）+ 2 张表 8 个学生 + **2 个已写好的示例查询（含注入对照）** + **5 个代码 TODO**（`findByScore`/`insert` 回填主键/`updateScore`/`findWithClass` 联表/`deleteById`）+ 知识点（名词速查 + 比喻）+ **作业 100 分 = 问答 35 + 代码 45 + 讲原理 15**；真机：`findAll` 8 行、`${}` 注入返回 8 行而 `#{}` 返回 0 行、5 个 TODO 答案已在临时副本验证（82/88/90/95/100、id=9、99、一班/王老师、1 和 0）、**不 commit 所以跑多少遍数据都不变** |
 
 ## 目标
 
